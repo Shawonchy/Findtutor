@@ -1,6 +1,9 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
+const passport = require("passport");
 const gravatar = require("gravatar");
+const jwt = require("jsonwebtoken");
+const keys = require("../../config/keys");
 const router = express.Router();
 const User = require("../../models/User.js");
 
@@ -49,11 +52,32 @@ router.post("/login", (req, res) => {
     }
     bcrypt.compare(password, User.password).then(isMatch => {
       if (isMatch) {
-        res.json({ msg: "sucess" });
+        //user matches
+        const payload = { id: User.id, name: User.name, avatar: User.avatar }; //jwt payload
+        jwt.sign(
+          payload,
+          keys.secretOrkeys,
+          { expiresIn: 3600 }, //after 3600ms the token will be expired
+          (err, token) => {
+            res.json({
+              msg: true,
+              token: "Bearer " + token //"bearer"=protocols
+            });
+          }
+        );
       } else {
         res.status(404).json({ password: "incorrect password" });
       }
     });
   });
 });
+
+router.get(
+  "/current",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    res.json(req.user);
+  }
+);
+
 module.exports = router;
