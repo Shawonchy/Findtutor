@@ -10,13 +10,14 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 router.get("/test", (req, res) => res.json({ msg: "user works" }));
 
+//@api/users/register
 router.post("/register", (req, res) => {
   //check validation
-   const { errors, isValid } = validateRegisterInput(req.body);
+  const { errors, isValid } = validateRegisterInput(req.body);
 
-   if (!isValid) {
-     return res.status(400).json(errors);
- }
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
 
   User.findOne({ email: req.body.email }).then(User => {
     if (User) {
