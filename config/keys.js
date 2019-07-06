@@ -1,5 +1,7 @@
 module.exports = {
   mongoURI:
-    "mongodb+srv://admin:admin@cluster0-cuuxx.mongodb.net/test?retryWrites=true",
+    //"mongodb://localhost/tutor",
+    "mongodb+srv://admin:admin@cluster0-cuuxx.mongodb.net/test?retryWrites=true&w=majority",
+
   secretOrkeys: "secret"
 };

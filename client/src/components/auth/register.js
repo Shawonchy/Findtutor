@@ -1,6 +1,10 @@
 import React, { Component } from "react";
-import axios from "axios";
 import classnames from "classnames";
+import { connect } from "react-redux"; //for connecting component with redux
+import { registerUser } from "../../actions/AuthAction"; //importing auth_action
+import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+
 class register extends Component {
   // create state
   constructor() {
@@ -10,11 +14,27 @@ class register extends Component {
       email: "",
       password: "",
       password2: "",
+      phone: "",
       errors: {}
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+
+  //if logged in then only path "/dashboard" will be redirect
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+  }
+
+  //if component receive a new props
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
   //on change function fired when a input is given e==event
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value }); //setting the input with value in state
@@ -25,23 +45,29 @@ class register extends Component {
     const newUser = {
       name: this.state.name,
       email: this.state.email,
+      phone: this.state.phone,
       password: this.state.password,
       password2: this.state.password2
     };
+
+    this.props.registerUser(newUser, this.props.history);
     //console.log(newuser);
-    axios //a library for posting data in a route
-      .post("api/users/register", newUser)
-      .then(res => {
-        console.loga(res.data);
-      })
-      .catch(err => this.setState({ errors: err.response.data })); //assigning state errors with err if found
+    // axios
+    //   .post("/api/users/register", newUser)
+    //   .then(res => {
+    //     console.log(res.data);
+    //     this.props.history.push("/login");
+    //   })
+    //   .catch(err => this.setState({ errors: err.response.data })); //assigning state errors with err if found
   }
 
   render() {
-    const errors = this.state.errors;
+    const errors = this.state.errors; //assigning errors to from state
+    //const user = this.props.auth.user;
 
     return (
       <div className="register">
+        {/* {user ? user.name : null} */}
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
@@ -56,6 +82,7 @@ class register extends Component {
                     className={classnames("form-control form-control-lg", {
                       "is-invalid": errors.name
                     })}
+                    //className='is-invalid form-control form-control-lg'
                     placeholder="Name"
                     name="name"
                     value={this.state.name}
@@ -84,6 +111,26 @@ class register extends Component {
                     <div className="is-invalid">{errors.email}</div>
                   )}
                 </div>
+
+                <div className="form-group">
+                  <input
+                    type="number"
+                    //"is-invalid" is a bootstrap class for input validation
+                    //if "errors.name" found then is-invalid class will be active
+                    className={classnames("form-control form-control-lg", {
+                      "is-invalid": errors.phone
+                    })}
+                    //className='is-invalid form-control form-control-lg'
+                    placeholder="Phone number"
+                    name="phone"
+                    value={this.state.phone}
+                    onChange={this.onChange} //on change is tiggered when typed in input field
+                  />
+                  {errors.phone && (
+                    <div className="is-invalid">{errors.phone}</div> //errors will be printed in registration UI
+                  )}
+                </div>
+
                 <div className="form-group">
                   <input
                     type="password"
@@ -123,4 +170,21 @@ class register extends Component {
     );
   }
 }
-export default register;
+//defining properties type
+register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
+//connect state from store to component as props(property)
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+//
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(withRouter(register));

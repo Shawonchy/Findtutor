@@ -5,7 +5,7 @@ const gravatar = require("gravatar");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const router = express.Router();
-const User = require("../../models/User.js");
+const User = require("../../models/User");
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 router.get("/test", (req, res) => res.json({ msg: "user works" }));
@@ -19,8 +19,8 @@ router.post("/register", (req, res) => {
     return res.status(400).json(errors);
   }
 
-  User.findOne({ email: req.body.email }).then(User => {
-    if (User) {
+  User.findOne({ email: req.body.email }).then(user => {
+    if (user) {
       return res.status(400).json({ email: "email is existed" });
     } else {
       const avatar = gravatar.url(req.body.email, {
@@ -36,6 +36,7 @@ router.post("/register", (req, res) => {
         phone: req.body.phone,
         avatar
       });
+
       const saltRounds = 10;
       bcrypt.genSalt(saltRounds, function(err, salt) {
         bcrypt.hash(newUser.password, salt, function(err, hash) {
@@ -44,8 +45,8 @@ router.post("/register", (req, res) => {
           newUser.password = hash;
           newUser
             .save()
-            .then(User, () => res.json(User)) //
-            .catch(err, () => console.log(err));
+            .then(user => res.json(user)) //
+            .catch(err => console.log(err));
         });
       });
     }
@@ -63,14 +64,14 @@ router.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  User.findOne({ email: email }).then(User => {
-    if (!User) {
+  User.findOne({ email: email }).then(user => {
+    if (!user) {
       return res.status(404).json({ msg: "user not found" });
     }
-    bcrypt.compare(password, User.password).then(isMatch => {
+    bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         //user matches
-        const payload = { id: User.id, name: User.name, avatar: User.avatar }; //jwt payload
+        const payload = { id: user.id, name: user.name, avatar: user.avatar }; //jwt payload
         jwt.sign(
           payload,
           keys.secretOrkeys,

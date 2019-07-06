@@ -3,7 +3,7 @@ const isEmpty = require("./is-empty");
 
 module.exports = function validateRegisterInput(data) {
   let errors = {};
-  //check if name filled is empty then name will be empty string otherwise /////neme will be name that is provided
+  //check if name filled is empty then name will be empty string otherwise neme will be name that is provided
   data.name = !isEmpty(data.name) ? data.name : "";
   data.email = !isEmpty(data.email) ? data.email : "";
   data.password = !isEmpty(data.password) ? data.password : "";
@@ -28,10 +28,10 @@ module.exports = function validateRegisterInput(data) {
   if (validator.isEmpty(data.password2)) {
     errors.password2 = "password2 is required";
   }
-  if (validator.isLength(data.password, { min: 6, max: 30 })) {
+  if (!validator.isLength(data.password, { min: 6, max: 30 })) {
     errors.password = "password must be 6 charecter";
   }
-  if (validator.equals(data.password, data.password2)) {
+  if (!validator.equals(data.password, data.password2)) {
     errors.password2 = "password must match";
   }
 
