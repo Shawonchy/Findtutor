@@ -6,8 +6,12 @@ const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const router = express.Router();
 const User = require("../../models/User");
+const Token = require("../../models/verification_token");
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
+const nodemailer = require("nodemailer");
+const crypto = require("crypto");
+const mailgun_info = require("../../config/mailgun");
 router.get("/test", (req, res) => res.json({ msg: "user works" }));
 
 //@api/users/register
@@ -45,7 +49,53 @@ router.post("/register", (req, res) => {
           newUser.password = hash;
           newUser
             .save()
-            .then(user => res.json(user)) //
+            .then(user => {
+              // Create a verification token for this user
+              const newmail_token = new Token({
+                _userId: user._id,
+                token: crypto.randomBytes(16).toString("hex")
+              });
+              // Save the verification token
+              newmail_token
+                .save()
+                .then(token => {
+                  // Send the email
+                  var transporter = nodemailer.createTransport({
+                    service: "Mailgun",
+                    auth: {
+                      user: mailgun_info.username,
+                      pass: mailgun_info.password
+                    }
+                  });
+                  var mailOptions = {
+                    from: "admin@findtutor.com",
+                    to: user.email,
+                    subject: "Account Verification Token",
+                    text:
+                      "Hello,\n\n" +
+                      "Please verify your account by clicking the link: \nhttp://" +
+                      req.headers.host +
+                      "/api/users/confirmation/" +
+                      newmail_token.token +
+                      ".\n"
+                  };
+                  transporter.sendMail(mailOptions, function(err) {
+                    if (err) {
+                      return res.status(500).send({ msg: err.message });
+                    }
+                    res
+                      .status(200)
+                      .send(
+                        "A verification email has been sent to " +
+                          user.email +
+                          "."
+                      );
+                  });
+                })
+                .catch(err => console.log(err));
+
+              return res.json(user);
+            }) //
             .catch(err => console.log(err));
         });
       });
@@ -98,5 +148,34 @@ router.get(
     res.json(req.user);
   }
 );
+
+router.get("/confirmation/:token", (req, res) => {
+  Token.findOne({ token: req.params.token }, function(err, token) {
+    if (!token)
+      return res.status(400).json({ msg: "token expires or wrong token" });
+
+    // If we found a token, find a matching user
+    User.findOne({ _id: token._userId }, function(err, user) {
+      if (!user)
+        return res
+          .status(400)
+          .send({ msg: "We were unable to find a user for this token." });
+      if (user.isVerified)
+        return res.status(400).send({
+          type: "already-verified",
+          msg: "This user has already been verified."
+        });
+
+      // Verify and save the user
+      user.isVerified = true;
+      user.save(function(err) {
+        if (err) {
+          return res.status(500).send({ msg: err.message });
+        }
+        res.status(200).send("The account has been verified. Please log in.");
+      });
+    });
+  });
+});
 
 module.exports = router;

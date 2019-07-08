@@ -20,6 +20,10 @@ var Userschema = new Schema({
   },
   avatar: {
     type: String
+  },
+  isVerified: {
+    type: Boolean,
+    default: false
   }
 });
 

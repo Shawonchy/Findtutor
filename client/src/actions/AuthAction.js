@@ -1,4 +1,4 @@
-import { GET_ERRORS, SET_CURRENT_USER } from "./types";
+import { GET_ERRORS, SET_CURRENT_USER, EMAIL_VERIFICATION } from "./types";
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
@@ -62,4 +62,16 @@ export const logoutUser = () => dispatch => {
     type: SET_CURRENT_USER,
     payload: ""
   });
+};
+
+//email verification
+export const emailVerification = () => dispatch => {
+  axios
+    .get("/api/users/confirmation/:token")
+    .then(
+      dispatch({
+        type: EMAIL_VERIFICATION
+      })
+    )
+    .catch();
 };
