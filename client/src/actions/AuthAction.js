@@ -65,13 +65,22 @@ export const logoutUser = () => dispatch => {
 };
 
 //email verification
-export const emailVerification = () => dispatch => {
+export const emailVerification = token => dispatch => {
   axios
-    .get("/api/users/confirmation/:token")
-    .then(
+    .post("/api/users/confirmation", token)
+    .then(res => {
+      const token = res.data.token;
+
+      console.log(token);
       dispatch({
-        type: EMAIL_VERIFICATION
+        type: EMAIL_VERIFICATION,
+        paylaod: token
+      });
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        paylaod: err.response.data
       })
-    )
-    .catch();
+    );
 };

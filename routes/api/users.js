@@ -61,14 +61,15 @@ router.post("/register", (req, res) => {
                 .then(token => {
                   // Send the email
                   var transporter = nodemailer.createTransport({
-                    service: "Mailgun",
+                    service: "Sendgrid",
                     auth: {
-                      user: mailgun_info.username,
-                      pass: mailgun_info.password
+                      user: "apikey",
+                      pass:
+                        "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"
                     }
                   });
                   var mailOptions = {
-                    from: "admin@findtutor.com",
+                    from: "adminboss@findtutor.com",
                     to: user.email,
                     subject: "Account Verification Token",
                     text:
@@ -95,7 +96,7 @@ router.post("/register", (req, res) => {
                 .catch(err => console.log(err));
 
               return res.json(user);
-            }) //
+            })
             .catch(err => console.log(err));
         });
       });
@@ -149,8 +150,12 @@ router.get(
   }
 );
 
-router.get("/confirmation/:token", (req, res) => {
-  Token.findOne({ token: req.params.token }, function(err, token) {
+router.post("/confirmation", (req, res) => {
+  const restoken = {
+    token: false
+  };
+  const token = req.body.token;
+  Token.findOne({ token: token }, function(err, token) {
     if (!token)
       return res.status(400).json({ msg: "token expires or wrong token" });
 
@@ -161,7 +166,7 @@ router.get("/confirmation/:token", (req, res) => {
           .status(400)
           .send({ msg: "We were unable to find a user for this token." });
       if (user.isVerified)
-        return res.status(400).send({
+        return res.status(200).send({
           type: "already-verified",
           msg: "This user has already been verified."
         });
@@ -172,7 +177,9 @@ router.get("/confirmation/:token", (req, res) => {
         if (err) {
           return res.status(500).send({ msg: err.message });
         }
-        res.status(200).send("The account has been verified. Please log in.");
+        restoken.token = true;
+        res.status(200).send(restoken);
+        //res.status(200).json();
       });
     });
   });

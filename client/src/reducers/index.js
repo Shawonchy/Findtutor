@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
 import authReducer from "./authReducer.js";
 import errorReducer from "./errorReducer";
+import EmailVerifyReducer from "./EmailVerifyReducer";
 
 export default combineReducers({
   auth: authReducer,
-  errors: errorReducer
+  errors: errorReducer,
+  verify: EmailVerifyReducer
 });

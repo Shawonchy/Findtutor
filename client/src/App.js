@@ -6,6 +6,7 @@ import Navbar from "./components/layouts/Navbar";
 import register from "./components/auth/register";
 import login from "./components/auth/login";
 import landing from "./components/layouts/landing";
+import email_verify from "./components/auth/email_verify";
 import store from "./store";
 
 import jwt_decode from "jwt-decode";
@@ -44,6 +45,7 @@ function App() {
           <div className="container">
             <Route exact path="/register" component={register} />
             <Route exact path="/login" component={login} />
+            <Route exact path="/confirmation/:token" component={email_verify} />
           </div>
         </div>
       </Router>
