@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const ProfileSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: "User"//refered collection name
+    ref: "user" //refered collection name
   },
   handle: {
     type: String,
@@ -12,12 +12,10 @@ const ProfileSchema = new Schema({
     max: 40
   },
   experience: {
-    type: String,
-    
+    type: String
   },
   location: {
-    type: String,
-    
+    type: String
   },
   status: {
     type: String,

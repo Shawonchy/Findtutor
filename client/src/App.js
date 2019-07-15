@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import "./App.css";
 import Navbar from "./components/layouts/Navbar";
@@ -7,11 +7,16 @@ import register from "./components/auth/register";
 import login from "./components/auth/login";
 import landing from "./components/layouts/landing";
 import email_verify from "./components/auth/email_verify";
+import Dashboard from "./components/Dashboard/Dashboard";
+import CreateProfile from "./components/CreateProfile/CreateProfile";
 import store from "./store";
 
+import PrivateRoute from "./components/Common/Privateroute";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { logoutUser } from "./actions/AuthAction";
+
+import { clearCurrentProfile } from "./actions/ProfileAction";
 import { SET_CURRENT_USER } from "../src/actions/types";
 
 //check for token
@@ -30,6 +35,7 @@ if (localStorage.jwtToken) {
   if (decoded.exp < curretTime) {
     //logout user
     store.dispatch(logoutUser());
+    store.dispatch(clearCurrentProfile());
     //redirect to login
     window.location.href = "/login";
   }
@@ -46,6 +52,17 @@ function App() {
             <Route exact path="/register" component={register} />
             <Route exact path="/login" component={login} />
             <Route exact path="/confirmation/:token" component={email_verify} />
+            {/* // switch is used to prevent redirect issues */}
+            <Switch>
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/create-profile"
+                component={CreateProfile}
+              />
+            </Switch>
           </div>
         </div>
       </Router>

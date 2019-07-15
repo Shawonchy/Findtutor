@@ -77,6 +77,7 @@ class login extends Component {
                     <div className="is-invalid">{errors.email}</div> //errors will be printed in registration UI
                   )}
                 </div>
+
                 <div className="form-group">
                   <input
                     type="password"

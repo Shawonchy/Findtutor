@@ -172,7 +172,8 @@ router.post(
           //save profile
           new Profile(profilefields)
             .save()
-            .then(profile, () => res.json(profile)); //.catch(err,()=>console.log(err));
+            .then(profile => res.json(profile))
+            .catch(err => console.log(err));
         });
       }
     });
