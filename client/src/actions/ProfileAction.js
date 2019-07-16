@@ -2,7 +2,8 @@ import {
   GET_PROFILE,
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
-  GET_ERRORS
+  GET_ERRORS,
+  SET_CURRENT_USER
 } from "./types";
 import axios from "axios";
 
@@ -39,6 +40,25 @@ export const createProfile = (profileData, history) => dispatch => {
         payload: err.response.data
       })
     );
+};
+
+//deleting a profile and user
+export const deleteProfile = () => dispatch => {
+  axios
+    .delete("/api/profile")
+    .then(res => {
+      dispatch({
+        //loging out the user after deleting profile by sending payload as {}
+        type: SET_CURRENT_USER,
+        payload: {}
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.res
+      });
+    });
 };
 
 export const setProfileLoading = () => {

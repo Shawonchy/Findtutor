@@ -9,6 +9,7 @@ import landing from "./components/layouts/landing";
 import email_verify from "./components/auth/email_verify";
 import Dashboard from "./components/Dashboard/Dashboard";
 import CreateProfile from "./components/CreateProfile/CreateProfile";
+import EditProfile from "./components/EditProfile/EditProfile";
 import store from "./store";
 
 import PrivateRoute from "./components/Common/Privateroute";
@@ -61,6 +62,13 @@ function App() {
                 exact
                 path="/create-profile"
                 component={CreateProfile}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/edit-profile"
+                component={EditProfile}
               />
             </Switch>
           </div>
