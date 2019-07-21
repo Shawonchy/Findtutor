@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import TextFieldGroup from "../Common/TextFieldGroup";
-import TextAreaField from "../Common/TextAreaField"; //input text in a large area
+import TextAreaFieldGroup from "../Common/TextAreaFieldGroup"; //input text in a large area
 import InputGroup from "../Common/InputGroup"; //input for social media link
 import { createProfile, getCurrentProfile } from "../../actions/ProfileAction";
 import isEmpty from "../../validation/isEmpty";
@@ -216,7 +216,7 @@ class CreateProfile extends Component {
                   info="Please use comma separated values (eg.
                     PHYSICS,MATH,ENGLISH)"
                 />
-                <TextAreaField
+                <TextAreaFieldGroup
                   name="bio"
                   //"*" for is required
                   placeholder="bio"

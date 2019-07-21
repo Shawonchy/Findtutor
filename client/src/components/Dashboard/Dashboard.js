@@ -5,7 +5,7 @@ import { getCurrentProfile, deleteProfile } from "../../actions/ProfileAction";
 import Spinner from "../Common/Spinner";
 import { Link } from "react-router-dom";
 import ProfileActionsButton from "./ProfileActionsButton";
-
+import Education from "./Education";
 class dashboard extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
@@ -29,6 +29,8 @@ class dashboard extends Component {
               Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
             </p>
             <ProfileActionsButton />
+            {/* passing education data to education Component  */}
+            <Education education={profile.education} />
             <div style={{ marginBottom: "60px" }} />
             <button
               onClick={this.onDeleteClick.bind(this)}

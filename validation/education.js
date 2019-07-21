@@ -3,27 +3,27 @@ const isEmpty = require("./is-empty"); //importing isEmpty function
 
 module.exports = function validateeducationInput(data) {
   let errors = {};
-  data.exam = !isEmpty(data.exam) ? data.exam : "";
+  data.degree = !isEmpty(data.degree) ? data.degree : "";
   data.institute = !isEmpty(data.institute) ? data.institute : "";
-  data.subject = !isEmpty(data.subject) ? data.subject : "";
-  data.result = !isEmpty(data.year) ? data.year : "";
-  data.result = !isEmpty(data.result) ? data.result : "";
+  data.fieldofstudy = !isEmpty(data.fieldofstudy) ? data.fieldofstudy : "";
+  data.to = !isEmpty(data.to) ? data.to : "";
+  //data.from = !isEmpty(data.from) ? data.from : "";
 
-  if (validator.isEmpty(data.exam)) {
+  if (validator.isEmpty(data.degree)) {
     //"isEmpty"=function from validator and takes string
-    errors.exam = "exam is required";
+    errors.degree = "degree is required";
   }
   if (validator.isEmpty(data.institute)) {
     errors.institute = "institute is required";
   }
-  if (validator.isEmpty(data.subject)) {
-    errors.subject = "subject is required";
+  if (validator.isEmpty(data.fieldofstudy)) {
+    errors.fieldofstudy = "fieldofstudy is required";
   }
-  if (validator.isEmpty(data.year)) {
-    errors.year = "year is required";
-  }
-  if (validator.isEmpty(data.result)) {
-    errors.result = "result is required";
+  // if (validator.isEmpty(data.to)) {
+  //   errors.to = "to is required";
+  // }
+  if (validator.isEmpty(data.from)) {
+    errors.from = "result is required";
   }
   return {
     errors: errors,

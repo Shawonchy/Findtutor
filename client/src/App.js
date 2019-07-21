@@ -10,6 +10,7 @@ import email_verify from "./components/auth/email_verify";
 import Dashboard from "./components/Dashboard/Dashboard";
 import CreateProfile from "./components/CreateProfile/CreateProfile";
 import EditProfile from "./components/EditProfile/EditProfile";
+import AddEducation from "./components/add-credential/AddEducation";
 import store from "./store";
 
 import PrivateRoute from "./components/Common/Privateroute";
@@ -69,6 +70,13 @@ function App() {
                 exact
                 path="/edit-profile"
                 component={EditProfile}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/add-education"
+                component={AddEducation}
               />
             </Switch>
           </div>

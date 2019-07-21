@@ -27,7 +27,7 @@ const ProfileSchema = new Schema({
   },
   education: [
     {
-      exam: {
+      degree: {
         type: String,
         required: true
       },
@@ -35,17 +35,20 @@ const ProfileSchema = new Schema({
         type: String,
         required: true
       },
-      subject: {
+      fieldofstudy: {
         type: String,
         required: true
       },
-      result: {
-        type: String,
+      from: {
+        type: Date,
         required: true
       },
-      year: {
-        type: Number,
+      to: {
+        type: Date,
         required: true
+      },
+      description: {
+        type: String
       }
     }
   ],

@@ -92,31 +92,28 @@ router.post(
   (req, res) => {
     const { errors, isValid } = validateeducationInput(req.body);
     //validation check
-    if (!isValid) {
-      res.status(404).json(errors);
-    }
+    // if (!isValid) {
+    //   res.status(400).json(errors);
+    // }
 
     Profile.findOne({ user: req.user.id }).then(profile => {
-      if (!profile) {
-        errors.noprofile = "no profile found";
-        res.status(404).json(errors);
-      }
+      // if (!profile) {
+      //   errors.noprofile = "no profile found";
+      //   res.status(404).json(errors);
+      // }
       const nweducation = {
-        exam: req.body.exam,
         institute: req.body.institute,
-        subject: req.body.subject,
-        result: req.body.result,
-        year: req.body.year
+        degree: req.body.degree,
+        fieldofstudy: req.body.fieldofstudy,
+        from: req.body.from,
+        to: req.body.to,
+        //current: req.body.current,
+        description: req.body.description
       };
       //add to education array
       profile.education.unshift(nweducation);
 
-      profile
-        .save()
-        .then(profile => {
-          res.json(profile);
-        })
-        .catch(err => res.json(err));
+      profile.save().then(profile => res.json(profile));
     });
   }
 );

@@ -41,6 +41,18 @@ export const createProfile = (profileData, history) => dispatch => {
       })
     );
 };
+//add education
+export const addEducation = (eduData, history) => dispatch => {
+  axios
+    .post("/api/profile/education", eduData)
+    .then(res => history.push("/dashboard"))
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
 
 //deleting a profile and user
 export const deleteProfile = () => dispatch => {
