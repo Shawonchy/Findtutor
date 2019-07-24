@@ -3,13 +3,14 @@ import {
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
   GET_ERRORS,
-  SET_CURRENT_USER
+  SET_CURRENT_USER,
+  GET_PROFILES
 } from "./types";
 import axios from "axios";
 
 //get current current profile
 export const getCurrentProfile = () => dispatch => {
-  dispatch(setProfileLoading());
+  dispatch(setProfileLoading()); //for loading (spinner)
   axios
     .get("/api/profile")
     .then(res =>
@@ -69,6 +70,42 @@ export const deleteProfile = () => dispatch => {
       dispatch({
         type: GET_ERRORS,
         payload: err.res
+      });
+    });
+};
+//get all profiles
+export const getProfiles = () => dispatch => {
+  dispatch(setProfileLoading());
+  axios
+    .get("/api/profile/all")
+    .then(res => {
+      dispatch({
+        type: GET_PROFILES,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: null
+      });
+    });
+};
+//get Profile by handle
+export const getProfileByHandle = handle => dispatch => {
+  dispatch(setProfileLoading()); //for loading (spinner)
+  axios
+    .get(`/api/profile/handle/${handle}`)
+    .then(res => {
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_PROFILE,
+        payload: null
       });
     });
 };

@@ -11,6 +11,8 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import CreateProfile from "./components/CreateProfile/CreateProfile";
 import EditProfile from "./components/EditProfile/EditProfile";
 import AddEducation from "./components/add-credential/AddEducation";
+import Profiles from "./components/Profiles/Profiles";
+import Profile from "./components/Profile/Profile";
 import store from "./store";
 
 import PrivateRoute from "./components/Common/Privateroute";
@@ -79,6 +81,8 @@ function App() {
                 component={AddEducation}
               />
             </Switch>
+            <Route exact path="/profiles" component={Profiles} />
+            <Route exact path="/profile/:handle" component={Profile} />
           </div>
         </div>
       </Router>
