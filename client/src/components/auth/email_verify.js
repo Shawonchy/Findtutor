@@ -11,7 +11,9 @@ class email_verify extends Component {
     super();
     this.state = {
       isVerified: false,
-      errors: false
+      errors: false,
+      msg: "",
+      type: ""
     };
   }
   componentDidMount() {
@@ -20,7 +22,10 @@ class email_verify extends Component {
         token: this.props.match.params.token
       })
       .then(res => {
-        console.log(res);
+        this.setState({
+          type: res.data.type,
+          msg: res.data.msg
+        });
         if (res.data.token) {
           this.setState({
             isVerified: true
@@ -28,6 +33,7 @@ class email_verify extends Component {
         }
       })
       .catch(err => {
+        console.log(err);
         // console.log(err);
         // this.setState({
         //   isVerified: false,
@@ -43,16 +49,16 @@ class email_verify extends Component {
     const tokenVerified = (
       <div>
         <h1>"you are successfully registered"</h1>
-        <Link className="" to="/login">
+        <Link className="btn btn-info" to="/login">
           Login
         </Link>
       </div>
     );
     const tokenUnVerified = (
       <div>
-        <h1>"you are not not verified</h1>
-        <Link className="" to="/register">
-          Signup
+        <h1>{this.state.msg}</h1>
+        <Link className="btn btn-info" to="/login">
+          Login
         </Link>
       </div>
     );

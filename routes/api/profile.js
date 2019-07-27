@@ -47,6 +47,22 @@ router.get("/handle/:handle", (req, res) => {
     })
     .catch(err => res.status(404).json(err));
 });
+//@api/profile/search-profile
+//desc:getting a profile from a searched profile
+router.post("/searchprofile", (req, res) => {
+  const errors = {};
+  Profile.find({ location: req.body.location, gender: req.body.gender }) //getting the handle from url
+    .populate("user", ["name", "avatar"])
+    .then(profiles => {
+      if (!profiles) {
+        // errors.handle = "no profile found for this handle";
+        // res.status(404).json(errors);
+      } else {
+        res.json(profiles);
+      }
+    })
+    .catch(err => res.status(404).json(err));
+});
 
 //@api/profile/user_id/:user_id
 //desc:getting a profile from a given user_id
@@ -137,6 +153,7 @@ router.post(
     if (req.body.location) profilefields.location = req.body.location;
     if (req.body.experience) profilefields.experience = req.body.experience;
     if (req.body.status) profilefields.status = req.body.status;
+    if (req.body.gender) profilefields.gender = req.body.gender;
     //split skills into array
     if (typeof req.body.skills !== "undefined") {
       profilefields.skills = req.body.skills.split(",");

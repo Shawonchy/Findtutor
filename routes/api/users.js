@@ -11,7 +11,7 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
-const mailgun_info = require("../../config/mailgun");
+const EmailVerifyService = require("../../config/EmailVerifyService");
 router.get("/test", (req, res) => res.json({ msg: "user works" }));
 
 //@api/users/register
@@ -63,20 +63,18 @@ router.post("/register", (req, res) => {
                   var transporter = nodemailer.createTransport({
                     service: "Sendgrid",
                     auth: {
-                      user: "apikey",
-                      pass:
-                        "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"
+                      user: EmailVerifyService.username,
+                      pass: EmailVerifyService.password
                     }
                   });
                   var mailOptions = {
-                    from: "adminboss@findtutor.com",
+                    from: "admin@findtutor.com",
                     to: user.email,
                     subject: "Account Verification Token",
                     text:
                       "Hello,\n\n" +
                       "Please verify your account by clicking the link: \nhttp://" +
-                      req.headers.host +
-                      "/api/users/confirmation/" +
+                      "localhost:3000/confirmation/" +
                       newmail_token.token +
                       ".\n"
                   };
@@ -149,7 +147,7 @@ router.get(
     res.json(req.user);
   }
 );
-
+//email verify token confirmation
 router.post("/confirmation", (req, res) => {
   const restoken = {
     token: false
@@ -178,7 +176,7 @@ router.post("/confirmation", (req, res) => {
           return res.status(500).send({ msg: err.message });
         }
         restoken.token = true;
-        res.status(200).send(restoken);
+        res.status(200).send(restoken.token);
         //res.status(200).json();
       });
     });

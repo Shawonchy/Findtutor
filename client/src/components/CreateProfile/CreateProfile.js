@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import TextFieldGroup from "../Common/TextFieldGroup";
 import TextAreaFieldGroup from "../Common/TextAreaFieldGroup"; //input text in a large area
 import InputGroup from "../Common/InputGroup"; //input for social media link
+import SelectListGroup from "../Common/SelectListGroup";
 import { createProfile } from "../../actions/ProfileAction";
 
 class CreateProfile extends Component {
@@ -26,7 +27,8 @@ class CreateProfile extends Component {
       linkedin: "",
       youtube: "",
       instagram: "",
-      errors: {}
+      errors: {},
+      gender: ""
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -49,7 +51,8 @@ class CreateProfile extends Component {
       facebook: this.state.facebook,
       linkedin: this.state.linkedin,
       youtube: this.state.youtube,
-      instagram: this.state.instagram
+      instagram: this.state.instagram,
+      gender: this.state.gender
     };
     this.props.createProfile(profileData, this.props.history);
   }
@@ -60,6 +63,11 @@ class CreateProfile extends Component {
 
   render() {
     const { errors, displaySocialInputs } = this.state;
+    const options = [
+      { label: "* Select your gender", value: 0 },
+      { label: "Male", value: "Male" },
+      { label: "Female", value: "Female" }
+    ];
     //for social inputs like facebook,twitter
     let socialInputs;
     if (displaySocialInputs) {
@@ -178,7 +186,15 @@ class CreateProfile extends Component {
                   onChange={this.onChange}
                   info="Tell us a little about yourself"
                 />
-
+                <SelectListGroup
+                  placeholder="gender"
+                  name="gender"
+                  value={this.state.gender}
+                  onChange={this.onChange}
+                  options={options}
+                  error={errors.gender}
+                  info="Give us an idea of your gender"
+                />
                 <div className="mb-3">
                   <button
                     type="button"

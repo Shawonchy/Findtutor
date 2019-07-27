@@ -13,6 +13,8 @@ import EditProfile from "./components/EditProfile/EditProfile";
 import AddEducation from "./components/add-credential/AddEducation";
 import Profiles from "./components/Profiles/Profiles";
 import Profile from "./components/Profile/Profile";
+import SearchTutor from "./components/SearchTutors/SearchTutor";
+import SearchResult from "./components/SearchTutors/SearchResult";
 import store from "./store";
 
 import PrivateRoute from "./components/Common/Privateroute";
@@ -83,6 +85,8 @@ function App() {
             </Switch>
             <Route exact path="/profiles" component={Profiles} />
             <Route exact path="/profile/:handle" component={Profile} />
+            <Route exact path="/search-tutors" component={SearchTutor} />
+            <Route exact path="/search-result" component={SearchResult} />
           </div>
         </div>
       </Router>

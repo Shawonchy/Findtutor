@@ -1,26 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { getProfiles } from "../../actions/ProfileAction";
-import ProfileItems from "./ProfileItems";
+//import { getProfiles } from "../../actions/ProfileAction";
+import ProfileItems from "../Profiles/ProfileItems";
 import Spinner from "../Common/Spinner";
-class Profiles extends Component {
-  componentDidMount() {
-    this.props.getProfiles();
-  }
+class SearchResult extends Component {
   render() {
     const { profiles, loading } = this.props.profile;
-
+    //console.log(typeof profiles);
     let profileItems;
     if (profiles === null || loading) {
       profileItems = <Spinner />;
     } else {
-      //console.log(profiles.length);
-      //console.log(typeof profiles);
+      console.log(profiles.length);
+      console.log(typeof profiles);
+      console.log(profiles);
       if (profiles.length > 0) {
-        console.log(typeof profiles);
-        console.log(profiles.length);
-        console.log(profiles);
         profileItems = profiles.map(profile => (
           //profile property is sent to ProfileItems component
           <ProfileItems key={profile._id} profile={profile} />
@@ -48,8 +43,8 @@ class Profiles extends Component {
     );
   }
 }
-Profiles.propTypes = {
-  getProfiles: PropTypes.func.isRequired,
+SearchResult.propTypes = {
+  //getProfiles: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 };
 
@@ -57,7 +52,4 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(
-  mapStateToProps,
-  { getProfiles }
-)(Profiles);
+export default connect(mapStateToProps)(SearchResult);

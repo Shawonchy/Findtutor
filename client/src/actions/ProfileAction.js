@@ -86,7 +86,7 @@ export const getProfiles = () => dispatch => {
     })
     .catch(err => {
       dispatch({
-        type: GET_ERRORS,
+        type: GET_PROFILES,
         payload: null
       });
     });
@@ -105,6 +105,25 @@ export const getProfileByHandle = handle => dispatch => {
     .catch(err => {
       dispatch({
         type: GET_PROFILE,
+        payload: null
+      });
+    });
+};
+//serach tutors
+export const getsearchTutorProfile = (searchData, history) => dispatch => {
+  dispatch(setProfileLoading()); //for loading (spinner)
+  axios
+    .post("/api/profile/searchprofile", searchData)
+    .then(res => {
+      dispatch({
+        type: GET_PROFILES,
+        payload: res.data
+      });
+      history.push("/search-result");
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_PROFILES,
         payload: null
       });
     });
