@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCurrentProfile, deleteProfile } from "../../actions/ProfileAction";
@@ -6,6 +7,10 @@ import Spinner from "../Common/Spinner";
 import { Link } from "react-router-dom";
 import ProfileActionsButton from "./ProfileActionsButton";
 import Education from "./Education";
+import Dashboardlayout from "./html/Myprofile";
+import DashboardProfile from "./DashboardProfile";
+import Sidebar from "./Sidebar";
+import Uploadphoto from "./Uploadphoto";
 class dashboard extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
@@ -24,21 +29,47 @@ class dashboard extends Component {
       //check if logged in user has profile data
       if (Object.keys(profile).length > 0) {
         dashboardcontent = (
-          <div>
-            <p className="lead text-muted">
-              Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
-            </p>
-            <ProfileActionsButton />
-            {/* passing education data to education Component  */}
-            <Education education={profile.education} />
-            <div style={{ marginBottom: "60px" }} />
-            <button
-              onClick={this.onDeleteClick.bind(this)}
-              className="btn btn-danger"
-            >
-              Delete My Account
-            </button>
-          </div>
+          // <div>
+          //   <p className="lead text-muted">
+          //     Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
+          //   </p>
+          //   <ProfileActionsButton />
+          //   {/* passing education data to education Component  */}
+          //   <Education education={profile.education} />
+          //   <div style={{ marginBottom: "60px" }} />
+          //   <button
+          //     onClick={this.onDeleteClick.bind(this)}
+          //     className="btn btn-danger"
+          //   >
+          //     Delete My Account
+          //   </button>
+          // </div>
+
+          //<Dashboardlayout />
+          <Router>
+            <div className="profilelayout">
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-7">
+                    <Route
+                      exact
+                      path="/dashboard"
+                      component={DashboardProfile}
+                    />
+                    <Route
+                      exact
+                      path="/myprofile"
+                      component={DashboardProfile}
+                    />
+                    <Route exact path="/uploadphoto" component={Uploadphoto} />
+                  </div>
+                  <div className="col">
+                    <Sidebar />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Router>
         );
       } else {
         //user logged in but has no profile
@@ -54,18 +85,7 @@ class dashboard extends Component {
       }
     }
 
-    return (
-      <div className="dashboard">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <h1 className="display-4">Dashboard</h1>
-              {dashboardcontent}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+    return <div className="dashboard">{dashboardcontent}</div>;
   }
 }
 

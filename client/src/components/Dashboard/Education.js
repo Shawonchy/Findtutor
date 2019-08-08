@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-import Moment from "react-moment";//for formating date
+import Moment from "react-moment"; //for formating date
 
 class Education extends Component {
   render() {
@@ -20,19 +20,38 @@ class Education extends Component {
     ));
 
     return (
-      <div>
-        <h4 className="mb-4">Education Credentials</h4>
-        <table className="table">
-          <thead>
-            <tr>
-              <td>Institute</td>
-              <td>Degree</td>
-              <td>Field of study</td>
-              <td>Year</td>
-            </tr>
-            {education}
-          </thead>
-        </table>
+      // <div>
+      //   <h4 className="mb-4">Education Credentials</h4>
+      //   <table className="table">
+      //     <thead>
+      //       <tr>
+      //         <td>Institute</td>
+      //         <td>Degree</td>
+      //         <td>Field of study</td>
+      //         <td>Year</td>
+      //       </tr>
+      //       {education}
+      //     </thead>
+      //   </table>
+      // </div>
+
+      <div className="row">
+        <div className="col">
+          <h2>Educational Qualification:</h2>
+          <div className="datagrid">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Exam</th>
+                  <th>Institute</th>
+                  <th>Column 2</th>
+                  <th>Column 4</th>
+                </tr>
+                {education}
+              </thead>
+            </table>
+          </div>
+        </div>
       </div>
     );
   }
