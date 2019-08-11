@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import PropsTypes from "prop-types";
+//import { connect } from "react-redux";
+//import PropsTypes from "prop-types";
 import SelectListGroup from "../Common/SelectListGroup";
 import TextFieldGroup from "../Common/TextFieldGroup";
 import axios from "axios";

@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyparser = require("body-parser");
 const passport = require("passport");
+const cors = require("cors");
 const users = require("./routes/api/users");
 const profile = require("./routes/api/profile");
 const post = require("./routes/api/post");
@@ -14,7 +15,7 @@ app.get("/", (req, res) => res.send("hello"));
 //bodyparser middleware
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
-
+app.use(cors());
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(

@@ -2,6 +2,11 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const mongoose = require("mongoose");
+const multer = require("multer");
+const util = require("util");
+const fs = require("fs");
+//const fs = require("fs-extra");
+const upload = multer({ limits: { fileSize: 2000000 }, dest: "/uploads/" });
 
 const Profile = require("../../models/profile");
 const User = require("../../models/User");
@@ -106,7 +111,7 @@ router.post(
   "/education",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateeducationInput(req.body);
+    //const { errors, isValid } = validateeducationInput(req.body);
     //validation check
     // if (!isValid) {
     //   res.status(400).json(errors);
@@ -131,6 +136,113 @@ router.post(
 
       profile.save().then(profile => res.json(profile));
     });
+  }
+);
+
+//@api/profile/tution-info
+//desc:create or update a education of current user by providing authorization token
+//access:protected
+router.post(
+  "/tution-info",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    //const { errors, isValid } = validateeducationInput(req.body);
+    //validation check
+    // if (!isValid) {
+    //   res.status(400).json(errors);
+    // }
+
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      // if (!profile) {
+      //   errors.noprofile = "no profile found";
+      //   res.status(404).json(errors);
+      // }
+
+      const newtution_info = {
+        expected_min_salary: req.body.expected_min_salary,
+        current_Status_for_Tuition: req.body.current_Status_for_Tuition,
+        days_per_week: req.body.days_per_week,
+        preferred_class: req.body.preferred_class,
+        preffered_subject: req.body.preffered_subject,
+        preffered_medium: req.body.preffered_medium,
+        //current: req.body.current,
+        preffered_areas: req.body.preffered_areas
+      };
+      //add to tution_info array
+      profile.tution_info = newtution_info;
+
+      profile.save().then(profile => res.json(profile));
+    });
+  }
+);
+
+//upoading profile picture
+//@api/profile/uploadpicture
+router.post(
+  "/uploadpicture",
+  passport.authenticate("jwt", { session: false }),
+  upload.single("file"),
+  (req, res) => {
+    if (req.file === null) {
+      res.json({ msg: "no file selected" });
+      console.log("failed");
+    } else {
+      // // read the img file from tmp in-memory location
+      // var newImg = fs.readFileSync(req.file.path);
+      // // encode the file as a base64 string.
+      // var encImg = newImg.toString("base64");
+      // const newItem = {
+      //   contentType: req.file.mimetype,
+      //   img: Buffer(encImg, "base64")
+      // };
+      // db.collection("yourcollectionname").insert(newItem, function(
+      //   err,
+      //   result
+      // ) {
+      //   if (err) {
+      //     console.log(err);
+      //   }
+      //   var newoid = new ObjectId(result.ops[0]._id);
+      //   fs.remove(req.file.path, function(err) {
+      //     if (err) {
+      //       console.log(err);
+      //     }
+      //     res.render("index", { title: "Thanks for the Picture!" });
+      //   });
+      // });
+
+      Profile.findOne({ user: req.user.id }).then(profile => {
+        // read the img file from tmp in-memory location
+        //var newImg = fs.readFileSync(req.file.path);
+        // // encode the file as a base64 string.
+        //var encImg = newImg.toString("base64");
+        //var newoid = new ObjectId(res.ops[0]._id);
+        profile.img.data = fs.readFileSync(req.file.path);
+        profile.img.contentType = req.file.mimetype;
+        profile
+          .save()
+          .then(profile => {
+            //res.json({ msg: "upload successfull" });
+            console.log("successful");
+          })
+          .catch(err => res.json(err));
+      });
+    }
+  }
+);
+
+//gettiong the photo
+//@api/profile/getphoto
+router.get(
+  "/getphoto",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id })
+      .then(profile => {
+        res.contentType("json");
+        res.json(profile.img);
+      })
+      .catch(err => console.log(err));
   }
 );
 

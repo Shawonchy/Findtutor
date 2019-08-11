@@ -11,6 +11,7 @@ import Dashboardlayout from "./html/Myprofile";
 import DashboardProfile from "./DashboardProfile";
 import Sidebar from "./Sidebar";
 import Uploadphoto from "./Uploadphoto";
+import AddTutionInfo from "../add-credential/AddTutuionInfo";
 class dashboard extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
@@ -55,6 +56,11 @@ class dashboard extends Component {
                       exact
                       path="/dashboard"
                       component={DashboardProfile}
+                    />
+                    <Route
+                      exact
+                      path="/tution-info"
+                      component={AddTutionInfo}
                     />
                     <Route
                       exact

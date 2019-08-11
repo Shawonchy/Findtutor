@@ -16,6 +16,7 @@ import Profile from "./components/Profile/Profile";
 import SearchTutor from "./components/SearchTutors/SearchTutor";
 import SearchResult from "./components/SearchTutors/SearchResult";
 import RequestTution from "./components/RequestTution/RequestTution";
+import AddTutionInfo from "./components/add-credential/AddTutuionInfo";
 import store from "./store";
 
 import PrivateRoute from "./components/Common/Privateroute";
@@ -82,6 +83,13 @@ function App() {
                 exact
                 path="/add-education"
                 component={AddEducation}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/tution-info"
+                component={AddTutionInfo}
               />
             </Switch>
             <Route exact path="/profiles" component={Profiles} />

@@ -72,6 +72,38 @@ const ProfileSchema = new Schema({
     instagram: {
       type: String
     }
+  },
+
+  tution_info: {
+    expected_min_salary: {
+      type: String
+    },
+    current_Status_for_Tuition: {
+      type: String
+    },
+    days_per_week: {
+      type: String
+    },
+    preferred_class: {
+      type: String
+    },
+    preffered_subject: {
+      type: String
+    },
+    preffered_medium: {
+      type: String
+    },
+    preffered_areas: {
+      type: String
+    }
+  },
+  img: {
+    contentType: {
+      type: String
+    },
+    data: {
+      type: Buffer
+    }
   }
 });
 

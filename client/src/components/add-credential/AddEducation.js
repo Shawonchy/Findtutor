@@ -15,6 +15,7 @@ class AddEducation extends Component {
       fieldofstudy: "",
       from: "",
       to: "",
+      current_Status_for_Tuition: "",
       //current: false,
       description: "",
       errors: {}
@@ -37,6 +38,7 @@ class AddEducation extends Component {
       fieldofstudy: this.state.fieldofstudy,
       from: this.state.from,
       to: this.state.to,
+      current_Status_for_Tuition: this.state.current_Status_for_Tuition,
       //current: this.state.current,
       description: this.state.description
     };

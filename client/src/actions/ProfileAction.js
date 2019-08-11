@@ -55,6 +55,19 @@ export const addEducation = (eduData, history) => dispatch => {
     });
 };
 
+//add TutionInfo
+export const addTutionInfo = (tutionInfoData, history) => dispatch => {
+  axios
+    .post("/api/profile/tution-info", tutionInfoData)
+    .then(res => history.push("/dashboard"))
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+
 //deleting a profile and user
 export const deleteProfile = () => dispatch => {
   axios
@@ -107,6 +120,18 @@ export const getProfileByHandle = handle => dispatch => {
         type: GET_PROFILE,
         payload: null
       });
+    });
+};
+
+// upload image
+export const uploadimage = value => dispatch => {
+  axios
+    .post("/api/profile/uploadpicture", value)
+    .then(res => {
+      console.log(res.data);
+    })
+    .catch(err => {
+      console.log(err);
     });
 };
 //serach tutors
