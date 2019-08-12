@@ -42,7 +42,7 @@ class DashboardProfile extends Component {
           <div className="col">
             <img
               width="120px"
-              height="120px"
+              height="200px"
               src={img}
               alt="Helpful alt text"
             />
@@ -63,13 +63,23 @@ class DashboardProfile extends Component {
         <div className="row">
           <div className="col-9">
             <h2>Tution info:</h2>
-            <div>Expected salary:</div>
-            <div>Days per week:</div>
-            <div>Preffered subject:</div>
-            <div>Preffered className:</div>
-            <div>Custom Code:</div>
-            <div>Custom Code</div>
+            <div>
+              Expected salary: {profile.tution_info.expected_min_salary}
+            </div>
+            <div>Days per week: {profile.tution_info.days_per_week}</div>
+            <div>
+              Preffered subject: {profile.tution_info.preffered_subject}
+            </div>
+            <div>
+              Preffered className: {profile.tution_info.preferred_class}
+            </div>
+            <div>Preffered Medium: {profile.tution_info.preffered_medium}</div>
+            <div>
+              Current Status for Tuition:{" "}
+              {profile.tution_info.current_Status_for_Tuition}
+            </div>
           </div>
+
           <div className="col">
             <Link to="/tution-info">Add tution info</Link>
           </div>
@@ -106,7 +116,21 @@ class DashboardProfile extends Component {
               </table>
             </div
         </div> */}
-        <Education education={profile.education} />
+        <div className="row">
+          <div className="row">
+            <div className="col-9">
+              <h2>Educational Qualification:</h2>
+            </div>
+            <div className="col">
+              <Link to="/add-education">Edit education</Link>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <Education education={profile.education} />
+            </div>
+          </div>
+        </div>
       </div>
       // <div class="container">
       //   <img width="50" height="80" src={img} alt="Helpful alt text" />

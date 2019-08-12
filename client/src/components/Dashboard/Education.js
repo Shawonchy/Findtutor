@@ -3,14 +3,15 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import Moment from "react-moment"; //for formating date
+import { Link } from "react-router-dom";
 
 class Education extends Component {
   render() {
     // mapping to education array and taking each arry index as edu
     const education = this.props.education.map(edu => (
       <tr key={edu.id}>
-        <td>{edu.institute}</td>
         <td>{edu.degree}</td>
+        <td>{edu.institute}</td>
         <td>{edu.fieldofstudy}</td>
         <td>
           <Moment format="YYYY/MM/DD">{edu.from}</Moment>-
@@ -35,24 +36,33 @@ class Education extends Component {
       //   </table>
       // </div>
 
-      <div className="row">
-        <div className="col">
-          <h2>Educational Qualification:</h2>
-          <div className="datagrid">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Exam</th>
-                  <th>Institute</th>
-                  <th>Column 2</th>
-                  <th>Column 4</th>
-                </tr>
-                {education}
-              </thead>
-            </table>
-          </div>
-        </div>
+      // <div className="row">
+      //   <div class="row">
+      //     <div className="col-md-8">
+      //       <h2>Educational Qualification:</h2>
+      //     </div>
+      //     <div className="col-md-3">
+      //       <Link to="/add-education">Edit education info</Link>
+      //     </div>
+      //   </div>
+      // <div class="row">
+      //   <div class="col">
+      <div className="datagrid">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Exam</th>
+              <th>Institute</th>
+              <th>Group</th>
+              <th>Year</th>
+            </tr>
+            {education}
+          </thead>
+        </table>
       </div>
+      //     </div>
+      //   </div>
+      // </div>
     );
   }
 }

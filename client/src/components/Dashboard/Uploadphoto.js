@@ -37,7 +37,11 @@ class Uploadphoto extends Component {
         // then print response status
         console.log(res.statusText);
       });
+    this.props.history.push("/dashboard");
   };
+  // componentDidMount() {
+  //   this.props.history.push("/dashboard");
+  // }
 
   render() {
     return (
