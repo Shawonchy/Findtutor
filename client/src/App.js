@@ -26,6 +26,7 @@ import { logoutUser } from "./actions/AuthAction";
 
 import { clearCurrentProfile } from "./actions/ProfileAction";
 import { SET_CURRENT_USER } from "../src/actions/types";
+import AllTutions from "./components/Tutions/AllTutions";
 
 //check for token
 if (localStorage.jwtToken) {
@@ -97,6 +98,7 @@ function App() {
             <Route exact path="/search-tutors" component={SearchTutor} />
             <Route exact path="/search-result" component={SearchResult} />
             <Route exact path="/ask_for_a_tutor" component={RequestTution} />
+            <Route exact path="/all_tutions" component={AllTutions} />
           </div>
         </div>
       </Router>

@@ -92,6 +92,12 @@ class Navbar extends Component {
                   Request A Tutor
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/all_tutions">
+                  {" "}
+                  Tutions
+                </Link>
+              </li>
             </ul>
             {/* if authenticated then authlink otherwise guestlink (ternary operator*/}
             {isAuthenticated ? authlink : guestlink}
