@@ -61,7 +61,7 @@ class TutionItem extends Component {
           <strong>{tution.location}</strong>
         </div>
         <div className="card-body">
-          <div class="container-fluid">
+          <div className="container-fluid">
             <div className="row">
               <div className="col-5">
                 <strong>Tuition ID #</strong>
@@ -94,6 +94,12 @@ class TutionItem extends Component {
               </div>
               <div className="col">
                 <strong>{tution.salaryrange}</strong>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-11" />
+              <div className="col">
+                <Link to={`/tution/${tution._id}`}>View details</Link>
               </div>
             </div>
           </div>

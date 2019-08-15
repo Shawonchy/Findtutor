@@ -13,9 +13,14 @@ import Sidebar from "./Sidebar";
 import Uploadphoto from "./Uploadphoto";
 import AddTutionInfo from "../add-credential/AddTutuionInfo";
 import AddEducation from "../add-credential/AddEducation";
+import { getTutions } from "../../actions/TutionAction";
+import TutionCarousel from "../Tutions/TutionCarousel";
+import Tution from "../Tutions/Tution";
+
 class dashboard extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
+    this.props.getTutions();
   }
   onDeleteClick(e) {
     this.props.deleteProfile();
@@ -24,6 +29,7 @@ class dashboard extends Component {
   render() {
     const { user } = this.props.auth;
     const { profile, loading } = this.props.profile;
+    const { tutions } = this.props.tution;
     let dashboardcontent;
     if (profile === null || loading) {
       dashboardcontent = <Spinner />;
@@ -75,9 +81,17 @@ class dashboard extends Component {
                       path="/add-education"
                       component={AddEducation}
                     />
+                    <Route exact path="/tution/:id" component={Tution} />
                   </div>
                   <div className="col">
-                    <Sidebar />
+                    <div className="row">
+                      <Sidebar />
+                    </div>
+                    <div className="row">
+                      <div className="col">
+                        <TutionCarousel tutions={tutions} />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -104,6 +118,7 @@ class dashboard extends Component {
 
 dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
+  getTutions: PropTypes.func.isRequired,
   deleteProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
@@ -111,10 +126,11 @@ dashboard.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  profile: state.profile
+  profile: state.profile,
+  tution: state.tution
 });
 
 export default connect(
   mapStateToProps,
-  { getCurrentProfile, deleteProfile }
+  { getCurrentProfile, deleteProfile, getTutions }
 )(dashboard);

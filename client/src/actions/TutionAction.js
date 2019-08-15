@@ -20,6 +20,24 @@ export const getTutions = () => dispatch => {
     });
 };
 
+export const getTutionById = id => dispatch => {
+  dispatch(setTutionLoading());
+  axios
+    .get(`/api/tution/id/${id}`)
+    .then(res => {
+      dispatch({
+        type: GET_TUTION,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_TUTION,
+        payload: null
+      });
+    });
+};
+
 export const setTutionLoading = () => {
   return {
     type: TUTION_LOADING
