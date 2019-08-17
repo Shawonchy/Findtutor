@@ -8,6 +8,7 @@ const profile = require("./routes/api/profile");
 const post = require("./routes/api/post");
 const requestfortutor = require("./routes/api/RequestForTutor");
 const tution = require("./routes/api/Tution");
+const EmailTutor = require("./routes/api/EmailTutor");
 //const token = require("./routes/api/token_confirm");
 
 const app = express();
@@ -41,6 +42,7 @@ app.use("/api/profile", profile);
 app.use("/api/post", post);
 app.use("/api/request-a-tutor", requestfortutor);
 app.use("/api/tution", tution);
+app.use("/api/email-tutor", EmailTutor);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log("listening to port ${port}"));

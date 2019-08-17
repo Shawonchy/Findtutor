@@ -38,6 +38,17 @@ export const getTutionById = id => dispatch => {
     });
 };
 
+//email tutor
+
+export const getEmailTutor = value => dispatch => {
+  axios
+    .post("/api/email-tutor", value)
+    .then(res => {
+      console.log(res.data);
+    })
+    .catch(err => console.log(err));
+};
+
 export const setTutionLoading = () => {
   return {
     type: TUTION_LOADING

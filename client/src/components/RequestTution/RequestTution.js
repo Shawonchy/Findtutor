@@ -95,142 +95,143 @@ class RequestTution extends Component {
         <div className="request-tution">
           <div className="container">
             <div className="row">
-              <div className="col-md-8 m-auto" />
-              <h1 className="display-4 text-center">Search Tutor</h1>
-              <p className="lead text-center">
-                Let's get some information about the tutor you wanted for
-              </p>
-              <form onSubmit={this.onSubmit}>
-                <TextFieldGroup
-                  name="name"
-                  //"*" for is required
-                  placeholder="* profile name"
-                  value={this.state.name}
-                  error={errors.name}
-                  onChange={this.onChange}
-                  info="A unique name for your profile URL. Your full name, company name, nickname"
-                  label="Full Name"
-                />
-                <SelectListGroup
-                  placeholder="location"
-                  name="location"
-                  value={this.state.location}
-                  onChange={this.onChange}
-                  options={optlocation}
-                  error={errors.location}
-                  info="Give us an idea of your location"
-                />
-                <SelectListGroup
-                  placeholder="medium"
-                  name="medium"
-                  value={this.state.medium}
-                  onChange={this.onChange}
-                  options={optmedium}
-                  error={errors.medium}
-                  info="Give us an idea of your medium"
-                />
-                <TextFieldGroup
-                  name="class"
-                  //"*" for is required
-                  placeholder="* class"
-                  value={this.state.class}
-                  error={errors.class}
-                  onChange={this.onChange}
-                  info="class in which student is studying"
-                  label="Class"
-                />
-                <TextFieldGroup
-                  name="subject"
-                  //"*" for is required
-                  placeholder="* subject"
-                  value={this.state.subject}
-                  error={errors.subject}
-                  onChange={this.onChange}
-                  info="subject in which student is studying"
-                  label="subject"
-                />
-                <TextFieldGroup
-                  name="institute"
-                  //"*" for is required
-                  placeholder="* institute"
-                  value={this.state.institute}
-                  error={errors.institute}
-                  onChange={this.onChange}
-                  info="institute in which student is studying"
-                  label="institute"
-                />
-                <SelectListGroup
-                  placeholder="daysperweek"
-                  name="daysperweek"
-                  value={this.state.daysperweek}
-                  onChange={this.onChange}
-                  options={optdaysperweek}
-                  error={errors.daysperweek}
-                  info="Give us an idea of your daysperweek"
-                />
-                <SelectListGroup
-                  placeholder="studentgender"
-                  name="studentgender"
-                  value={this.state.studentgender}
-                  onChange={this.onChange}
-                  options={optstudentgender}
-                  error={errors.studentgender}
-                  info="Give us an idea of your studentgender"
-                />
-                <SelectListGroup
-                  placeholder="salaryrange"
-                  name="salaryrange"
-                  value={this.state.salaryrange}
-                  onChange={this.onChange}
-                  options={optsalaryrange}
-                  error={errors.salaryrange}
-                  info="Give us an idea of your salaryrange"
-                />
-                <SelectListGroup
-                  placeholder="tutorgender"
-                  name="tutorgender"
-                  value={this.state.tutorgender}
-                  onChange={this.onChange}
-                  options={opttutorgender}
-                  error={errors.tutorgender}
-                  info="Give us an idea of your tutorgender"
-                />
-                <TextFieldGroup
-                  name="address"
-                  //"*" for is required
-                  placeholder="* address"
-                  value={this.state.address}
-                  error={errors.address}
-                  onChange={this.onChange}
-                  info="address in which student is studying"
-                  label="address"
-                />
-                <TextFieldGroup
-                  name="mobile"
-                  //"*" for is required
-                  placeholder="* mobile"
-                  value={this.state.mobile}
-                  error={errors.mobile}
-                  onChange={this.onChange}
-                  info="mobile in which student is studying"
-                  label="mobile"
-                />
-                <TextFieldGroup
-                  name="email"
-                  //"*" for is required
-                  placeholder="* email"
-                  value={this.state.email}
-                  error={errors.email}
-                  onChange={this.onChange}
-                  info="email in which student is studying"
-                  label="email"
-                />
-                <input
-                  type="submit"
-                  value="Submit"
-                  className="btn btn-info btn-block mt-4"
-                />
-              </form>
+              <div className="col-md-8 m-auto">
+                <h1 className="display-4 text-center">REQUEST A Tutor</h1>
+                <p className="lead text-center">
+                  Let's get some information about the tutor you wanted for
+                </p>
+                <form onSubmit={this.onSubmit}>
+                  <TextFieldGroup
+                    name="name"
+                    //"*" for is required
+                    placeholder="* profile name"
+                    value={this.state.name}
+                    error={errors.name}
+                    onChange={this.onChange}
+                    info="A unique name for your profile URL. Your full name, company name, nickname"
+                    label="Full Name"
+                  />
+                  <SelectListGroup
+                    placeholder="location"
+                    name="location"
+                    value={this.state.location}
+                    onChange={this.onChange}
+                    options={optlocation}
+                    error={errors.location}
+                    info="Give us an idea of your location"
+                  />
+                  <SelectListGroup
+                    placeholder="medium"
+                    name="medium"
+                    value={this.state.medium}
+                    onChange={this.onChange}
+                    options={optmedium}
+                    error={errors.medium}
+                    info="Give us an idea of your medium"
+                  />
+                  <TextFieldGroup
+                    name="class"
+                    //"*" for is required
+                    placeholder="* class"
+                    value={this.state.class}
+                    error={errors.class}
+                    onChange={this.onChange}
+                    info="class in which student is studying"
+                    label="Class"
+                  />
+                  <TextFieldGroup
+                    name="subject"
+                    //"*" for is required
+                    placeholder="* subject"
+                    value={this.state.subject}
+                    error={errors.subject}
+                    onChange={this.onChange}
+                    info="subject in which student is studying"
+                    label="subject"
+                  />
+                  <TextFieldGroup
+                    name="institute"
+                    //"*" for is required
+                    placeholder="* institute"
+                    value={this.state.institute}
+                    error={errors.institute}
+                    onChange={this.onChange}
+                    info="institute in which student is studying"
+                    label="institute"
+                  />
+                  <SelectListGroup
+                    placeholder="daysperweek"
+                    name="daysperweek"
+                    value={this.state.daysperweek}
+                    onChange={this.onChange}
+                    options={optdaysperweek}
+                    error={errors.daysperweek}
+                    info="Give us an idea of your daysperweek"
+                  />
+                  <SelectListGroup
+                    placeholder="studentgender"
+                    name="studentgender"
+                    value={this.state.studentgender}
+                    onChange={this.onChange}
+                    options={optstudentgender}
+                    error={errors.studentgender}
+                    info="Give us an idea of your studentgender"
+                  />
+                  <SelectListGroup
+                    placeholder="salaryrange"
+                    name="salaryrange"
+                    value={this.state.salaryrange}
+                    onChange={this.onChange}
+                    options={optsalaryrange}
+                    error={errors.salaryrange}
+                    info="Give us an idea of your salaryrange"
+                  />
+                  <SelectListGroup
+                    placeholder="tutorgender"
+                    name="tutorgender"
+                    value={this.state.tutorgender}
+                    onChange={this.onChange}
+                    options={opttutorgender}
+                    error={errors.tutorgender}
+                    info="Give us an idea of your tutorgender"
+                  />
+                  <TextFieldGroup
+                    name="address"
+                    //"*" for is required
+                    placeholder="* address"
+                    value={this.state.address}
+                    error={errors.address}
+                    onChange={this.onChange}
+                    info="address in which student is studying"
+                    label="address"
+                  />
+                  <TextFieldGroup
+                    name="mobile"
+                    //"*" for is required
+                    placeholder="* mobile"
+                    value={this.state.mobile}
+                    error={errors.mobile}
+                    onChange={this.onChange}
+                    info="mobile in which student is studying"
+                    label="mobile"
+                  />
+                  <TextFieldGroup
+                    name="email"
+                    //"*" for is required
+                    placeholder="* email"
+                    value={this.state.email}
+                    error={errors.email}
+                    onChange={this.onChange}
+                    info="email in which student is studying"
+                    label="email"
+                  />
+                  <input
+                    type="submit"
+                    value="Submit"
+                    className="btn btn-info btn-block mt-4"
+                  />
+                </form>
+              </div>
             </div>
           </div>
         </div>

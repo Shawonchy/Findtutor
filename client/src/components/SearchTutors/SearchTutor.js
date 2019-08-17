@@ -47,7 +47,7 @@ class SearchTutor extends Component {
       <div className="create-profile">
         <div className="container">
           <div className="row">
-            <div className="col-md-8 m-auto">
+            <div className="col-md-8">
               <h1 className="display-4 text-center">Search Tutor</h1>
               <form onSubmit={this.onSubmit}>
                 <SelectListGroup

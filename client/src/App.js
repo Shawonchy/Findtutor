@@ -17,6 +17,7 @@ import SearchTutor from "./components/SearchTutors/SearchTutor";
 import SearchResult from "./components/SearchTutors/SearchResult";
 import RequestTution from "./components/RequestTution/RequestTution";
 import AddTutionInfo from "./components/add-credential/AddTutuionInfo";
+import Footer from "./components/layouts/footer";
 import store from "./store";
 
 import PrivateRoute from "./components/Common/Privateroute";
@@ -102,6 +103,7 @@ function App() {
             <Route exact path="/all_tutions" component={AllTutions} />
             <Route exact path="/tution/:id" component={Tution} />
           </div>
+          <Footer />
         </div>
       </Router>
     </Provider>
