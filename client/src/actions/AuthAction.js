@@ -40,6 +40,7 @@ export const loginUser = userData => dispatch => {
         type: SET_CURRENT_USER,
         payload: decoded
       }); //set and dispatch current user to reducer
+      console.log(decoded);
     })
     .catch(err =>
       dispatch({
@@ -83,4 +84,16 @@ export const emailVerification = token => dispatch => {
         paylaod: err.response.data
       })
     );
+};
+//get ispremium
+export const getispremium = () => dispatch => {
+  axios
+    .get("/api/users/current")
+    .then(res => {
+      dispatch({
+        type: SET_CURRENT_USER,
+        payload: res.data
+      });
+    })
+    .catch(err => console.log(err));
 };

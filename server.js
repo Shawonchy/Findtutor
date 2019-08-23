@@ -11,6 +11,10 @@ const tution = require("./routes/api/Tution");
 const EmailTutor = require("./routes/api/EmailTutor");
 //const token = require("./routes/api/token_confirm");
 
+//for php
+var execPHP = require("./execphp.js")();
+execPHP.phpFolder = "E:\\tutor\\php\\";
+
 const app = express();
 app.get("/", (req, res) => res.send("hello"));
 
@@ -26,7 +30,12 @@ app.use(function(req, res, next) {
   );
   next();
 });
-
+app.use("*.php", function(request, response, next) {
+  execPHP.parseFile(request.originalUrl, function(phpResult) {
+    response.write(phpResult);
+    response.end();
+  });
+});
 const db = require("./config/keys").mongoURI;
 mongoose
   .connect(db)

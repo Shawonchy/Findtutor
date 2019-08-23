@@ -120,7 +120,13 @@ router.post("/login", (req, res) => {
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         //user matches
-        const payload = { id: user.id, name: user.name, avatar: user.avatar }; //jwt payload
+        const payload = {
+          id: user.id,
+          name: user.name,
+          avatar: user.avatar,
+          isVerified: user.isVerified,
+          ispremium: user.ispremium
+        }; //jwt payload
         jwt.sign(
           payload,
           keys.secretOrkeys,
@@ -180,6 +186,20 @@ router.post("/confirmation", (req, res) => {
         //res.status(200).json();
       });
     });
+  });
+});
+
+router.post("/update-tutor-type", (req, res) => {
+  User.findOne({ _id: req.body.id }, function(err, user) {
+    if (user.ispremium) {
+      return res.status(200).json({ msg: "already premium tutor" });
+    } else {
+      user.ispremium = true;
+    }
+    user
+      .save()
+      .then(user => res.json(user))
+      .catch(err => res.json(err));
   });
 });
 

@@ -24,6 +24,10 @@ var Userschema = new Schema({
   isVerified: {
     type: Boolean,
     default: false
+  },
+  ispremium: {
+    type: Boolean,
+    default: false
   }
 });
 
