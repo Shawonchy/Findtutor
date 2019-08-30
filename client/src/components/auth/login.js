@@ -95,7 +95,7 @@ class login extends Component {
                     <div className="is-invalid">{errors.password}</div> //errors will be printed in registration UI
                   )}
                 </div>
-                <input type="submit" className="btn btn-info btn-block mt-4" />
+                <input type="submit" value="Login" className="btn btn-info btn-block mt-4" />
               </form>
             </div>
           </div>

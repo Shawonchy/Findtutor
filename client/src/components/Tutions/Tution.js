@@ -8,11 +8,14 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import { getispremium } from "../../actions/AuthAction";
+import StripeCheckOut from "react-stripe-checkout";
+
 class Tution extends Component {
   constructor() {
     super();
 
-    this.onClickHandler = this.onClickHandler.bind(this);
+    //this.onClickHandler = this.onClickHandler.bind(this);
+    this.handleToken = this.handleToken.bind(this);
   }
   //this lifecycle method executed after render
   componentDidMount() {
@@ -25,14 +28,40 @@ class Tution extends Component {
   componentWillMount() {
     this.props.getispremium();
   }
-  onClickHandler() {
+  // onClickHandler() {
+  //   axios
+  //     .get("http://localhost:5000/checkout.php")
+  //     .then(res => {
+  //       console.log(res.data);
+  //       //this.props.history.push("https://www.facebook.com");
+  //       //redirecting to external website
+  //       window.location.assign(res.data);
+  //     })
+  //     .catch(err => console.log(err));
+  // }
+
+  //for handleing stripes payment token contains all info of transection
+  handleToken(token) {
+    const { _id } = this.props.auth.user;
+    console.log(_id);
+    const userinfo = {
+      id: _id,
+      price: "120.0"
+    };
     axios
-      .get("http://localhost:5000/checkout.php")
+      .post("http://localhost:5000/api/users/update-tutor-type", {
+        token,
+        userinfo
+      })
       .then(res => {
         console.log(res.data);
-        //this.props.history.push("https://www.facebook.com");
-        //redirecting to external website
-        window.location.assign(res.data);
+        const { status } = res.data;
+        if (status === "success") {
+          console.log(status);
+        } else {
+          console.log("error");
+        }
+        window.location.reload();
       })
       .catch(err => console.log(err));
   }
@@ -110,38 +139,23 @@ class Tution extends Component {
             <div className="col-md-6">Posted on::</div>
           </div>
           <div class="row">
-            <button
-              type="button"
-              class="btn btn-success btn-block"
-              onClick={this.onClickHandler}
-            >
-              PayNow
-            </button>
+            <StripeCheckOut
+              stripeKey="pk_test_RKLWJ7vbzP4LfxzkEgKA1Hly00Z61MJBFV"
+              token={this.handleToken}
+            />
           </div>
         </div>
       );
     }
 
     return (
-      <>
-        {/* {
-          (tution.address = user.ispremium
-            ? tution.address
-            : "to see address become a premium member")
-        }
-        {
-          (tution.mobile = user.ispremium
-            ? tution.mobile
-            : "to see mobile become a premium member")
-        } */}
-        <div className="tution">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-8">{tutionContent}</div>
-            </div>
+      <div className="tution">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-8">{tutionContent}</div>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }

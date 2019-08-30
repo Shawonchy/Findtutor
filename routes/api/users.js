@@ -12,9 +12,13 @@ const validateLoginInput = require("../../validation/login");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const EmailVerifyService = require("../../config/EmailVerifyService");
+const stripe = require("stripe")("sk_test_9y2zyOxGLQrHq0TemNwWwC1700Mq7D29mF");
+const cors = require("cors");
+const uuid = require("uuid/v4");
 router.get("/test", (req, res) => res.json({ msg: "user works" }));
 
-//@api/users/register
+//@api/users/registerclear
+
 router.post("/register", (req, res) => {
   //check validation
   const { errors, isValid } = validateRegisterInput(req.body);
@@ -189,18 +193,53 @@ router.post("/confirmation", (req, res) => {
   });
 });
 
-router.post("/update-tutor-type", (req, res) => {
-  User.findOne({ _id: req.body.id }, function(err, user) {
-    if (user.ispremium) {
-      return res.status(200).json({ msg: "already premium tutor" });
-    } else {
-      user.ispremium = true;
-    }
-    user
-      .save()
-      .then(user => res.json(user))
-      .catch(err => res.json(err));
-  });
+//tutor category update and handle stripe payment transection
+router.post("/update-tutor-type", async (req, res) => {
+  console.log("Request:", req.body);
+
+  let error;
+  let status;
+  try {
+    const { userinfo, token } = req.body;
+
+    const customer = await stripe.customers.create({
+      email: token.email,
+      source: token.id
+    });
+
+    const idempotency_key = uuid();
+
+    //changing the visa card and store info in stripes account
+    const charge = await stripe.charges.create(
+      {
+        amount: userinfo.price * 100,
+        currency: "usd",
+        customer: customer.id,
+        receipt_email: token.email
+      },
+      {
+        idempotency_key
+      }
+    );
+    console.log("Charge:", { charge });
+    status = "success";
+
+    User.findOne({ _id: userinfo.id }, function(err, user) {
+      if (user.ispremium) {
+        return res.status(200).json({ msg: "already premium tutor" });
+      } else {
+        user.ispremium = true;
+      }
+      user
+        .save()
+        .then(user => res.json(user))
+        .catch(err => res.json(err));
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    status = "failure";
+  }
+  res.json({ error, status });
 });
 
 module.exports = router;
