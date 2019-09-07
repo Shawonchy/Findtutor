@@ -1,0 +1,31 @@
+[
+  { "code": "174:175", "name": "physics" },
+  { "code": "176:177", "name": "chemistry" },
+  { "code": "265:266", "name": "higher mathematics" },
+  { "code": "178:179", "name": "boilogy" },
+
+  { "code": "178:179", "name": "boilogy" },
+  { "code": "265:266", "name": "higher mathematics" },
+  { "code": "125:126", "name": "geography" },
+  { "code": "123:124", "name": "psychology" },
+  { "code": "129:130", "name": "statics" },
+  { "code": "180:222", "name": "eng draw & work prac" },
+
+  { "code": "304:305", "name": "History" },
+  { "code": "267:268", "name": "Islamic History & Culture" },
+  { "code": "269:270", "name": "Civic & Good Governance" },
+  { "code": "109:110", "name": "Economics" },
+  { "code": "117:118", "name": "Sociology" },
+  { "code": "271:272", "name": "Social Work" },
+  { "code": "125:126", "name": "Geography" },
+  { "code": "121:122", "name": "Logic" },
+
+  { "code": "269:270", "name": "Civic & Good Governance" },
+  { "code": "109:110", "name": "Economics" },
+  { "code": "117:118", "name": "Sociology" },
+  { "code": "271:272", "name": "Social Work" },
+  { "code": "125:126", "name": "Geography" },
+  { "code": "121:122", "name": "Logic" },
+  { "code": "304:305", "name": "History" },
+  { "code": "267:268", "name": "Islamic History & Culture" }
+]

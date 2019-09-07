@@ -5,7 +5,15 @@ const RequestForTutorSchema = new Schema({
     type: String,
     required: true
   },
-  location: {
+  division: {
+    type: String,
+    required: true
+  },
+  district: {
+    type: String,
+    required: true
+  },
+  upazila: {
     type: String,
     required: true
   },
@@ -18,9 +26,14 @@ const RequestForTutorSchema = new Schema({
     required: true
   },
   subject: {
+    type: [String],
+    required: true
+  },
+  subject1: {
     type: String,
     required: true
   },
+
   institute: {
     type: String
   },
@@ -50,9 +63,21 @@ const RequestForTutorSchema = new Schema({
   },
   email: {
     type: String
-  }
+  },
+  instruction: {
+    type: String
+  },
+  posted_at: { type: Date, default: Date.now }
 });
-
+//Sets the posted_at parameter equal to the current time
+RequestForTutorSchema.pre("save", function(next) {
+  now = new Date();
+  this.updated_at = now;
+  if (!this.created_at) {
+    this.created_at = now;
+  }
+  next();
+});
 module.exports = RequestForTutor = mongoose.model(
   "requestfortutor",
   RequestForTutorSchema
