@@ -84,7 +84,7 @@ class dashboard extends Component {
                     <Route exact path="/tution/:id" component={Tution} />
                   </div>
                   <div className="col">
-                    <div className="row">
+                    <div className="row mb-3 ml-3">
                       <Sidebar />
                     </div>
                     <div className="row">

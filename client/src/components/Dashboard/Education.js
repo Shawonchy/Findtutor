@@ -21,45 +21,18 @@ class Education extends Component {
     ));
 
     return (
-      // <div>
-      //   <h4 className="mb-4">Education Credentials</h4>
-      //   <table className="table">
-      //     <thead>
-      //       <tr>
-      //         <td>Institute</td>
-      //         <td>Degree</td>
-      //         <td>Field of study</td>
-      //         <td>Year</td>
-      //       </tr>
-      //       {education}
-      //     </thead>
-      //   </table>
-      // </div>
+      <table className="table table-bordered">
+        <thead>
+          <tr>
+            <th className="bg-light">Exam</th>
+            <th className="bg-light">Institute</th>
+            <th className="bg-light">Group</th>
+            <th className="bg-light">Year</th>
+          </tr>
+          {education}
+        </thead>
+      </table>
 
-      // <div className="row">
-      //   <div class="row">
-      //     <div className="col-md-8">
-      //       <h2>Educational Qualification:</h2>
-      //     </div>
-      //     <div className="col-md-3">
-      //       <Link to="/add-education">Edit education info</Link>
-      //     </div>
-      //   </div>
-      // <div class="row">
-      //   <div class="col">
-      <div className="datagrid">
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Exam</th>
-              <th>Institute</th>
-              <th>Group</th>
-              <th>Year</th>
-            </tr>
-            {education}
-          </thead>
-        </table>
-      </div>
       //     </div>
       //   </div>
       // </div>

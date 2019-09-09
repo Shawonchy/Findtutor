@@ -17,6 +17,7 @@ import SearchTutor from "./components/SearchTutors/SearchTutor";
 import SearchResult from "./components/SearchTutors/SearchResult";
 import RequestTution from "./components/RequestTution/RequestTution";
 import AddTutionInfo from "./components/add-credential/AddTutuionInfo";
+import SearchTution from "./components/SearchTution/SearchTutionResult";
 import PaymentSuccess from "./components/PaymentSuccess";
 import Footer from "./components/layouts/footer";
 import store from "./store";
@@ -30,6 +31,7 @@ import { clearCurrentProfile } from "./actions/ProfileAction";
 import { SET_CURRENT_USER } from "../src/actions/types";
 import AllTutions from "./components/Tutions/AllTutions";
 import Tution from "./components/Tutions/Tution";
+import SearchTutionResult from "./components/SearchTution/SearchTutionResult";
 
 //check for token
 if (localStorage.jwtToken) {
@@ -104,6 +106,11 @@ function App() {
             <Route exact path="/all_tutions" component={AllTutions} />
             <Route exact path="/tution/:id" component={Tution} />
             <Route exact path="/payment-success" component={PaymentSuccess} />
+            <Route
+              exact
+              path="/tution-search-result"
+              component={SearchTutionResult}
+            />
           </div>
           <Footer />
         </div>

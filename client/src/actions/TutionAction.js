@@ -1,4 +1,4 @@
-import { GET_TUTIONS, GET_TUTION, TUTION_LOADING } from "./types";
+import { GET_TUTIONS, GET_TUTION, TUTION_LOADING, GET_ERRORS } from "./types";
 import axios from "axios";
 
 export const getTutions = () => dispatch => {
@@ -35,6 +35,28 @@ export const getTutionById = id => dispatch => {
         type: GET_TUTION,
         payload: null
       });
+    });
+};
+
+export const getTutionByLocation = (searchdata, history) => dispatch => {
+  console.log(searchdata);
+  dispatch(setTutionLoading());
+  axios
+    .post("/api/tution/search-tution", searchdata)
+    .then(res => {
+      dispatch({
+        type: GET_TUTIONS,
+        payload: res.data
+      });
+      console.log(res.data);
+      history.push("/tution-search-result");
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: null
+      });
+      console.log(err);
     });
 };
 

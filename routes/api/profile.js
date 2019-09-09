@@ -166,7 +166,10 @@ router.post(
         preffered_subject: req.body.preffered_subject,
         preffered_medium: req.body.preffered_medium,
         //current: req.body.current,
-        preffered_areas: req.body.preffered_areas
+        preffered_areas: req.body.preffered_areas,
+        division: req.body.division,
+        district: req.body.district,
+        upazila: req.body.upazila
       };
       //add to tution_info array
       profile.tution_info = newtution_info;

@@ -33,7 +33,12 @@
     "validator": "^10.11.0",
     "stripe": "6.12.1",
     "uuid": "3.3.2",
-    "multer": "1.4.2"
+    "multer": "1.4.2",
+    "admin-bro": "*",
+    "admin-bro-expressjs": "*",
+    "admin-bro-mongoose": "*",
+    "express-session": "*",
+    "cookie-parser": "*"
   },
   "devDependencies": {
     "html-loader": "^0.5.5",

@@ -34,4 +34,24 @@ router.get("/id/:id", (req, res) => {
     .catch(err => res.status(404).json(err));
 });
 
+//api/tution/search-tution
+//desc@search a tution in a specific location
+router.post("/search-tution", (req, res) => {
+  const errors = {};
+  RequestForTutor.find({
+    division: req.body.division,
+    district: req.body.district,
+    upazila: req.body.upazila
+  })
+    .then(requestfortutors => {
+      if (!requestfortutors) {
+        errors.error = "No tutions is found";
+        res.status(404).json(errors);
+      } else {
+        res.json(requestfortutors);
+      }
+    })
+    .catch(err => res.json(err));
+});
+
 module.exports = router;

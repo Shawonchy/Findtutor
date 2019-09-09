@@ -56,11 +56,11 @@ class AddEducation extends Component {
       <div className="add-education">
         <div className="container">
           <div className="row">
-            <div className="col-md-8 m-auto">
+            <div className="col-md-8">
               <Link to="/dashboard" className="btn btn-light">
                 Go Back
               </Link>
-              <h1 className="display-4 text-center">Add Education</h1>
+              {/* <h1 className="display-4 text-center">Add Education</h1>
               <p className="lead text-center">
                 Add any school, bootcamp, etc that you have attended
               </p>
@@ -104,20 +104,7 @@ class AddEducation extends Component {
                   error={errors.to}
                   //disabled={this.state.disabled ? "disabled" : ""}
                 />
-                {/* <div className="form-check mb-4">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                name="current"
-                value={this.state.current}
-                checked={this.state.current}
-                onChange={this.onCheck}
-                id="current"
-              />
-              <label htmlFor="current" className="form-check-label">
-                Current Job
-              </label>
-            </div> */}
+               
                 <TextAreaFieldGroup
                   placeholder="Program Description"
                   name="description"
@@ -131,7 +118,116 @@ class AddEducation extends Component {
                   value="Submit"
                   className="btn btn-info btn-block mt-4"
                 />
-              </form>
+              </form> */}
+
+              <div className="border p-3 border-primary rounded mb-4 bg-light">
+                <div className="alert alert-success p-2">
+                  <h6 className="mb-0">Add/Edit Educational Info</h6>
+                </div>
+                <form onSubmit={this.onSubmit}>
+                  <div className="row">
+                    <div className="col-md-4">
+                      <div className="form-group">
+                        <label className="control-label">Institute</label>
+                        <div className="inputGroupContainer">
+                          <div className="input-group">
+                            <input
+                              id="institute"
+                              name="institute"
+                              placeholder="institute"
+                              class="form-control"
+                              type="text"
+                              value={this.state.institute}
+                              onChange={this.onChange}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-md-4">
+                      <div className="form-group">
+                        <label className="control-label">Degree</label>
+                        <div className="inputGroupContainer">
+                          <div className="input-group">
+                            <input
+                              id="degree"
+                              name="degree"
+                              placeholder="degree"
+                              class="form-control"
+                              type="text"
+                              value={this.state.degree}
+                              onChange={this.onChange}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-md-4">
+                      <div className="form-group">
+                        <label className="control-label">Group</label>
+                        <div className="inputGroupContainer">
+                          <div className="input-group">
+                            <input
+                              id="fieldofstudy"
+                              name="fieldofstudy"
+                              placeholder="fieldofstudy"
+                              class="form-control"
+                              type="text"
+                              value={this.state.fieldofstudy}
+                              onChange={this.onChange}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label className="control-label">Date From</label>
+                        <div className="inputGroupContainer">
+                          <div className="input-group">
+                            <input
+                              id="date"
+                              name="date"
+                              placeholder="date"
+                              class="form-control"
+                              type="date"
+                              value={this.state.date}
+                              onChange={this.onChange}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label className="control-label">Date To</label>
+                        <div className="inputGroupContainer">
+                          <div className="input-group">
+                            <input
+                              id="to"
+                              name="to"
+                              placeholder="to"
+                              class="form-control"
+                              type="date"
+                              value={this.state.to}
+                              onChange={this.onChange}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="form-group d-flex justify-content-center">
+                    <input
+                      type="submit"
+                      value="Submit"
+                      className="btn btn-lg px-5 btn-info mt-4"
+                    />
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>

@@ -95,6 +95,15 @@ const ProfileSchema = new Schema({
     },
     preffered_areas: {
       type: String
+    },
+    division: {
+      type: String
+    },
+    district: {
+      type: String
+    },
+    upazila: {
+      type: String
     }
   },
   img: {

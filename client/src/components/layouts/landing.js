@@ -3,8 +3,12 @@ import $ from "jquery";
 import division from "./division.json";
 import district from "./district.json";
 import upazilas from "./upazilas.json";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { getTutionByLocation } from "../../actions/TutionAction";
 //Import React Scrit Libraray to load Google object
 // Import Search Bar Components
 //import SearchBar from "material-ui-search-bar";
@@ -12,81 +16,17 @@ import { Link } from "react-router-dom";
 class landing extends Component {
   constructor() {
     super();
-    //this.onClick = this.onClick.bind(this);
+    this.state = {
+      division: "",
+      district: "",
+      upazila: ""
+    };
     this.onClick1 = this.onClick1.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onSubmitTutor = this.onSubmitTutor.bind(this);
+    this.onSubmitTution = this.onSubmitTution.bind(this);
   }
 
-  // onClick(e) {
-  //   //search box with dependent drop down with jquery ajax and json data
-  //   $(document).ready(function() {
-  //     var divisionOptions = "";
-  //     var districtOptions = "";
-  //     var upazilaOptions = "";
-
-  //     divisionOptions = '<option value="">Select division</option>';
-  //     $.each(division, function(key, division) {
-  //       divisionOptions +=
-  //         '<option  data-id="' +
-  //         division.id +
-  //         '" value="' +
-  //         division.name +
-  //         '">' +
-  //         division.name +
-  //         "</option>";
-  //     });
-  //     $("#division").html(divisionOptions);
-
-  //     $(document).on("change", "#division", function() {
-  //       var division_id = $(this)
-  //         .find(":selected")
-  //         .data("id");
-  //       console.log(division_id);
-  //       if (division_id != "") {
-  //         districtOptions = '<option value="">Select district</option>';
-  //         $.each(district, function(key, district) {
-  //           if (division_id == district.division_id) {
-  //             districtOptions +=
-  //               '<option  data-id="' +
-  //               district.id +
-  //               '"   value="' +
-  //               district.name +
-  //               '">' +
-  //               district.name +
-  //               "</option>";
-  //           }
-  //         });
-  //         $("#district").html(districtOptions);
-  //       } else {
-  //         $("#district").html('<option value="">Select district</option>');
-  //         $("#upazila").html('<option value="">Select upazila</option>');
-  //       }
-  //     });
-  //     $(document).on("change", "#district", function() {
-  //       upazilaOptions = null;
-  //       var district_id = $(this)
-  //         .find(":selected")
-  //         .data("id"); //getting id from selected options
-  //       if (district_id != "") {
-  //         upazilaOptions += '<option value="">Select upazila</option>';
-  //         $.each(upazilas, function(key, upazila) {
-  //           if (district_id == upazila.district_id) {
-  //             upazilaOptions +=
-  //               '<option data-id="' +
-  //               upazila.id +
-  //               '"       value="' +
-  //               upazila.name +
-  //               '">' +
-  //               upazila.name +
-  //               "</option>";
-  //           }
-  //         });
-  //         $("#upazila").html(upazilaOptions);
-  //       } else {
-  //         $("#upazila").html('<option value="">Select upazila</option>');
-  //       }
-  //     });
-  //   });
-  // }
   onClick1(e) {
     //search box with dependent drop down with jquery ajax and json data
     $(document).ready(function() {
@@ -230,6 +170,19 @@ class landing extends Component {
       });
     });
   }
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+  onSubmitTution(e) {
+    e.preventDefault();
+    const searchdata = {
+      division: this.state.division,
+      district: this.state.district,
+      upazila: this.state.upazila
+    };
+    this.props.getTutionByLocation(searchdata, this.props.history);
+  }
+  onSubmitTutor(e) {}
   render() {
     return (
       <div>
@@ -253,73 +206,97 @@ class landing extends Component {
           </ul>
 
           <div class="tab-content">
-            <div id="home" class="container tab-pane active">
+            <div id="home" className="container tab-pane active">
               <br></br>
-              <h2 align="center">Search your Desired Tutor</h2>
-              <br />
-              <br />
-              <select
-                name="division"
-                id="division"
-                className="form-control input-lg"
-              >
-                <option value="">Select division</option>
-              </select>
-              <br />
-              <select
-                name="district"
-                id="district"
-                className="form-control input-lg"
-              >
-                <option value="">Select district</option>
-              </select>
-              <br />
-              <select
-                className="mb-3"
-                name="upazila"
-                id="upazila"
-                className="form-control input-lg"
-              >
-                <option value="">Select upazila</option>
-              </select>
+              <form onSubmit={this.onSubmitTutor}>
+                <div className="border p-3 border-primary rounded mb-3 bg-light">
+                  <div className="alert alert-success p-2 justify-content-center">
+                    <h4 className="text-center">Search Your Desired Tutor</h4>
+                  </div>
 
-              <Link to="/" className="btn btn-primary btn-sm">
-                Search
-              </Link>
+                  <select
+                    name="division"
+                    id="division"
+                    className="form-control input-lg"
+                    value={this.state.division}
+                    onChange={this.onChange}
+                  >
+                    <option value="">Select division</option>
+                  </select>
+                  <br />
+                  <select
+                    name="district"
+                    id="district"
+                    className="form-control input-lg"
+                    value={this.state.district}
+                    onChange={this.onChange}
+                  >
+                    <option value="">Select district</option>
+                  </select>
+                  <br />
+                  <select
+                    className="mb-3"
+                    name="upazila"
+                    id="upazila"
+                    className="form-control input-lg"
+                    value={this.state.upazila}
+                    onChange={this.onChange}
+                  >
+                    <option value="">Select upazila</option>
+                  </select>
+                </div>
+                <div className="form-group d-flex justify-content-center">
+                  <button className="btn btn-lg px-5 btn-info mt-4">
+                    Search
+                  </button>
+                </div>
+              </form>
             </div>
             <div id="menu1" class="container tab-pane fade">
               <br></br>
-              <h2 align="center">Search your Desired Tution</h2>
-              <br />
-              <br />
-              <select
-                name="division1"
-                id="division1"
-                className="form-control input-lg"
-              >
-                <option value="">Select division</option>
-              </select>
-              <br />
-              <select
-                name="district1"
-                id="district1"
-                className="form-control input-lg"
-              >
-                <option value="">Select district</option>
-              </select>
-              <br />
-              <select
-                className="mb-3"
-                name="upazila1"
-                id="upazila1"
-                className="form-control input-lg"
-              >
-                <option value="">Select upazila</option>
-              </select>
+              <form onSubmit={this.onSubmitTution}>
+                <div className="border p-3 border-primary rounded mb-3 bg-light">
+                  <div className="alert alert-success p-2 justify-content-center">
+                    <h4 className="text-center">Search Your Desired Tution</h4>
+                  </div>
 
-              <Link to="/" className="btn btn-primary btn-sm">
-                Search
-              </Link>
+                  <select
+                    name="division"
+                    id="division1"
+                    className="form-control input-lg"
+                    value={this.state.division}
+                    onChange={this.onChange}
+                  >
+                    <option value="">Select division</option>
+                  </select>
+                  <br />
+                  <select
+                    name="district"
+                    id="district1"
+                    className="form-control input-lg"
+                    value={this.state.district}
+                    onChange={this.onChange}
+                  >
+                    <option value="">Select district</option>
+                  </select>
+                  <br />
+                  <select
+                    className="mb-3"
+                    name="upazila"
+                    id="upazila1"
+                    className="form-control input-lg"
+                    value={this.state.upazila}
+                    onChange={this.onChange}
+                  >
+                    <option value="">Select upazila</option>
+                  </select>
+                </div>
+                <div className="form-group d-flex justify-content-center">
+                  <button className="btn btn-lg px-5 btn-info mt-4">
+                    Search
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -327,5 +304,10 @@ class landing extends Component {
     );
   }
 }
-
-export default landing;
+landing.propTypes = {
+  getTutionByLocation: PropTypes.func.isRequired
+};
+export default connect(
+  null,
+  { getTutionByLocation }
+)(landing);
