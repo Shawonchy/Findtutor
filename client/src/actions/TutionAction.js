@@ -71,6 +71,28 @@ export const getEmailTutor = value => dispatch => {
     .catch(err => console.log(err));
 };
 
+//get all applied tutions
+
+export const getAppliedTutions = () => dispatch => {
+  dispatch(setTutionLoading());
+  axios
+    .get("/api/tution/applied-tution")
+    .then(res => {
+      dispatch({
+        type: GET_TUTIONS,
+        payload: res.data
+      });
+      console.log(res.data);
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_TUTIONS,
+        payload: null
+      });
+      console.log(err);
+    });
+};
+
 export const setTutionLoading = () => {
   return {
     type: TUTION_LOADING

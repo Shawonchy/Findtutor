@@ -28,7 +28,13 @@ var Userschema = new Schema({
   ispremium: {
     type: Boolean,
     default: false
-  }
+  },
+  application: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "requestfortutor"
+    }
+  ]
 });
 
 var User = mongoose.model("user", Userschema);

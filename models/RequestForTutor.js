@@ -67,6 +67,10 @@ const RequestForTutorSchema = new Schema({
   instruction: {
     type: String
   },
+  isActive: {
+    type: Boolean,
+    default: false
+  },
   posted_at: { type: Date, default: Date.now }
 });
 //Sets the posted_at parameter equal to the current time

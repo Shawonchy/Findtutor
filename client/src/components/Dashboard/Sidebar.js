@@ -25,15 +25,15 @@ class Sidebar extends Component {
                 </Link>
               </li>
               <li className="nav-item">
-                <a href="#" className="nav-link">
-                  <i className="fa fa-pencil" aria-hidden="true" /> Personal
-                  Information
-                </a>
+                <Link to="/myapplications" className="nav-link">
+                  <i className="fa fa-pencil" aria-hidden="true" /> My
+                  Applications
+                </Link>
               </li>
               <li className="nav-item">
                 <a href="#" className="nav-link">
-                  <i className="fa fa-pencil" aria-hidden="true" /> Academic
-                  Information
+                  <i className="fa fa-pencil" aria-hidden="true" /> My Current
+                  Student/Tutions
                 </a>
               </li>
               <li className="nav-item">

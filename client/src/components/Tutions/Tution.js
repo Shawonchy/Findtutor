@@ -14,7 +14,7 @@ class Tution extends Component {
   constructor() {
     super();
 
-    //this.onClickHandler = this.onClickHandler.bind(this);
+    this.onClickHandler = this.onClickHandler.bind(this);
     this.handleToken = this.handleToken.bind(this);
   }
   //this lifecycle method executed after render
@@ -66,6 +66,17 @@ class Tution extends Component {
       .catch(err => console.log(err));
   }
 
+  onClickHandler() {
+    const applydata = {
+      tution: this.props.tution.tution
+    };
+    console.log(applydata);
+    axios
+      .post("http://localhost:5000/api/applytution/", applydata)
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err));
+  }
+
   render() {
     const { tution, loading } = this.props.tution;
     const { user, isAuthenticated } = this.props.auth;
@@ -101,6 +112,20 @@ class Tution extends Component {
             stripeKey="pk_test_RKLWJ7vbzP4LfxzkEgKA1Hly00Z61MJBFV"
             token={this.handleToken}
           />
+        );
+      }
+      //apply for tution
+      let isApply;
+      if (isAuthenticated) {
+        isApply = (
+          <div>
+            <button
+              onClick={this.onClickHandler}
+              className="btn btn-primary btn-sm"
+            >
+              apply
+            </button>
+          </div>
         );
       }
 
@@ -212,6 +237,7 @@ class Tution extends Component {
           </div>
           {stripePayment}
           {islogedin}
+          {isApply}
 
           {/* <div className="row">
             <div className="col-md-6">Full name: {tution.name}</div>

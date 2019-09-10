@@ -1,6 +1,7 @@
 const AdminBro = require("admin-bro");
 const AdminBroExpress = require("admin-bro-expressjs");
 const AdminBroMongoose = require("admin-bro-mongoose");
+const ApplyTution = require("../../models/ApplyTution");
 const mongoose = require("mongoose");
 AdminBro.registerAdapter(AdminBroMongoose);
 const adminBro = new AdminBro({
@@ -10,6 +11,12 @@ const adminBro = new AdminBro({
     companyName: "FindTutor"
   }
 });
+
+// // Passing resources one by one
+// const AdminBro = new AdminBro({
+//   resources: [ApplyTution]
+//   //... other AdminBroOptions
+// });
 
 const ADMIN = {
   email: "findtutor@gmail.com",

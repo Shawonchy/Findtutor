@@ -23,7 +23,7 @@ router.get(
   (req, res) => {
     errors = {};
     Profile.findOne({ user: req.user.id })
-      .populate("user", ["name", "avatar"])
+      .populate("user", ["name", "avatar"]) //explore user field of profile collection
       .then(profile => {
         if (!profile) {
           errors.profile = "this user has not created profile";

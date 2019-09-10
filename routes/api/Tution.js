@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const RequestForTutor = require("../../models/RequestForTutor");
+const User = require("../../models/User");
+const passport = require("passport");
 //@api/tution/all
 router.get("/all", (req, res) => {
   const errors = {};
@@ -18,6 +20,23 @@ router.get("/all", (req, res) => {
       res.status(404).json(err);
     });
 });
+//get applied tutions
+//@api/tution/applied-tution
+router.get(
+  "/applied-tution",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findOne({ _id: req.user.id })
+      .populate("application") //explore application field of user collection
+      .then(user => {
+        if (user) {
+          res.json(user.application);
+        }
+      })
+      .catch(err => res.json(err));
+  }
+);
+
 //api/tution/id/:id
 
 router.get("/id/:id", (req, res) => {

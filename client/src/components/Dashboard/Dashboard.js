@@ -11,6 +11,7 @@ import Dashboardlayout from "./html/Myprofile";
 import DashboardProfile from "./DashboardProfile";
 import Sidebar from "./Sidebar";
 import Uploadphoto from "./Uploadphoto";
+import MyApplications from "./MyApplications";
 import AddTutionInfo from "../add-credential/AddTutuionInfo";
 import AddEducation from "../add-credential/AddEducation";
 import { getTutions } from "../../actions/TutionAction";
@@ -75,6 +76,11 @@ class dashboard extends Component {
                       component={DashboardProfile}
                     />
                     <Route exact path="/uploadphoto" component={Uploadphoto} />
+                    <Route
+                      exact
+                      path="/myapplications"
+                      component={MyApplications}
+                    />
 
                     <Route
                       exact
