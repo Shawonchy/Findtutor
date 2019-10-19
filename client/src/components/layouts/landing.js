@@ -9,6 +9,7 @@ import { withRouter } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { getTutionByLocation } from "../../actions/TutionAction";
+import { getsearchTutorProfile } from "../../actions/ProfileAction";
 //Import React Scrit Libraray to load Google object
 // Import Search Bar Components
 //import SearchBar from "material-ui-search-bar";
@@ -182,7 +183,15 @@ class landing extends Component {
     };
     this.props.getTutionByLocation(searchdata, this.props.history);
   }
-  onSubmitTutor(e) {}
+  onSubmitTutor(e) {
+    e.preventDefault();
+    const searchdata = {
+      division: this.state.division,
+      district: this.state.district,
+      upazila: this.state.upazila
+    };
+    this.props.getsearchTutorProfile(searchdata, this.props.history);
+  }
   render() {
     return (
       <div>
@@ -305,9 +314,10 @@ class landing extends Component {
   }
 }
 landing.propTypes = {
-  getTutionByLocation: PropTypes.func.isRequired
+  getTutionByLocation: PropTypes.func.isRequired,
+  getsearchTutorProfile: PropTypes.func.isRequired
 };
 export default connect(
   null,
-  { getTutionByLocation }
+  { getTutionByLocation, getsearchTutorProfile }
 )(landing);

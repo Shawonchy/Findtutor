@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Education from "./Education";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import isEmpty from "../../validation/isEmpty";
 
 class DashboardProfile extends Component {
   constructor(props) {
@@ -21,21 +22,135 @@ class DashboardProfile extends Component {
   }
   //rendering image
   componentDidMount() {
-    axios.get("http://localhost:5000/api/profile/getphoto").then(res => {
-      console.log(res.data.data);
-      var base64Flag = "data:image/jpeg;base64,";
-      var imageStr = this.arrayBufferToBase64(res.data.data.data);
-      this.setState({
-        img: base64Flag + imageStr
-      });
-    });
+    axios
+      .get("http://localhost:5000/api/profile/getphoto")
+      .then(res => {
+        console.log(res.data.data);
+        var base64Flag = "data:image/jpeg;base64,";
+        var imageStr = this.arrayBufferToBase64(res.data.data.data);
+        this.setState({
+          img: base64Flag + imageStr
+        });
+      })
+      .catch(err => console.log("error occured"));
   }
-
   render() {
     const { img } = this.state;
     console.log(img);
     const { user } = this.props.auth;
+    console.log(user);
     const { profile } = this.props.profile;
+    console.log(profile.tution_info);
+    console.log(profile.education);
+
+    let tutionInfoContent;
+    if (typeof profile.tution_info == "undefined") {
+      tutionInfoContent = (
+        <table className="table table-bordered">
+          <tr>
+            <th className="bg-light">Expected Salary</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th className="bg-light">Days Per Week</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th className="bg-light">Preffered Subject</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th className="bg-light">Preffered Class</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th className="bg-light">Preffered Medium</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th className="bg-light">Current Status</th>
+            <td></td>
+          </tr>
+        </table>
+      );
+    } else {
+      tutionInfoContent = (
+        <table className="table table-bordered">
+          <tr>
+            <th className="bg-light">Expected Salary</th>
+            <td>
+              {
+                (profile.tution_info.expected_min_salary = !isEmpty(
+                  profile.tution_info.expected_min_salary
+                )
+                  ? profile.tution_info.expected_min_salary
+                  : "")
+              }
+            </td>
+          </tr>
+          <tr>
+            <th className="bg-light">Days Per Week</th>
+            <td>
+              {
+                (profile.tution_info.days_per_week = !isEmpty(
+                  profile.tution_info.days_per_week
+                )
+                  ? profile.tution_info.days_per_week
+                  : "")
+              }
+            </td>
+          </tr>
+          <tr>
+            <th className="bg-light">Preffered Subject</th>
+            <td>
+              {
+                (profile.tution_info.preffered_subject = !isEmpty(
+                  profile.tution_info.preffered_subject
+                )
+                  ? profile.tution_info.preffered_subject
+                  : "")
+              }
+            </td>
+          </tr>
+          <tr>
+            <th className="bg-light">Preffered Class</th>
+            <td>
+              {
+                (profile.tution_info.preferred_class = !isEmpty(
+                  profile.tution_info.preferred_class
+                )
+                  ? profile.tution_info.preferred_class
+                  : "")
+              }
+            </td>
+          </tr>
+          <tr>
+            <th className="bg-light">Preffered Medium</th>
+            <td>
+              {
+                (profile.tution_info.preffered_medium = !isEmpty(
+                  profile.tution_info.preffered_medium
+                )
+                  ? profile.tution_info.preffered_medium
+                  : "")
+              }
+            </td>
+          </tr>
+          <tr>
+            <th className="bg-light">Current Status</th>
+            <td>
+              {
+                (profile.tution_info.current_Status_for_Tuition = !isEmpty(
+                  profile.tution_info.current_Status_for_Tuition
+                )
+                  ? profile.tution_info.current_Status_for_Tuition
+                  : "")
+              }
+            </td>
+          </tr>
+        </table>
+      );
+    }
     return (
       <div>
         <div className="row mb-3">
@@ -61,26 +176,38 @@ class DashboardProfile extends Component {
             <div className="alert alert-success p-2">
               <h5 className="mb-0">Welcome {user.name}</h5>
             </div>
-            <table>
-              <tr>
+            <table className="table table-bordered">
+              {/* <tr>
                 <th className="bg-light">Qualification</th>
                 <td></td>
-              </tr>
+              </tr> */}
               <tr>
                 <th className="bg-light">Experience</th>
-                <td></td>
+                <td>
+                  {
+                    (profile.experience = !isEmpty(profile.experience)
+                      ? profile.experience
+                      : "")
+                  }
+                </td>
               </tr>
               <tr>
                 <th className="bg-light">Area Covered</th>
-                <td></td>
+                <td>
+                  {
+                    (profile.upazila = !isEmpty(profile.upazila)
+                      ? profile.upazila
+                      : "")
+                  }
+                </td>
               </tr>
               <tr>
                 <th className="bg-light">Phone</th>
-                <td></td>
+                <td>{(user.phone = !isEmpty(user.phone) ? user.phone : "")}</td>
               </tr>
               <tr>
                 <th className="bg-light">Email</th>
-                <td></td>
+                <td>{(user.email = !isEmpty(user.email) ? user.email : "")}</td>
               </tr>
             </table>
           </div>
@@ -88,32 +215,7 @@ class DashboardProfile extends Component {
         <div className="row">
           <div className="col-md-9">
             <div class="alert alert-info">Tution Info</div>
-            <table className="table table-bordered">
-              <tr>
-                <th className="bg-light">Expected Salary</th>
-                <td>{profile.tution_info.expected_min_salary}</td>
-              </tr>
-              <tr>
-                <th className="bg-light">Days Per Week</th>
-                <td>{profile.tution_info.days_per_week}</td>
-              </tr>
-              <tr>
-                <th className="bg-light">Preffered Subject</th>
-                <td>{profile.tution_info.preffered_subject}</td>
-              </tr>
-              <tr>
-                <th className="bg-light">Preffered Class</th>
-                <td>{profile.tution_info.preferred_class}</td>
-              </tr>
-              <tr>
-                <th className="bg-light">Preffered Medium</th>
-                <td>{profile.tution_info.preffered_medium}</td>
-              </tr>
-              <tr>
-                <th className="bg-light">Current Status</th>
-                <td>{profile.tution_info.current_Status_for_Tuition}</td>
-              </tr>
-            </table>
+            {tutionInfoContent}
           </div>
           <div className="col-md-3">
             <Link to="/tution-info" className="btn btn-primary btn-sm mt-2">

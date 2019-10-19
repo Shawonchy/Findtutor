@@ -9,19 +9,20 @@ class MyApplications extends Component {
     this.props.getAppliedTutions();
   }
   render() {
-    const { tutions, loading } = this.props.tution;
+    const { appliedtutions, loading } = this.props.tution;
     const { isAuthenticated } = this.props.auth;
+    console.log(appliedtutions);
     let tutionItems;
-    if (tutions === null || loading) {
+    if (appliedtutions === null || loading) {
       tutionItems = <Spinner />;
     } else {
-      //console.log(tutions.length);
-      //console.log(typeof tutions);
-      if (tutions.length > 0) {
-        console.log(typeof tutions);
-        console.log(tutions.length);
-        console.log(tutions);
-        tutionItems = tutions.map(tution => (
+      //console.log(appliedtutions.length);
+      //console.log(typeof appliedtutions);
+      if (appliedtutions.length > 0) {
+        console.log(typeof appliedtutions);
+        console.log(appliedtutions.length);
+        console.log(appliedtutions);
+        tutionItems = appliedtutions.map(tution => (
           //tution property is sent to tutionItems component
           <TutionItems
             key={tution._id}

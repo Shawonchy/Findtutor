@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import classnames from "classnames";
 import { connect } from "react-redux"; //for connecting component with redux
-import { loginUser } from "../../actions/AuthAction";
+import { loginAdmin } from "../../actions/AdminActions/AuthAdminAction";
 import PropTypes from "prop-types";
 
-class login extends Component {
+class AdminLogin extends Component {
   // create state
   constructor() {
     super();
@@ -18,15 +18,15 @@ class login extends Component {
   }
   //if logged in then only path "/dashboard" will be redirect
   componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
+    if (this.props.admin.isAuthenticated) {
+      this.props.history.push("/admin/dashboard");
     }
   }
 
   //if component receive a new props
   componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
+    if (nextProps.admin.isAuthenticated) {
+      this.props.history.push("/admin/dashboard");
     }
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
@@ -35,12 +35,12 @@ class login extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    const logged_user = {
+    const logged_admin = {
       email: this.state.email,
       password: this.state.password
     };
-    //console.log(logged_user);
-    this.props.loginUser(logged_user);
+    //console.log(logged_admin);
+    this.props.loginAdmin(logged_admin);
   }
 
   //on change function fired when a input is given e==event
@@ -51,13 +51,13 @@ class login extends Component {
   render() {
     const errors = this.state.errors; //assigning errors to from state
     return (
-      <div className="login">
+      <div className="AdminLogin">
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Log In</h1>
               <p className="lead text-center">
-                Sign in to your FindTutor account
+                Sign in to your FindTutor Admin account
               </p>
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">
@@ -114,19 +114,19 @@ class login extends Component {
   }
 }
 //defining properties type
-login.propTypes = {
-  auth: PropTypes.object.isRequired,
+AdminLogin.propTypes = {
+  admin: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
-  loginUser: PropTypes.func.isRequired
+  loginAdmin: PropTypes.func.isRequired
 };
 
 //connect state from store to component as props(property)
 const mapStateToProps = state => ({
-  auth: state.auth,
+  admin: state.admin,
   errors: state.errors
 });
 //connecting properties and state to component
 export default connect(
   mapStateToProps,
-  { loginUser }
-)(login);
+  { loginAdmin }
+)(AdminLogin);

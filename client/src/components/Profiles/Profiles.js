@@ -5,6 +5,7 @@ import { getProfiles } from "../../actions/ProfileAction";
 import ProfileItems from "./ProfileItems";
 import Spinner from "../Common/Spinner";
 import { Link } from "react-router-dom";
+import isEmpty from "../../validation/isEmpty";
 class Profiles extends Component {
   constructor() {
     super();
@@ -57,7 +58,7 @@ class Profiles extends Component {
                   <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
                     <div class="avatar mx-auto">
                       <img
-                        src="https://mdbootstrap.com/img/Photos/Avatars/img%20(20).jpg"
+                        src="https://png.pngtree.com/element_our/png/20181206/users-vector-icon-png_260862.jpg"
                         class="rounded-circle z-depth-1 w-50"
                         alt="Sample avatar"
                       ></img>
@@ -66,7 +67,14 @@ class Profiles extends Component {
                       {profiles[i].user.name}
                     </h5>
                     <p class="text-muted" style={{ fontSize: "14px" }}>
-                      <strong>Graphic designer</strong>
+                      <strong>
+                        {
+                          (profiles[i].expert = !isEmpty(profiles[i].expert)
+                            ? profiles[i].expert
+                            : "")
+                        }{" "}
+                        teacher
+                      </strong>
                     </p>
                     {/* <ul class="list-unstyled mb-0">
                     <a class="p-2 fa-lg fb-ic">
@@ -101,7 +109,16 @@ class Profiles extends Component {
                       {profiles[i + 1].user.name}
                     </h5>
                     <p class="text-muted" style={{ fontSize: "14px" }}>
-                      <strong>Web developer</strong>
+                      <strong>
+                        {
+                          (profiles[i + 1].expert = !isEmpty(
+                            profiles[i + 1].expert
+                          )
+                            ? profiles[i + 1].expert
+                            : "")
+                        }{" "}
+                        teacher
+                      </strong>
                     </p>
                     {/* <ul class="list-unstyled mb-0">
                     <a class="p-2 fa-lg fb-ic">
@@ -129,10 +146,25 @@ class Profiles extends Component {
                       ></img>
                     </div>
                     <h5 class="font-weight-bold mt-4 mb-1">
-                      {profiles[i + 2].user.name}
+                      {/* {
+                        (profiles[i + 2].user.name = !isEmpty(
+                          profiles[i + 2].user.name
+                        )
+                          ? profiles[i + 2].user.name
+                          : "")
+                      } */}
                     </h5>
                     <p class="text-muted" style={{ fontSize: "14px" }}>
-                      <strong>Photographer</strong>
+                      <strong>
+                        {
+                          (profiles[i + 2].expert = !isEmpty(
+                            profiles[i + 2].expert
+                          )
+                            ? profiles[i + 2].expert
+                            : "")
+                        }{" "}
+                        teacher
+                      </strong>
                     </p>
                     {/* <ul class="list-unstyled mb-0">
                     <a class="p-2 fa-lg fb-ic">
@@ -167,7 +199,16 @@ class Profiles extends Component {
                       {profiles[i + 3].user.name}
                     </h5>
                     <p class="text-muted" style={{ fontSize: "14px" }}>
-                      <strong>Backend developer</strong>
+                      <strong>
+                        {
+                          (profiles[i + 3].expert = !isEmpty(
+                            profiles[i + 3].expert
+                          )
+                            ? profiles[i + 3].expert
+                            : "")
+                        }{" "}
+                        teacher
+                      </strong>
                     </p>
                     {/* <ul class="list-unstyled mb-0">
                     <a class="p-2 fa-lg fb-ic">

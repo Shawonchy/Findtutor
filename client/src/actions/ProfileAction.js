@@ -12,19 +12,21 @@ import axios from "axios";
 export const getCurrentProfile = () => dispatch => {
   dispatch(setProfileLoading()); //for loading (spinner)
   axios
-    .get("/api/profile")
-    .then(res =>
+    .get("http://localhost:5000/api/profile")
+    .then(res => {
       dispatch({
         type: GET_PROFILE,
         payload: res.data
-      })
-    )
+      });
+      console.log(res.data);
+    })
     //if there is no profile retured then payload will be an empty object
     .catch(err => {
       dispatch({
         type: GET_PROFILE,
         payload: {}
       });
+      console.log("something wrong");
     });
 };
 //posting to profile api
@@ -35,12 +37,13 @@ export const createProfile = (profileData, history) => dispatch => {
       console.log(res.data);
       history.push("/dashboard");
     })
-    .catch(err =>
+    .catch(err => {
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
-      })
-    );
+      });
+      console.log(err.response.data);
+    });
 };
 //add education
 export const addEducation = (eduData, history) => dispatch => {
@@ -65,6 +68,7 @@ export const addTutionInfo = (tutionInfoData, history) => dispatch => {
         type: GET_ERRORS,
         payload: err.response.data
       });
+      console.log(err);
     });
 };
 

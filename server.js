@@ -9,8 +9,9 @@ const post = require("./routes/api/post");
 const requestfortutor = require("./routes/api/RequestForTutor");
 const tution = require("./routes/api/Tution");
 const EmailTutor = require("./routes/api/EmailTutor");
-const Adminpanel = require("./routes/api/AdminPanel");
+//const Adminpanel = require("./routes/api/AdminPanel");
 const ApplyTution = require("./routes/api/ApplyTution");
+const Admin = require("./routes/api/Admin");
 //const token = require("./routes/api/token_confirm");
 
 //for php
@@ -54,7 +55,7 @@ app.use("/api/post", post);
 app.use("/api/request-a-tutor", requestfortutor);
 app.use("/api/tution", tution);
 app.use("/api/email-tutor", EmailTutor);
-app.use("/admin", Adminpanel);
+app.use("/api/admin", Admin);
 app.use("/api/applytution", ApplyTution);
 
 const port = process.env.PORT || 5000;

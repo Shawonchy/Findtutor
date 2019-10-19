@@ -15,7 +15,7 @@ class AddEducation extends Component {
       fieldofstudy: "",
       from: "",
       to: "",
-      current_Status_for_Tuition: "",
+      //current_Status_for_Tuition: "",
       //current: false,
       description: "",
       errors: {}
@@ -37,10 +37,10 @@ class AddEducation extends Component {
       degree: this.state.degree,
       fieldofstudy: this.state.fieldofstudy,
       from: this.state.from,
-      to: this.state.to,
-      current_Status_for_Tuition: this.state.current_Status_for_Tuition,
+      to: this.state.to
+      //current_Status_for_Tuition: this.state.current_Status_for_Tuition,
       //current: this.state.current,
-      description: this.state.description
+      //description: this.state.description
     };
 
     this.props.addEducation(eduData, this.props.history);
@@ -188,12 +188,12 @@ class AddEducation extends Component {
                         <div className="inputGroupContainer">
                           <div className="input-group">
                             <input
-                              id="date"
-                              name="date"
-                              placeholder="date"
+                              id="from"
+                              name="from"
+                              placeholder="from"
                               class="form-control"
                               type="date"
-                              value={this.state.date}
+                              value={this.state.from}
                               onChange={this.onChange}
                             />
                           </div>

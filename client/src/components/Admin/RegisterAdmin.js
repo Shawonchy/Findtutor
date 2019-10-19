@@ -4,9 +4,12 @@ import { connect } from "react-redux"; //for connecting component with redux
 import { registerUser } from "../../actions/AuthAction"; //importing auth_action
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
+import axios from "axios";
+import FlashMessage from "react-flash-message";
 
-class register extends Component {
-  // create state
+import { render } from "react-dom";
+
+class RegisterAdmin extends Component {
   constructor() {
     super();
     this.state = {
@@ -19,20 +22,6 @@ class register extends Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  //if logged in then only path "/dashboard" will be redirect
-  componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
-    }
-  }
-
-  //if component receive a new props
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-    }
   }
 
   //on change function fired when a input is given e==event
@@ -50,20 +39,17 @@ class register extends Component {
       password2: this.state.password2
     };
 
-    this.props.registerUser(newUser, this.props.history);
-    //console.log(newuser);
-    // axios
-    //   .post("/api/users/register", newUser)
-    //   .then(res => {
-    //     console.log(res.data);
-    //     this.props.history.push("/login");
-    //   })
-    //   .catch(err => this.setState({ errors: err.response.data })); //assigning state errors with err if found
+    axios
+      .post("http://localhost:5000/api/admin/register", newUser)
+      .then(res => {
+        //render(Message, document.body);
+        this.props.history.push("/");
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
-    const errors = this.state.errors; //assigning errors to from state
-    //const user = this.props.auth.user;
+    const errors = this.state.errors;
 
     return (
       <div className="register">
@@ -71,8 +57,7 @@ class register extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Sign Up</h1>
-              <p className="lead text-center">Create your FindTutor account</p>
+              <h1 className="display-4 text-center">Register Admin</h1>
               <div className="border p-3 border-primary rounded mb-4 bg-light">
                 <form onSubmit={this.onSubmit}>
                   <div className="form-group">
@@ -175,21 +160,11 @@ class register extends Component {
     );
   }
 }
-//defining properties type
-register.propTypes = {
-  registerUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
+RegisterAdmin.propTypes = {
   errors: PropTypes.object.isRequired
 };
 
-//connect state from store to component as props(property)
 const mapStateToProps = state => ({
-  auth: state.auth,
   errors: state.errors
 });
-
-//
-export default connect(
-  mapStateToProps,
-  { registerUser }
-)(withRouter(register));
+export default connect(mapStateToProps)(withRouter(RegisterAdmin));

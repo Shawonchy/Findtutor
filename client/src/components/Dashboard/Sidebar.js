@@ -31,10 +31,10 @@ class Sidebar extends Component {
                 </Link>
               </li>
               <li className="nav-item">
-                <a href="#" className="nav-link">
+                <Link to="/mycurrent-tution" className="nav-link">
                   <i className="fa fa-pencil" aria-hidden="true" /> My Current
                   Student/Tutions
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <a href="#" className="nav-link">

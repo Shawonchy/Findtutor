@@ -1,3 +1,5 @@
+// tutions applied by tutors
+
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
@@ -34,5 +36,19 @@ router.post(
     });
   }
 );
+
+//get info about all tutions applied by tutors
+//@api/applytution/all-applied-tutions
+router.get("/all-applied-tutions", (req, res) => {
+  ApplyTution.find()
+    .then(applytutions => {
+      if (!applytutions) {
+        res.status(404).json({ msg: "No applied tutions is found" });
+      } else {
+        res.status(200).json(applytutions);
+      }
+    })
+    .catch(err => res.status(404).json(err));
+});
 
 module.exports = router;

@@ -117,9 +117,11 @@ router.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  User.findOne({ email: email }).then(user => {
+  User.findOne({ email: email, isVerified: true }).then(user => {
     if (!user) {
-      return res.status(404).json({ msg: "user not found" });
+      return res
+        .status(404)
+        .json({ msg: "User not found or User is not verified" });
     }
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
@@ -129,7 +131,9 @@ router.post("/login", (req, res) => {
           name: user.name,
           avatar: user.avatar,
           isVerified: user.isVerified,
-          ispremium: user.ispremium
+          ispremium: user.ispremium,
+          phone: user.phone,
+          email: user.email
         }; //jwt payload
         jwt.sign(
           payload,
@@ -157,6 +161,17 @@ router.get(
     res.json(req.user);
   }
 );
+
+//deleting a user
+router.delete("/delete-user/:id", (req, res) => {
+  User.findOneAndDelete({ _id: req.params.id })
+    .then(doc => {
+      if (!doc) {
+        res.status(200).json({ msg: "deleted successfully" });
+      }
+    })
+    .catch(err => console.log(err));
+});
 //email verify token confirmation
 router.post("/confirmation", (req, res) => {
   const restoken = {
@@ -186,12 +201,25 @@ router.post("/confirmation", (req, res) => {
           return res.status(500).send({ msg: err.message });
         }
         restoken.token = true;
-        res.status(200).send(restoken.token);
+        res.status(200).json(restoken);
         //res.status(200).json();
       });
     });
   });
 });
+//get current tutions
+//@/api/users/current-tutions
+
+router.get(
+  "/current-tutions",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findOne({ _id: req.user.id })
+      .populate("currenttution")
+      .then(user => res.json(user.currenttution))
+      .catch(err => res.json(err));
+  }
+);
 
 //tutor category update and handle stripe payment transection
 router.post("/update-tutor-type", async (req, res) => {

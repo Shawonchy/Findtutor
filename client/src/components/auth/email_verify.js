@@ -16,7 +16,7 @@ class email_verify extends Component {
       type: ""
     };
   }
-  componentDidMount() {
+  componentWillMount() {
     axios
       .post("http://localhost:5000/api/users/confirmation", {
         token: this.props.match.params.token
@@ -43,12 +43,16 @@ class email_verify extends Component {
   }
 
   render() {
+    const { isVerified } = this.state;
+    console.log(isVerified);
     //console.log(this.props);
     //this.props.emailVerification(tokenobj);
     //const isVerified = this.props.verify.isVerified;
     const tokenVerified = (
       <div>
-        <h1>"you are successfully registered"</h1>
+        <div class="alert alert-success" role="alert">
+          You are successfully verified
+        </div>
         <Link className="btn btn-info" to="/login">
           Login
         </Link>

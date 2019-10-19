@@ -19,7 +19,7 @@ module.exports = function validateRegisterInput(data) {
   if (validator.isEmpty(data.email)) {
     errors.email = "email is required";
   }
-  if (!validator.isEmail(data.email)) {
+  if (!validator.isEmpty(data.email) && !validator.isEmail(data.email)) {
     errors.email = "email is invaild";
   }
   if (validator.isEmpty(data.password)) {
@@ -28,7 +28,10 @@ module.exports = function validateRegisterInput(data) {
   if (validator.isEmpty(data.password2)) {
     errors.password2 = "password2 is required";
   }
-  if (!validator.isLength(data.password, { min: 6, max: 30 })) {
+  if (
+    !validator.isEmpty(data.password) &&
+    !validator.isLength(data.password, { min: 6, max: 30 })
+  ) {
     errors.password = "password must be 6 charecter";
   }
   if (!validator.equals(data.password, data.password2)) {

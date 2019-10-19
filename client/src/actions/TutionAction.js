@@ -1,4 +1,10 @@
-import { GET_TUTIONS, GET_TUTION, TUTION_LOADING, GET_ERRORS } from "./types";
+import {
+  GET_TUTIONS,
+  GET_TUTION,
+  TUTION_LOADING,
+  GET_ERRORS,
+  GET_APPLIEDTUTION
+} from "./types";
 import axios from "axios";
 
 export const getTutions = () => dispatch => {
@@ -79,14 +85,14 @@ export const getAppliedTutions = () => dispatch => {
     .get("/api/tution/applied-tution")
     .then(res => {
       dispatch({
-        type: GET_TUTIONS,
+        type: GET_APPLIEDTUTION,
         payload: res.data
       });
       console.log(res.data);
     })
     .catch(err => {
       dispatch({
-        type: GET_TUTIONS,
+        type: GET_APPLIEDTUTION,
         payload: null
       });
       console.log(err);
@@ -98,4 +104,4 @@ export const setTutionLoading = () => {
     type: TUTION_LOADING
   };
 };
-export const getTution = () => dispatch => {};
+//export const getTution = () => dispatch => {};

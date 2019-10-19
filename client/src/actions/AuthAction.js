@@ -1,4 +1,9 @@
-import { GET_ERRORS, SET_CURRENT_USER, EMAIL_VERIFICATION } from "./types";
+import {
+  GET_ERRORS,
+  SET_CURRENT_USER,
+  EMAIL_VERIFICATION,
+  GET_CURRENTUSERINFO
+} from "./types";
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
@@ -16,6 +21,18 @@ export const registerUser = (userData, history) => dispatch => {
         payload: err.response.data
       });
     });
+};
+//current user info
+export const getCurrentUserInfo = () => dispatch => {
+  axios
+    .get("/api/users/register/current-user-info")
+    .then(res => {
+      dispatch({
+        type: GET_CURRENTUSERINFO,
+        paylaod: res.data
+      });
+    })
+    .catch(err => console.log(err));
 };
 
 export const setCurrentUser = decoded => {

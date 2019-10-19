@@ -17,9 +17,17 @@ const ProfileSchema = new Schema({
   location: {
     type: String
   },
-  status: {
-    type: String,
-    required: true
+  division: {
+    type: String
+  },
+  district: {
+    type: String
+  },
+  upazila: {
+    type: String
+  },
+  expert: {
+    type: String
   },
   skills: {
     type: [String],
@@ -50,9 +58,6 @@ const ProfileSchema = new Schema({
       to: {
         type: Date,
         required: true
-      },
-      description: {
-        type: String
       }
     }
   ],

@@ -29,6 +29,12 @@ var Userschema = new Schema({
     type: Boolean,
     default: false
   },
+  currenttution: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "requestfortutor"
+    }
+  ],
   application: [
     {
       type: Schema.Types.ObjectId,

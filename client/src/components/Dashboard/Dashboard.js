@@ -12,6 +12,7 @@ import DashboardProfile from "./DashboardProfile";
 import Sidebar from "./Sidebar";
 import Uploadphoto from "./Uploadphoto";
 import MyApplications from "./MyApplications";
+import MyCurrentTutions from "./MyCurrentTutions";
 import AddTutionInfo from "../add-credential/AddTutuionInfo";
 import AddEducation from "../add-credential/AddEducation";
 import { getTutions } from "../../actions/TutionAction";
@@ -80,6 +81,11 @@ class dashboard extends Component {
                       exact
                       path="/myapplications"
                       component={MyApplications}
+                    />
+                    <Route
+                      exact
+                      path="/mycurrent-tution"
+                      component={MyCurrentTutions}
                     />
 
                     <Route

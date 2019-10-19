@@ -20,23 +20,27 @@ router.get("/all", (req, res) => {
       res.status(404).json(err);
     });
 });
-//get applied tutions
+//get  tutions applied by a user
 //@api/tution/applied-tution
 router.get(
   "/applied-tution",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    const errors = {};
     User.findOne({ _id: req.user.id })
       .populate("application") //explore application field of user collection
       .then(user => {
-        if (user) {
+        if (!user.application) {
+          //res.json(user.application);
+          errors.error = "No tutions is found";
+          res.status(404).json(errors);
+        } else {
           res.json(user.application);
         }
       })
-      .catch(err => res.json(err));
+      .catch(err => res.status(404).json(err));
   }
 );
-
 //api/tution/id/:id
 
 router.get("/id/:id", (req, res) => {

@@ -106,17 +106,24 @@ class Tution extends Component {
       }
       let stripePayment;
 
-      if (!user.ispremium) {
+      if (isAuthenticated && !user.ispremium) {
         stripePayment = (
-          <StripeCheckOut
-            stripeKey="pk_test_RKLWJ7vbzP4LfxzkEgKA1Hly00Z61MJBFV"
-            token={this.handleToken}
-          />
+          <div>
+            <div className="alert alert-success p-2">
+              <h6 className="mb-2">
+                To apply for this tution pay 200tk and become a premium member
+              </h6>
+            </div>
+            <StripeCheckOut
+              stripeKey="pk_test_RKLWJ7vbzP4LfxzkEgKA1Hly00Z61MJBFV"
+              token={this.handleToken}
+            />
+          </div>
         );
       }
       //apply for tution
       let isApply;
-      if (isAuthenticated) {
+      if (isAuthenticated && user.ispremium) {
         isApply = (
           <div>
             <button
@@ -135,7 +142,7 @@ class Tution extends Component {
           <div className="row text-left bg-warning">
             <p className="alert error">
               <Link to="/login">Login </Link>
-              to view contact information or ' '
+              and become a premium member to apply for this tution ' '
               <Link to="/register">Signup </Link>
               to register
             </p>

@@ -68,52 +68,57 @@ class Profile extends Component {
               <ProfileHeader profile={profile} />
             </div>
             <div className="col-md-4">
-              <form onSubmit={this.onSubmit}>
-                <div className="form-group">
-                  <label for="yourname">Your Name</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="name"
-                    value={this.state.name}
-                    onChange={this.onChange}
-                  />
+              <div className="border p-3 border-primary rounded mb-4 bg-light">
+                <div className="alert alert-success p-2">
+                  <h5 className="mb-0">Email Tutor</h5>
                 </div>
-                <div className="form-group">
-                  <label for="mobile">Mobile</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    name="mobile"
-                    value={this.state.mobile}
-                    onChange={this.onChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label for="email">Email</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label for="Detailed info">Detailed info:</label>
-                  <textarea
-                    className="form-control"
-                    name="info"
-                    value={this.state.info}
-                    onChange={this.onChange}
-                  />
-                  <input
-                    type="submit"
-                    value="Send email"
-                    className="btn btn-info btn-block mt-4"
-                  />
-                </div>
-              </form>
+                <form onSubmit={this.onSubmit}>
+                  <div className="form-group">
+                    <label for="yourname">Your Name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="name"
+                      value={this.state.name}
+                      onChange={this.onChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label for="mobile">Mobile</label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      name="mobile"
+                      value={this.state.mobile}
+                      onChange={this.onChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label for="email">Email</label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      name="email"
+                      value={this.state.email}
+                      onChange={this.onChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label for="Detailed info">Detailed info:</label>
+                    <textarea
+                      className="form-control"
+                      name="info"
+                      value={this.state.info}
+                      onChange={this.onChange}
+                    />
+                    <input
+                      type="submit"
+                      value="Send email"
+                      className="btn btn-info btn-block mt-4"
+                    />
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>

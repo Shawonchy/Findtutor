@@ -56,7 +56,11 @@ router.get("/handle/:handle", (req, res) => {
 //desc:getting a profile from a searched profile
 router.post("/searchprofile", (req, res) => {
   const errors = {};
-  Profile.find({ location: req.body.location, gender: req.body.gender }) //getting the handle from url
+  Profile.find({
+    division: req.body.division,
+    district: req.body.district,
+    upazila: req.body.upazila
+  }) //getting the handle from url
     .populate("user", ["name", "avatar"])
     .then(profiles => {
       if (!profiles) {
@@ -127,9 +131,9 @@ router.post(
         degree: req.body.degree,
         fieldofstudy: req.body.fieldofstudy,
         from: req.body.from,
-        to: req.body.to,
+        to: req.body.to
         //current: req.body.current,
-        description: req.body.description
+        //description: req.body.description
       };
       //add to education array
       profile.education.unshift(nweducation);
@@ -227,6 +231,7 @@ router.post(
           .then(profile => {
             //res.json({ msg: "upload successfull" });
             console.log("successful");
+            res.json({ msg: "successful" });
           })
           .catch(err => res.json(err));
       });
@@ -265,19 +270,23 @@ router.post(
     const profilefields = {};
     profilefields.user = req.user.id;
     if (req.body.handle) profilefields.handle = req.body.handle;
-    if (req.body.location) profilefields.location = req.body.location;
+    //if (req.body.location) profilefields.location = req.body.location;
+    if (req.body.division) profilefields.division = req.body.division;
+    if (req.body.district) profilefields.district = req.body.district;
+    if (req.body.upazila) profilefields.upazila = req.body.upazila;
+    if (req.body.expert) profilefields.expert = req.body.expert;
     if (req.body.experience) profilefields.experience = req.body.experience;
-    if (req.body.status) profilefields.status = req.body.status;
+    //if (req.body.status) profilefields.status = req.body.status;
     if (req.body.gender) profilefields.gender = req.body.gender;
     //split skills into array
     if (typeof req.body.skills !== "undefined") {
       profilefields.skills = req.body.skills.split(",");
     }
 
-    profilefields.social = {};
-    if (req.body.facebook) profilefields.social.facebook = req.body.facebook;
-    if (req.body.google) profilefields.social.google = req.body.google;
-    if (req.body.twitter) profilefields.social.twitter = req.body.twitter;
+    // profilefields.social = {};
+    // if (req.body.facebook) profilefields.social.facebook = req.body.facebook;
+    // if (req.body.google) profilefields.social.google = req.body.google;
+    // if (req.body.twitter) profilefields.social.twitter = req.body.twitter;
 
     Profile.findOne({ user: req.user.id }).then(profile => {
       //user.id comes from token

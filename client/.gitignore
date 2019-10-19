@@ -4,7 +4,9 @@
 /node_modules
 /.pnp
 .pnp.js
-
+#adminlte files
+/public/dist
+/public/plugins
 # testing
 /coverage
 
