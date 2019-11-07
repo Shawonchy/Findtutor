@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import $ from "jquery";
+import MultiSelect from "@khanacademy/react-multi-select";
 import division from "./division.json";
 import district from "./district.json";
 import upazilas from "./upazilas.json";
@@ -10,9 +11,29 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { getTutionByLocation } from "../../actions/TutionAction";
 import { getsearchTutorProfile } from "../../actions/ProfileAction";
-//Import React Scrit Libraray to load Google object
-// Import Search Bar Components
-//import SearchBar from "material-ui-search-bar";
+import SelectListGroup from "../Common/SelectListGroup";
+const subjectopt = [
+  { label: "physics", value: "physics" },
+  { label: "chemistry", value: "chemistry" },
+  { label: "higher mathematics", value: "higher mathematics" },
+  { label: "boilogy", value: "boilogy" },
+  { label: "geography", value: "geography" },
+  { label: "psychology", value: "psychology" },
+  { label: "statics", value: "statics" },
+  { label: "eng draw & work prac", value: "eng draw & work prac" },
+  { label: "History", value: "History" },
+  { label: "Islamic History & Culture", value: "Islamic History & Culture" },
+  { label: "Civic & Good Governance", value: "Civic & Good Governance" },
+  { label: "Economics", value: "Economics" },
+  { label: "Sociology", value: "Sociology" },
+  { label: "Social Work", value: "Social Work" },
+  { label: "Civic & Good Governance", value: "Civic & Good Governance" },
+  { label: "History", value: "History" },
+  { label: "Islamic History & Culture", value: "Islamic History & Culture" },
+  { label: "Math", value: "Math" },
+  { label: "English", value: "English" },
+  { label: "Bangla", value: "Bangla" }
+];
 
 class landing extends Component {
   constructor() {
@@ -20,7 +41,12 @@ class landing extends Component {
     this.state = {
       division: "",
       district: "",
-      upazila: ""
+      upazila: "",
+      preffered_subject: [],
+      //salaryRange:"",
+      preffered_medium: "",
+      class: "",
+      errors: {}
     };
     this.onClick1 = this.onClick1.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -179,7 +205,10 @@ class landing extends Component {
     const searchdata = {
       division: this.state.division,
       district: this.state.district,
-      upazila: this.state.upazila
+      upazila: this.state.upazila,
+      class: this.state.class,
+      //salaryRange:this.state.//salaryRange,
+      preffered_medium: this.state.preffered_medium
     };
     this.props.getTutionByLocation(searchdata, this.props.history);
   }
@@ -188,11 +217,38 @@ class landing extends Component {
     const searchdata = {
       division: this.state.division,
       district: this.state.district,
-      upazila: this.state.upazila
+      upazila: this.state.upazila,
+
+      preffered_subject: this.state.preffered_subject[0],
+      //salaryRange:this.state.//salaryRange,
+      preffered_medium: this.state.preffered_medium
     };
+    console.log(searchdata);
     this.props.getsearchTutorProfile(searchdata, this.props.history);
   }
   render() {
+    const { errors } = this.state.errors;
+    const preffered_medium = [
+      { label: "Select", value: 0 },
+      { label: "Bangla", value: "Bangla" },
+      { label: "English", value: "English" }
+    ];
+
+    const optclass = [
+      { label: "Select studentClass", value: 0 },
+      { label: "class I", value: "class I" },
+      { label: "class II", value: "class II" },
+      { label: "class III", value: "class III" },
+      { label: "class IV", value: "class IV" },
+      { label: "class V", value: "class V" },
+      { label: "class VI", value: "class VI" },
+      { label: "class VII", value: "class VII" },
+      { label: "class VIII", value: "class VIII" },
+      { label: "class X", value: "class X" },
+      { label: "class XI", value: "class XI" },
+      { label: "class XII", value: "class XII" }
+    ];
+
     return (
       <div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -200,7 +256,7 @@ class landing extends Component {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.8/react-dom.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-        <div className="container" style={{ width: 600, height: 460 }}>
+        <div className="container mb-2" style={{ width: 600, height: 460 }}>
           <ul class="nav nav-pills" role="tablist">
             <li class="nav-item">
               <a class="nav-link active" data-toggle="pill" href="#home">
@@ -215,7 +271,7 @@ class landing extends Component {
           </ul>
 
           <div class="tab-content">
-            <div id="home" className="container tab-pane active">
+            <div id="home" className="container tab-pane active mb-2">
               <br></br>
               <form onSubmit={this.onSubmitTutor}>
                 <div className="border p-3 border-primary rounded mb-3 bg-light">
@@ -253,11 +309,26 @@ class landing extends Component {
                   >
                     <option value="">Select upazila</option>
                   </select>
+
+                  <SelectListGroup
+                    placeholder="preffered_medium"
+                    label=""
+                    name="preffered_medium"
+                    value={this.state.preffered_medium}
+                    onChange={this.onChange}
+                    options={preffered_medium}
+                    //error={errors.preffered_medium}
+                  />
+                  <MultiSelect
+                    options={subjectopt}
+                    selected={this.state.preffered_subject}
+                    onSelectedChanged={preffered_subject =>
+                      this.setState({ preffered_subject })
+                    }
+                  />
                 </div>
                 <div className="form-group d-flex justify-content-center">
-                  <button className="btn btn-lg px-5 btn-info mt-4">
-                    Search
-                  </button>
+                  <button className="btn btn-lg px-5 btn-info">Search</button>
                 </div>
               </form>
             </div>
@@ -299,11 +370,28 @@ class landing extends Component {
                   >
                     <option value="">Select upazila</option>
                   </select>
+                  <SelectListGroup
+                    placeholder="class"
+                    name="class"
+                    value={this.state.class}
+                    onChange={this.onChange}
+                    options={optclass}
+                    //error={errors.class}
+                    label=""
+                    //  info="Give us an idea of your tutorgender"
+                  />
+                  <SelectListGroup
+                    placeholder="preffered_medium"
+                    label=""
+                    name="preffered_medium"
+                    value={this.state.preffered_medium}
+                    onChange={this.onChange}
+                    options={preffered_medium}
+                    //error={errors.preffered_medium}
+                  />
                 </div>
                 <div className="form-group d-flex justify-content-center">
-                  <button className="btn btn-lg px-5 btn-info mt-4">
-                    Search
-                  </button>
+                  <button className="btn btn-lg px-5 btn-info">Search</button>
                 </div>
               </form>
             </div>

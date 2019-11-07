@@ -3,7 +3,8 @@ import {
   GET_TUTION,
   TUTION_LOADING,
   GET_ERRORS,
-  GET_APPLIEDTUTION
+  GET_APPLIEDTUTION,
+  GET_TUTORS_APPLIED_FOR_TUTION
 } from "./types";
 import axios from "axios";
 
@@ -16,6 +17,7 @@ export const getTutions = () => dispatch => {
         type: GET_TUTIONS,
         payload: res.data
       });
+      console.log(Object.keys(res.data).length);
     })
     .catch(err => {
       dispatch({
@@ -96,6 +98,25 @@ export const getAppliedTutions = () => dispatch => {
         payload: null
       });
       console.log(err);
+    });
+};
+
+export const getTutorsAppliedForTution = tution_id => dispatch => {
+  dispatch(setTutionLoading());
+  axios
+    .post("/api/applytution/tutors-applied-foratution", tution_id)
+    .then(res => {
+      console.log(res.data);
+      dispatch({
+        type: GET_TUTORS_APPLIED_FOR_TUTION,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_TUTORS_APPLIED_FOR_TUTION,
+        payload: null
+      });
     });
 };
 

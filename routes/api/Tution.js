@@ -64,7 +64,9 @@ router.post("/search-tution", (req, res) => {
   RequestForTutor.find({
     division: req.body.division,
     district: req.body.district,
-    upazila: req.body.upazila
+    upazila: req.body.upazila,
+    class: req.body.class,
+    medium: req.body.preffered_medium
   })
     .then(requestfortutors => {
       if (!requestfortutors) {

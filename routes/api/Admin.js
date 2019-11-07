@@ -6,6 +6,7 @@ const keys = require("../../config/keys");
 const router = express.Router();
 const Admin = require("../../models/Admin");
 const User = require("../../models/User");
+const RequestForTutor = require("../../models/RequestForTutor");
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 //@api/admin/register
@@ -55,7 +56,7 @@ router.post("/login", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
 
   if (!isValid) {
-    return res.status(400).json(errors);
+    return res.status(404).json(errors);
   }
 
   const email = req.body.email;
@@ -111,6 +112,49 @@ router.get("/get_allUsers", (req, res) => {
   User.find()
     .then(users => {
       res.json(users);
+    })
+    .catch(err => console.log(err));
+});
+//assign a tutor against a tution
+router.post("/assign-tutor", (req, res) => {
+  RequestForTutor.findOne({ _id: req.body.tution_id })
+    .then(requestfortutor => {
+      requestfortutor.tutor_assigned = req.body.profile_id;
+      requestfortutor.isActive = true;
+      requestfortutor
+        .save()
+        .then(requestfortutor => {
+          //asigning a tution to users(tutors) id
+          // User.update(
+          //   { _id: req.body.SeletedTutorUserId },
+          //   {
+          //     $push: {
+          //       currenttution: req.body.tution_id
+          //     }
+          //   }
+          // );
+
+          User.findOne({ _id: req.body.SeletedTutorUserId }).then(user => {
+            if (user) {
+              user.currenttution.push(req.body.tution_id);
+              user.save();
+            }
+          });
+
+          res.status(200).json(requestfortutor);
+        })
+        .catch(err => res.json(err));
+    })
+    .catch();
+});
+
+//deleting a admin
+router.delete("/delete-admin/:id", (req, res) => {
+  Admin.findOneAndDelete({ _id: req.params.id })
+    .then(doc => {
+      if (!doc) {
+        res.status(200).json({ msg: "deleted successfully" });
+      }
     })
     .catch(err => console.log(err));
 });

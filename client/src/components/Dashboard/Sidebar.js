@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 class Sidebar extends Component {
   render() {
@@ -15,7 +16,7 @@ class Sidebar extends Component {
           <div className="category-content">
             <ul id="fruits-nav" className="nav flex-column">
               <li className="nav-item">
-                <Link to="/myprofile" className="nav-link">
+                <Link exact to="/myprofile" className="nav-link">
                   <i className="fa fa-pencil" aria-hidden="true" /> My profile
                 </Link>
               </li>
@@ -49,4 +50,4 @@ class Sidebar extends Component {
     );
   }
 }
-export default Sidebar;
+export default withRouter(Sidebar);

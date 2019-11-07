@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCurrentProfile, deleteProfile } from "../../actions/ProfileAction";
@@ -18,6 +20,7 @@ import AddEducation from "../add-credential/AddEducation";
 import { getTutions } from "../../actions/TutionAction";
 import TutionCarousel from "../Tutions/TutionCarousel";
 import Tution from "../Tutions/Tution";
+//import { HashRouter } from "react-router-dom"; //for refreshing browser ulr issue
 
 class dashboard extends Component {
   componentDidMount() {
@@ -39,75 +42,64 @@ class dashboard extends Component {
       //check if logged in user has profile data
       if (Object.keys(profile).length > 0) {
         dashboardcontent = (
-          // <div>
-          //   <p className="lead text-muted">
-          //     Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
-          //   </p>
-          //   <ProfileActionsButton />
-          //   {/* passing education data to education Component  */}
-          //   <Education education={profile.education} />
-          //   <div style={{ marginBottom: "60px" }} />
-          //   <button
-          //     onClick={this.onDeleteClick.bind(this)}
-          //     className="btn btn-danger"
-          //   >
-          //     Delete My Account
-          //   </button>
-          // </div>
-
-          //<Dashboardlayout />
           <Router>
-            <div className="profilelayout">
-              <div className="container">
-                <div className="row">
-                  <div className="col-md-7">
-                    <Route
-                      exact
-                      path="/dashboard"
-                      component={DashboardProfile}
-                    />
-                    <Route
-                      exact
-                      path="/tution-info"
-                      component={AddTutionInfo}
-                    />
-                    <Route
-                      exact
-                      path="/myprofile"
-                      component={DashboardProfile}
-                    />
-                    <Route exact path="/uploadphoto" component={Uploadphoto} />
-                    <Route
-                      exact
-                      path="/myapplications"
-                      component={MyApplications}
-                    />
-                    <Route
-                      exact
-                      path="/mycurrent-tution"
-                      component={MyCurrentTutions}
-                    />
+            <Switch>
+              <div className="profilelayout">
+                <div className="container">
+                  <div className="row">
+                    <div className="col-md-7">
+                      <Route
+                        exact
+                        path="/dashboard"
+                        component={DashboardProfile}
+                      />
+                      <Route
+                        exact
+                        path="/tution-info"
+                        component={AddTutionInfo}
+                      />
+                      <Route
+                        exact
+                        path="/myprofile"
+                        component={DashboardProfile}
+                      />
+                      <Route
+                        exact
+                        path="/uploadphoto"
+                        component={Uploadphoto}
+                      />
+                      <Route
+                        exact
+                        path="/myapplications"
+                        component={MyApplications}
+                      />
+                      <Route
+                        exact
+                        path="/mycurrent-tution"
+                        component={MyCurrentTutions}
+                      />
 
-                    <Route
-                      exact
-                      path="/add-education"
-                      component={AddEducation}
-                    />
-                    <Route exact path="/tution/:id" component={Tution} />
-                  </div>
-                  <div className="col">
-                    <div className="row mb-3 ml-3">
-                      <Sidebar />
+                      <Route
+                        exact
+                        path="/add-education"
+                        component={AddEducation}
+                      />
+                      <Route exact path="/tution/:id" component={Tution} />
                     </div>
-                    <div className="row">
-                      <div className="col">
-                        <TutionCarousel tutions={tutions} />
+                    <div className="col">
+                      <div className="row mb-3 ml-3">
+                        <Sidebar />
+                      </div>
+                      <div className="row">
+                        <div className="col">
+                          <TutionCarousel tutions={tutions} />
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </Switch>
           </Router>
         );
       } else {
@@ -145,4 +137,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { getCurrentProfile, deleteProfile, getTutions }
-)(dashboard);
+)(withRouter(dashboard));

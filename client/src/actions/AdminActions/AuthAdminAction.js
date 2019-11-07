@@ -2,33 +2,7 @@ import { SET_CURRENT_ADMIN, GET_ERRORS } from "../types";
 import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
-
-//register user
-// export const registerUser = (userData, history) => dispatch => {
-//   axios
-//     .post("/api/users/register", userData)
-//     .then(res => history.push("/login"))
-//     //history.push("/login")) //if register complete redirect to login page)
-//     .catch(err => {
-//       dispatch({
-//         //dispatching(sending) to error reducer
-//         type: GET_ERRORS,
-//         payload: err.response.data
-//       });
-//     });
-// };
-//current user info
-// export const getCurrentUserInfo = () => dispatch => {
-//   axios
-//     .get("/api/users/register/current-user-info")
-//     .then(res => {
-//       dispatch({
-//         type: GET_CURRENTUSERINFO,
-//         paylaod: res.data
-//       });
-//     })
-//     .catch(err => console.log(err));
-// };
+import { Route, Redirect } from "react-router-dom";
 
 export const setCurrentAdmin = decoded => {
   console.log(decoded);
@@ -38,13 +12,16 @@ export const setCurrentAdmin = decoded => {
   };
 };
 
-//login user action
+//login admin action
 export const loginAdmin = adminData => dispatch => {
   axios
-    .post("http://localhost:5000/api/admin/login", adminData)
+    .post("/api/admin/login", adminData)
     .then(res => {
       const token = res.data.token;
-      localStorage.setItem("jwtToken", token); //set token to local storage
+      console.log(token);
+      //localStorage.setItem("jwtToken", token); //set token to local storage
+
+      sessionStorage.setItem("jwtToken", token);
       setAuthToken(token); //set token to auth header
       const decoded = jwt_decode(token); //decodeing the token
       dispatch({
@@ -52,7 +29,7 @@ export const loginAdmin = adminData => dispatch => {
         type: SET_CURRENT_ADMIN,
         payload: decoded
       }); //set and dispatch current user to reducer
-      console.log(decoded);
+      console.log("admin logged in");
     })
     .catch(err =>
       dispatch({
@@ -60,4 +37,21 @@ export const loginAdmin = adminData => dispatch => {
         payload: err.response.data //dispatching(sending) to error reducer
       })
     );
+};
+
+//logout admin
+
+export const logoutAdmin = history => dispatch => {
+  //removing token from local storage
+  sessionStorage.removeItem("jwtToken");
+  //removing token from auth header
+  setAuthToken(false);
+  //dispatching the as empty object which will set isauthenticated as false
+  //dispatch(setCurrentUser({}));
+  dispatch({
+    type: SET_CURRENT_ADMIN,
+    payload: ""
+  });
+  // return <Redirect exact to="/admin/login" />;
+  history.push("/admin/login");
 };

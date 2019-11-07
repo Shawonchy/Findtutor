@@ -28,7 +28,7 @@ class TutorAppliedForTutions extends Component {
     } else {
       appliedtutionsitems = appliedtutions.map(keyname => (
         <tr key={keyname._id}>
-          <td>{keyname._id}</td>
+          {/* <td>{keyname._id}</td> */}
           <td>
             <Link to={`/admin/get-tution-id/${keyname.tution}`}>
               {keyname.tution}
@@ -38,7 +38,11 @@ class TutorAppliedForTutions extends Component {
             {keyname.tutor.map((
               tutor //map through the tutors array
             ) => (
-              <li>{tutor}</li>
+              <li>
+                <Link to={`/admin/tutor-profile/${tutor.handle}`}>
+                  {tutor.handle}
+                </Link>
+              </li>
             ))}
           </td>
           <td>{keyname.tutor.length}</td>
@@ -55,7 +59,7 @@ class TutorAppliedForTutions extends Component {
           <table className="table table-bordered ">
             <thead className="bg-dark text-center">
               <tr className="text-white">
-                <th>Id</th>
+                {/* <th>Id</th> */}
                 <th>Tution</th>
                 <th>Tutor</th>
                 <th>Number of Tutor Applied</th>

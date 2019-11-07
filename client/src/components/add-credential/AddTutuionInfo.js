@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
+import MultiSelect from "@khanacademy/react-multi-select";
 import classnames from "classnames";
 import $ from "jquery";
 //import TextAreaFieldGroup from "../Common/TextAreaFieldGroup";
@@ -11,7 +12,30 @@ import { addTutionInfo } from "../../actions/ProfileAction";
 import division from "../layouts/division.json";
 import district from "../layouts/district.json";
 import upazilas from "../layouts/upazilas.json";
-import subject from "../layouts/subject.json";
+//import subject from "../layouts/subject.json";
+
+const subjectopt = [
+  { label: "physics", value: "physics" },
+  { label: "chemistry", value: "chemistry" },
+  { label: "higher mathematics", value: "higher mathematics" },
+  { label: "boilogy", value: "boilogy" },
+  { label: "geography", value: "geography" },
+  { label: "psychology", value: "psychology" },
+  { label: "statics", value: "statics" },
+  { label: "eng draw & work prac", value: "eng draw & work prac" },
+  { label: "History", value: "History" },
+  { label: "Islamic History & Culture", value: "Islamic History & Culture" },
+  { label: "Civic & Good Governance", value: "Civic & Good Governance" },
+  { label: "Economics", value: "Economics" },
+  { label: "Sociology", value: "Sociology" },
+  { label: "Social Work", value: "Social Work" },
+  { label: "Civic & Good Governance", value: "Civic & Good Governance" },
+  { label: "History", value: "History" },
+  { label: "Islamic History & Culture", value: "Islamic History & Culture" },
+  { label: "Math", value: "Math" },
+  { label: "English", value: "English" },
+  { label: "Bangla", value: "Bangla" }
+];
 
 class AddTutionInfo extends Component {
   constructor(props) {
@@ -24,7 +48,7 @@ class AddTutionInfo extends Component {
       current_Status_for_Tuition: "",
       days_per_week: "",
       preferred_class: "",
-      preffered_subject: "",
+      preffered_subject: [],
       preffered_medium: "",
       //current: false,
       preffered_areas: "",
@@ -133,17 +157,17 @@ class AddTutionInfo extends Component {
         }
       });
 
-      subjectOptions = '<option value="">Select subject</option>';
-      $.each(subject, function(key, subject) {
-        subjectOptions +=
-          '<option value="' + subject.name + '">' + subject.name + "</option>";
-      });
-      $("#subject1").html(subjectOptions);
+      // subjectOptions = '<option value="">Select subject</option>';
+      // $.each(subject, function(key, subject) {
+      //   subjectOptions +=
+      //     '<option value="' + subject.name + '">' + subject.name + "</option>";
+      // });
+      // $("#subject1").html(subjectOptions);
     });
 
-    this.setState({
-      subject: this.state.subject1 + this.state.subject
-    });
+    // this.setState({
+    //   subject: this.state.subject1 + this.state.subject
+    // });
   }
   render() {
     const { errors } = this.state;
@@ -278,36 +302,27 @@ class AddTutionInfo extends Component {
               <div className="col-md-4">
                 <div className="form-group">
                   <label className="control-label">Select subject</label>
-                  <div className="inputGroupContainer">
-                    <div className="input-group">
-                      <span className="input-group-addon">
-                        <i className="glyphicon glyphicon-home"></i>
-                      </span>
-                      <select
-                        name="preffered_subject"
-                        id="subject1"
-                        className="form-control input-lg"
-                        value={this.state.preffered_subject}
-                        onChange={this.onChange}
-                      >
-                        <option value="">Select subject</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4">
-                <div className="form-group">
-                  <SelectListGroup
-                    placeholder="preffered_medium"
-                    label="Preffered medium"
-                    name="preffered_medium"
-                    value={this.state.preffered_medium}
-                    onChange={this.onChange}
-                    options={preffered_medium}
-                    error={errors.preffered_medium}
+                  <MultiSelect
+                    options={subjectopt}
+                    selected={this.state.preffered_subject}
+                    onSelectedChanged={preffered_subject =>
+                      this.setState({ preffered_subject })
+                    }
                   />
                 </div>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="form-group">
+                <SelectListGroup
+                  placeholder="preffered_medium"
+                  label="Preffered medium"
+                  name="preffered_medium"
+                  value={this.state.preffered_medium}
+                  onChange={this.onChange}
+                  options={preffered_medium}
+                  error={errors.preffered_medium}
+                />
               </div>
             </div>
             <div className="row">

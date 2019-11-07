@@ -104,11 +104,12 @@ class DashboardProfile extends Component {
             <th className="bg-light">Preffered Subject</th>
             <td>
               {
-                (profile.tution_info.preffered_subject = !isEmpty(
-                  profile.tution_info.preffered_subject
-                )
-                  ? profile.tution_info.preffered_subject
-                  : "")
+                /* {(profile.tution_info.preffered_subject = !isEmpty(
+                profile.tution_info.preffered_subject
+              )
+                ? profile.tution_info.preffered_subject
+                : "") */
+                (profile.tution_info.preffered_subject = profile.tution_info.preffered_subject.toString())
               }
             </td>
           </tr>

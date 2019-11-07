@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import MultiSelect from "@khanacademy/react-multi-select";
+//import { MultiSelect } from "@progress/kendo-react-dropdowns";
 //import { connect } from "react-redux";
 //import PropsTypes from "prop-types";
 import { withRouter } from "react-router-dom"; //for this.push purpose(redirecting)
@@ -6,7 +8,7 @@ import $ from "jquery";
 import division from "../layouts/division.json";
 import district from "../layouts/district.json";
 import upazilas from "../layouts/upazilas.json";
-import subject from "../layouts/subject.json";
+//import subject from "../layouts/subject.json";
 import SelectListGroup from "../Common/SelectListGroup";
 import TextFieldGroup from "../Common/TextFieldGroup";
 import axios from "axios";
@@ -14,19 +16,43 @@ import "./requestution";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+const subjectopt = [
+  { label: "physics", value: "physics" },
+  { label: "chemistry", value: "chemistry" },
+  { label: "higher mathematics", value: "higher mathematics" },
+  { label: "boilogy", value: "boilogy" },
+  { label: "geography", value: "geography" },
+  { label: "psychology", value: "psychology" },
+  { label: "statics", value: "statics" },
+  { label: "eng draw & work prac", value: "eng draw & work prac" },
+  { label: "History", value: "History" },
+  { label: "Islamic History & Culture", value: "Islamic History & Culture" },
+  { label: "Civic & Good Governance", value: "Civic & Good Governance" },
+  { label: "Economics", value: "Economics" },
+  { label: "Sociology", value: "Sociology" },
+  { label: "Social Work", value: "Social Work" },
+  { label: "Civic & Good Governance", value: "Civic & Good Governance" },
+  { label: "History", value: "History" },
+  { label: "Islamic History & Culture", value: "Islamic History & Culture" },
+  { label: "Math", value: "Math" },
+  { label: "English", value: "English" },
+  { label: "Bangla", value: "Bangla" }
+];
+
 toast.configure();
 
 class RequestTution extends Component {
   constructor() {
     super();
     this.state = {
+      title: "",
       name: "",
       division: "",
       district: "",
       upazila: "",
       medium: "",
       class: "",
-      subject: "",
+      subject: [],
       subject1: "",
       institute: "",
       daysperweek: "",
@@ -115,22 +141,23 @@ class RequestTution extends Component {
         }
       });
 
-      subjectOptions = '<option value="">Select subject</option>';
-      $.each(subject, function(key, subject) {
-        subjectOptions +=
-          '<option value="' + subject.name + '">' + subject.name + "</option>";
-      });
-      $("#subject1").html(subjectOptions);
+      // subjectOptions = '<option value="">Select subject</option>';
+      // $.each(subject, function(key, subject) {
+      //   subjectOptions +=
+      //     '<option value="' + subject.name + '">' + subject.name + "</option>";
+      // });
+      // $("#subject1").html(subjectOptions);
     });
 
-    this.setState({
-      subject: this.state.subject1 + this.state.subject
-    });
+    // this.setState({
+    //   subject: this.state.subject1 + this.state.subject
+    // });
   }
 
   onSubmit(e) {
     e.preventDefault();
     const requesttutorData = {
+      title: this.state.title,
       name: this.state.name,
       division: this.state.division,
       district: this.state.district,
@@ -138,7 +165,6 @@ class RequestTution extends Component {
       medium: this.state.medium,
       class: this.state.class,
       subject: this.state.subject,
-      subject1: this.state.subject1,
       institute: this.state.institute,
       daysperweek: this.state.daysperweek,
       studentgender: this.state.studentgender,
@@ -169,6 +195,8 @@ class RequestTution extends Component {
 
   render() {
     const { errors } = this.state;
+    const { subject } = this.state;
+    console.log(subject);
 
     const optmedium = [
       { label: "Select medium", value: 0 },
@@ -219,6 +247,24 @@ class RequestTution extends Component {
             <p className="text-center mb-4">
               Please complete the following form a tutor will contact with you{" "}
             </p>
+
+            <div className="border p-3 border-primary rounded mb-4 bg-light">
+              <div className="alert alert-success p-2">
+                <h6 className="mb-0">Tution Title</h6>
+              </div>
+              <input
+                id="title"
+                name="title"
+                placeholder="Title"
+                className="form-control"
+                // required="true"
+                value={this.state.title}
+                onChange={this.onChange}
+                type="text"
+                required
+              ></input>
+            </div>
+
             <div className="border p-3 border-primary rounded mb-4 bg-light">
               <div className="alert alert-success p-2">
                 <h6 className="mb-0">Student Informations</h6>
@@ -463,44 +509,16 @@ class RequestTution extends Component {
                 <div className="col-md-6">
                   <div className="form-group">
                     <label className="control-label">Select subject</label>
-                    <div className="inputGroupContainer">
-                      <div className="input-group">
-                        <span className="input-group-addon">
-                          <i className="glyphicon glyphicon-home"></i>
-                        </span>
-                        <select
-                          name="subject1"
-                          id="subject1"
-                          className="form-control input-lg"
-                          value={this.state.subject1}
-                          onChange={this.onChange}
-                        >
-                          <option value="">Select subject</option>
-                        </select>
-                      </div>
-                    </div>
+
+                    <MultiSelect
+                      options={subjectopt}
+                      selected={subject}
+                      onSelectedChanged={subject => this.setState({ subject })}
+                    />
                   </div>
                 </div>
               </div>
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="form-group">
-                    <label for="subject">
-                      Additional Info in details (if multiple subjects mention
-                      here):
-                    </label>
-                    <textarea
-                      className="form-control rounded-0"
-                      id="subject"
-                      rows="2"
-                      name="subject"
-                      type="text"
-                      value={this.state.subject}
-                      onChange={this.onChange}
-                    ></textarea>
-                  </div>
-                </div>
-              </div>
+
               <div className="row">
                 <div className="col-md-12">
                   <div className="form-group">

@@ -2,13 +2,15 @@ import {
   GET_TUTIONS,
   GET_TUTION,
   TUTION_LOADING,
-  GET_APPLIEDTUTION
+  GET_APPLIEDTUTION,
+  GET_TUTORS_APPLIED_FOR_TUTION
 } from "../actions/types";
 const initialState = {
   tutions: null,
   tution: null,
   loading: false,
-  appliedtutions: null
+  appliedtutions: null,
+  tutorappliedfortution: null
 };
 
 export default function(state = initialState, action) {
@@ -36,6 +38,13 @@ export default function(state = initialState, action) {
         appliedtutions: action.payload,
         loading: false
       };
+    case GET_TUTORS_APPLIED_FOR_TUTION:
+      return {
+        ...state,
+        tutorappliedfortution: action.payload,
+        loading:false
+      };
+
     default:
       return state;
   }

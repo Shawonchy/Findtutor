@@ -59,7 +59,10 @@ router.post("/searchprofile", (req, res) => {
   Profile.find({
     division: req.body.division,
     district: req.body.district,
-    upazila: req.body.upazila
+    upazila: req.body.upazila,
+
+    "tution_info.preffered_medium": req.body.preffered_medium,
+    "tution_info.preffered_subject": req.body.preffered_subject
   }) //getting the handle from url
     .populate("user", ["name", "avatar"])
     .then(profiles => {

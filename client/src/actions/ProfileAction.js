@@ -96,6 +96,7 @@ export const getProfiles = () => dispatch => {
   axios
     .get("/api/profile/all")
     .then(res => {
+      console.log(res.data);
       dispatch({
         type: GET_PROFILES,
         payload: res.data
@@ -148,6 +149,7 @@ export const getsearchTutorProfile = (searchData, history) => dispatch => {
         type: GET_PROFILES,
         payload: res.data
       });
+      console.log(res.data);
       history.push("/search-result");
     })
     .catch(err => {

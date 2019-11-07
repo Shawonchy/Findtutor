@@ -93,7 +93,7 @@ const ProfileSchema = new Schema({
       type: String
     },
     preffered_subject: {
-      type: String
+      type: [String]
     },
     preffered_medium: {
       type: String

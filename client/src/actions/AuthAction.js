@@ -48,10 +48,10 @@ export const loginUser = userData => dispatch => {
   axios
     .post("/api/users/login", userData)
     .then(res => {
-      const token = res.data.token;
-      localStorage.setItem("jwtToken", token); //set token to local storage
-      setAuthToken(token); //set token to auth header
-      const decoded = jwt_decode(token); //decodeing the token
+      const token2 = res.data.token2;
+      localStorage.setItem("jwtToken", token2); //set token to local storage
+      setAuthToken(token2); //set token to auth header
+      const decoded = jwt_decode(token2); //decodeing the token
       dispatch({
         //dispatching(sending) to error reducer
         type: SET_CURRENT_USER,

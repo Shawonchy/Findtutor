@@ -9,7 +9,7 @@ const ApplyTutionSchema = new Schema({
   tutor: [
     {
       type: Schema.Types.ObjectId,
-      ref: "user"
+      ref: "profile"
     }
   ]
 });

@@ -44,14 +44,14 @@ class AllUsers extends Component {
     } else {
       userItems = Object.keys(users).map((keyName, i) => (
         <tr key={i}>
-          <td>{users[keyName]._id}</td>
+          {/* <td>{users[keyName]._id}</td> */}
           <td>{users[keyName].name}</td>
           <td>{users[keyName].email}</td>
           <td>{users[keyName].phone}</td>
           <td>
-            <Link to="#" className="btn btn-sm btn-warning mr-2">
+            {/* <Link to="#" className="btn btn-sm btn-warning mr-2">
               Edit
-            </Link>
+            </Link> */}
             <button
               onClick={() => this.onClick(users[keyName]._id)}
               name="id"
@@ -71,7 +71,7 @@ class AllUsers extends Component {
           <table className="table table-bordered ">
             <thead className="bg-dark text-center">
               <tr className="text-white">
-                <th>Id</th>
+                {/* <th>Id</th> */}
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>

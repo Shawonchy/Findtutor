@@ -19,14 +19,21 @@ class AdminLogin extends Component {
   //if logged in then only path "/dashboard" will be redirect
   componentDidMount() {
     if (this.props.admin.isAuthenticated) {
-      this.props.history.push("/admin/dashboard");
+      console.log("logged in");
+      //this.props.history.push(window.location.pathname === "/admin");
+      //window.location.replace("http://localhost:3000/admin#/ ");
+      window.location.replace("http://localhost:3000/admin/dashboard");
     }
   }
 
   //if component receive a new props
   componentWillReceiveProps(nextProps) {
     if (nextProps.admin.isAuthenticated) {
-      this.props.history.push("/admin/dashboard");
+      // window.location.replace("http://localhost:3000/admin#/ ");
+      // //this.props.history.push("/admin/dashboard");
+      // //window.open("http://localhost:3000/admin#/ ");
+      // console.log("logged in");
+      window.location.replace("http://localhost:3000/admin/dashboard");
     }
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
@@ -39,7 +46,8 @@ class AdminLogin extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    //console.log(logged_admin);
+    console.log(logged_admin);
+
     this.props.loginAdmin(logged_admin);
   }
 
@@ -50,6 +58,7 @@ class AdminLogin extends Component {
 
   render() {
     const errors = this.state.errors; //assigning errors to from state
+    console.log(this.props.admin.isAuthenticated);
     return (
       <div className="AdminLogin">
         <div className="container">

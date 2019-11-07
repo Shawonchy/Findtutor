@@ -4,52 +4,93 @@ import { Link } from "react-router-dom";
 import isEmpty from "../../validation/isEmpty";
 
 class ProfileItem extends Component {
+  constructor() {
+    super();
+
+    this.onimageChange = this.onimageChange.bind(this);
+  }
+
+  //taking the binary data of the image and convert to base64 string
+  arrayBufferToBase64(buffer) {
+    var binary = "";
+    var bytes = [].slice.call(new Uint8Array(buffer));
+    bytes.forEach(b => (binary += String.fromCharCode(b)));
+    return window.btoa(binary);
+  }
+
+  onimageChange = data => {
+    var base64Flag = "data:image/jpeg;base64,";
+    var imageStr = this.arrayBufferToBase64(data);
+    var image = base64Flag + imageStr;
+    return image;
+  };
+
   render() {
     const { profile } = this.props; //profile is sent from profiles component as props
 
+    if (typeof profile.img == "undefined") {
+      profile.img.data.data = "";
+    }
     return (
-      // <div className="card card-body bg-light mb-3">
-      //   <div className="row">
-      //     <div className="col-2">
-      //       <img src={profile.user.avatar} alt="" className="rounded-circle" />
-      //     </div>
-      //     <div className="col-lg-6 col-md-4 col-8">
-      //       <h3>{profile.user.name}</h3>
-      //       {/* <p>
-      //         {profile.status}{" "}
-      //         {isEmpty(profile.company) ? null : (
-      //           <span>at {profile.company}</span>
-      //         )}
-      //       </p> */}
-      //       <p>
-      //         {isEmpty(profile.location) ? null : (
-      //           <span>{profile.location}</span>
-      //         )}
-      //       </p>
-      //       <Link to={`/profile/${profile.handle}`} className="btn btn-info">
-      //         View Profile
-      //       </Link>
-      //     </div>
-      //     <div className="col-md-4 d-none d-md-block">
-      //       <h4>Skill Set</h4>
-      //       <ul className="list-group">
-      //         {/* mapping all skills and slice the first 4 skills */}
-      //         {profile.skills.slice(0, 4).map((skill, index) => (
-      //           <li key={index} className="list-group-item">
-      //             <i className="fa fa-check pr-1" />
-      //             {skill}
-      //           </li>
-      //         ))}
-      //       </ul>
-      //     </div>
-      //   </div>
-      // </div>
+      <div className="card card-body bg-light mb-3">
+        <div className="row">
+          <div className="col-2">
+            <img
+              src={this.onimageChange(profile.img.data.data)}
+              alt=""
+              className="rounded-circle"
+            />
+          </div>
+          <div className="col-lg-6 col-md-4 col-8">
+            <h3>
+              {
+                (profile.user.name =
+                  typeof profile.user.name == !null ? profile.user.name : "")
+              }
+            </h3>
+            {/* <p>
+              {profile.status}{" 
+              {isEmpty(profile.company) ? null : (
+                <span>at {profile.company}</span>
+              )}
+            </p> */}
+            <p>
+              {isEmpty(profile.district) ? null : (
+                <span>{profile.district}</span>
+              )}
+              <br />
+              {isEmpty(profile.upazila) ? null : <span>{profile.upazila}</span>}
+            </p>
+            <Link to={`/profile/${profile.handle}`} className="btn btn-info">
+              View Profile
+            </Link>
+          </div>
+          <div className="col-md-4 d-none d-md-block">
+            <h4>Skill Set</h4>
+            <ul className="list-group">
+              {/* mapping all skills and slice the first 4 skills */}
+              {profile.tution_info.preffered_subject
+                .slice(0, 4)
+                .map((skill, index) => (
+                  <li key={index} className="list-group-item">
+                    <i className="fa fa-check pr-1" />
+                    {skill}
+                  </li>
+                ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    );
+    {
+      /* <!-- Grid row --> */
+    }
 
-      <div>
-        {/* <!-- Grid row --> */}
-
-        {/* <!-- Grid column --> */}
-        <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+    {
+      /* <!-- Grid column --> */
+    }
+    {
+      /* <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
           <div class="avatar mx-auto">
             <img
               src="https://mdbootstrap.com/img/Photos/Avatars/img%20(20).jpg"
@@ -78,11 +119,15 @@ class ProfileItem extends Component {
               <i class="fab fa-instagram blue-text"> </i>
             </a>
           </ul>
-        </div>
-        {/* <!-- Grid column -->
+        </div> */
+    }
+    {
+      /* <!-- Grid column -->
 
-    <!-- Grid column --> */}
-        {/* <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+    <!-- Grid column --> */
+    }
+    {
+      /* <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
             <div class="avatar mx-auto">
               <img
                 src="https://mdbootstrap.com/img/Photos/Avatars/img%20(3).jpg"
@@ -107,11 +152,15 @@ class ProfileItem extends Component {
                 <i class="fab fa-instagram blue-text"> </i>
               </a>
             </ul>
-          </div> */}
-        {/* <!-- Grid column -->
+          </div> */
+    }
+    {
+      /* <!-- Grid column -->
 
-    <!-- Grid column --> */}
-        {/* <div class="col-lg-3 col-md-6 mb-md-0 mb-5">
+    <!-- Grid column --> */
+    }
+    {
+      /* <div class="col-lg-3 col-md-6 mb-md-0 mb-5">
             <div class="avatar mx-auto">
               <img
                 src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg"
@@ -140,11 +189,15 @@ class ProfileItem extends Component {
                 <i class="fab fa-dribbble blue-text"> </i>
               </a>
             </ul>
-          </div> */}
-        {/* <!-- Grid column -->
+          </div> */
+    }
+    {
+      /* <!-- Grid column -->
 
-    <!-- Grid column --> */}
-        {/* <div class="col-lg-3 col-md-6">
+    <!-- Grid column --> */
+    }
+    {
+      /* <div class="col-lg-3 col-md-6">
             <div class="avatar mx-auto">
               <img
                 src="https://mdbootstrap.com/img/Photos/Avatars/img%20(32).jpg"
@@ -170,12 +223,15 @@ class ProfileItem extends Component {
                 <i class="fab fa-github blue-text"> </i>
               </a>
             </ul>
-          </div> */}
-        {/* <!-- Grid column --> */}
+          </div> */
+    }
+    {
+      /* <!-- Grid column --> */
+    }
 
-        {/* <!-- Grid row --> */}
-      </div>
-    );
+    {
+      /* <!-- Grid row --> */
+    }
   }
 }
 ProfileItem.propTypes = {

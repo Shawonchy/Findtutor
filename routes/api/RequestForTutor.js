@@ -15,18 +15,19 @@ router.post("/", (req, res) => {
   //   return res.status(400).json(errors);
   // }
   const requesttutorfields = {};
+  if (req.body.title) requesttutorfields.title = req.body.title;
   if (req.body.name) requesttutorfields.name = req.body.name;
   if (req.body.division) requesttutorfields.division = req.body.division;
   if (req.body.district) requesttutorfields.district = req.body.district;
   if (req.body.upazila) requesttutorfields.upazila = req.body.upazila;
   if (req.body.medium) requesttutorfields.medium = req.body.medium;
   if (req.body.class) requesttutorfields.class = req.body.class;
-  if (req.body.subject1) requesttutorfields.subject1 = req.body.subject1;
-  //if (req.body.subject) requesttutorfields.subject = req.body.subject;
+  //if (req.body.subject1) requesttutorfields.subject1 = req.body.subject1;
+  if (req.body.subject) requesttutorfields.subject = req.body.subject;
   //split skills into array
-  if (typeof req.body.subject !== "undefined") {
-    requesttutorfields.subject = req.body.subject.split(",");
-  }
+  // if (typeof req.body.subject !== "undefined") {
+  //   requesttutorfields.subject = req.body.subject.split(",");
+  // }
 
   if (req.body.institute) requesttutorfields.institute = req.body.institute;
   if (req.body.daysperweek)

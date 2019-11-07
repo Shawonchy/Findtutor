@@ -142,7 +142,7 @@ router.post("/login", (req, res) => {
           (err, token) => {
             res.json({
               msg: true,
-              token: "Bearer " + token //"bearer"=protocols
+              token2: "Bearer " + token //"bearer"=protocols
             });
           }
         );

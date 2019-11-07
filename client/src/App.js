@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { Provider } from "react-redux";
 import "./App.css";
 import Navbar from "./components/layouts/Navbar";
@@ -22,20 +23,33 @@ import PaymentSuccess from "./components/PaymentSuccess";
 import Footer from "./components/layouts/footer";
 import store from "./store";
 import PrivateRoute from "./components/Common/Privateroute";
+import AdminPrivateRoute from "./components/Common/AdminPrivateRoute";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { logoutUser } from "./actions/AuthAction";
+import { logoutAdmin } from "./actions/AdminActions/AuthAdminAction";
 
 import Content from "./components/Admin/Content";
 
 import { clearCurrentProfile } from "./actions/ProfileAction";
-import { SET_CURRENT_USER } from "../src/actions/types";
+import { SET_CURRENT_USER, SET_CURRENT_ADMIN } from "../src/actions/types";
 import AllTutions from "./components/Tutions/AllTutions";
 import Tution from "./components/Tutions/Tution";
 import SearchTutionResult from "./components/SearchTution/SearchTutionResult";
 
 import AdminLogin from "./components/Admin/AdminLogin";
 import { HashRouter } from "react-router-dom"; //for refreshing browser ulr issue
+
+import RegisterAdmin from "./components/Admin/RegisterAdmin";
+import AllAdmins from "./components/Admin/AllAdmins";
+import AllUsers from "./components/Admin/AllUsers";
+//import AllTutions from "./components/Admin/AllTutions";
+import TutorAppliedForTutions from "./components/Admin/TutorAppliedForTutions";
+import TutionById from "./components/Admin/TutionById";
+import TutorProfiles from "./components/Admin/TutorProfiles";
+import TutorProfile from "./components/Admin/TutorProfile";
+
+import DashboardProfile from "./components/Dashboard/DashboardProfile";
 
 //check for token
 if (localStorage.jwtToken) {
@@ -59,13 +73,36 @@ if (localStorage.jwtToken) {
   }
 }
 
+//check for token for admin
+if (sessionStorage.jwtToken) {
+  //providing the auth header with token
+  setAuthToken(sessionStorage.jwtToken);
+  const decoded = jwt_decode(sessionStorage.jwtToken);
+  //set user and isauthenticated
+  store.dispatch({
+    type: SET_CURRENT_ADMIN,
+    payload: decoded
+  });
+
+  //check for expired token
+  const curretTime = Date.now() / 1000;
+  if (decoded.exp < curretTime) {
+    //logout user
+    store.dispatch(logoutAdmin());
+    //store.dispatch(clearCurrentProfile());
+    //redirect to login
+    window.location.href = "/admin/login";
+  }
+}
+
 function App() {
   return (
     <Provider store={store}>
       <Router>
-        <HashRouter>
-          <div className="App">
-            <Navbar />
+        <div className="App">
+          <Navbar />
+
+          <Switch>
             <Route exact path="/" component={landing} />
             <div className="container">
               <Route exact path="/register" component={register} />
@@ -76,24 +113,30 @@ function App() {
                 component={email_verify}
               />
               {/* // switch is used to prevent redirect issues */}
-              <Switch>
-                <PrivateRoute exact path="/dashboard" component={Dashboard} />
-              </Switch>
-              <Switch>
-                <PrivateRoute
-                  exact
-                  path="/create-profile"
-                  component={CreateProfile}
-                />
-              </Switch>
-              <Switch>
-                <PrivateRoute
-                  exact
-                  path="/edit-profile"
-                  component={EditProfile}
-                />
-              </Switch>
-              <Switch>
+              {/* PrivateRoute is used for if user is logged in then these route will work otherwise not */}
+
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+
+              {/* <PrivateRoute
+                path="/dashboard"
+                component={() => {
+                  return <Redirect to="/myprofile" />;
+                }}
+              /> */}
+
+              <PrivateRoute
+                exact
+                path="/create-profile"
+                component={CreateProfile}
+              />
+
+              <PrivateRoute
+                exact
+                path="/edit-profile"
+                component={EditProfile}
+              />
+
+              {/* <Switch>
                 <PrivateRoute
                   exact
                   path="/add-education"
@@ -106,7 +149,7 @@ function App() {
                   path="/tution-info"
                   component={AddTutionInfo}
                 />
-              </Switch>
+              </Switch> */}
               <Route exact path="/profiles" component={Profiles} />
               <Route exact path="/profile/:handle" component={Profile} />
               <Route exact path="/search-tutors" component={SearchTutor} />
@@ -121,11 +164,72 @@ function App() {
                 component={SearchTutionResult}
               />
               <Route exact path="/admin/login" component={AdminLogin} />
-            </div>
+              {/* <Route exact path="/admin/dashboard" component={Content} /> */}
+              {/* <Route
+                path="/admin/dashboard"
+                component={Content}
+                loc="http://localhost:3000/admin#/"
+              /> */}
+              <AdminPrivateRoute
+                exact
+                path="/admin/dashboard"
+                component={Content}
+              />
 
-            <Footer />
-          </div>
-        </HashRouter>
+              <AdminPrivateRoute
+                exact
+                path="/admin/create-admin"
+                component={RegisterAdmin}
+              />
+
+              <AdminPrivateRoute
+                exact
+                path="/admin/all-admins"
+                component={AllAdmins}
+              />
+
+              <AdminPrivateRoute
+                exact
+                path="/admin/all-users"
+                component={AllUsers}
+              />
+
+              <AdminPrivateRoute
+                exact
+                path="/admin/all-tutions"
+                component={AllTutions}
+              />
+
+              <AdminPrivateRoute
+                exact
+                path="/admin/applied-tutions"
+                component={TutorAppliedForTutions}
+              />
+
+              {/* <AdminPrivateRoute exact path="/" component={Content} /> */}
+
+              <AdminPrivateRoute
+                exact
+                path="/admin/get-tution-id/:id"
+                component={TutionById}
+              />
+
+              <AdminPrivateRoute
+                exact
+                path="/admin/tutor-profiles"
+                component={TutorProfiles}
+              />
+
+              <AdminPrivateRoute
+                exact
+                path="/admin/tutor-profile/:handle"
+                component={TutorProfile}
+              />
+            </div>
+          </Switch>
+
+          <Footer />
+        </div>
       </Router>
     </Provider>
   );

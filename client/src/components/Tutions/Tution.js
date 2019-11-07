@@ -68,7 +68,8 @@ class Tution extends Component {
 
   onClickHandler() {
     const applydata = {
-      tution: this.props.tution.tution
+      tution: this.props.tution.tution,
+      profile: this.props.profile.profile
     };
     console.log(applydata);
     axios
@@ -80,6 +81,7 @@ class Tution extends Component {
   render() {
     const { tution, loading } = this.props.tution;
     const { user, isAuthenticated } = this.props.auth;
+    const { profile } = this.props.profile;
 
     console.log(user);
     // console.log(tution);
@@ -159,20 +161,16 @@ class Tution extends Component {
               </Link>
             </div>
           </div>
-          <h2 className="mb-0">Teacher needed for class 6</h2>
+          <h2 className="mb-0">
+            {
+              /* {(tution.title = typeof tution.title == "null" ? tution.title : "")} */
+              tution.title
+            }
+          </h2>
           <div className="mb-3 text-muted" style={{ fontSize: "14px" }}>
             Posted on {tution.posted_at}
           </div>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur
-            ducimus eligendi atque quidem dolorem quo quos repudiandae! Sit
-            quibusdam repellendus similique placeat voluptates! Temporibus dicta
-            harum quo, excepturi velit quos. Lorem ipsum dolor sit amet
-            consectetur adipisicing elit. Nemo laboriosam explicabo molestiae
-            vitae facilis ullam, voluptas consequatur eveniet maiores. Obcaecati
-            incidunt voluptate dolorum atque rerum placeat esse fuga est
-            inventore.
-          </p>
+          <p>{tution.instruction}</p>
           <div className="row">
             <div class="col mb-3">
               <div class="alert alert-info p-2">Student Informations</div>
@@ -237,7 +235,7 @@ class Tution extends Component {
                 </tr>
                 <tr>
                   <th className="bg-light">Subject</th>
-                  <td>{tution.subject1}</td>
+                  <td>{(tution.subject = tution.subject.toString())}</td>
                 </tr>
               </table>
             </div>
@@ -466,7 +464,8 @@ Tution.propTypes = {
 
 const mapStateToProps = state => ({
   tution: state.tution,
-  auth: state.auth
+  auth: state.auth,
+  profile: state.profile
 });
 
 export default withRouter(

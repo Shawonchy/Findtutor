@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const RequestForTutorSchema = new Schema({
+  title: {
+    type: String
+  },
   name: {
     type: String,
     required: true
@@ -29,11 +32,6 @@ const RequestForTutorSchema = new Schema({
     type: [String],
     required: true
   },
-  subject1: {
-    type: String,
-    required: true
-  },
-
   institute: {
     type: String
   },
@@ -71,7 +69,11 @@ const RequestForTutorSchema = new Schema({
     type: Boolean,
     default: false
   },
-  posted_at: { type: Date, default: Date.now }
+  posted_at: { type: Date, default: Date.now },
+  tutor_assigned: {
+    type: Schema.Types.ObjectId,
+    ref: "profile" //refered collection name
+  }
 });
 //Sets the posted_at parameter equal to the current time
 RequestForTutorSchema.pre("save", function(next) {
