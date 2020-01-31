@@ -152,7 +152,6 @@ function App() {
               </Switch> */}
               <Route exact path="/profiles" component={Profiles} />
               <Route exact path="/profile/:handle" component={Profile} />
-              <Route exact path="/search-tutors" component={SearchTutor} />
               <Route exact path="/search-result" component={SearchResult} />
               <Route exact path="/ask_for_a_tutor" component={RequestTution} />
               <Route exact path="/all_tutions" component={AllTutions} />

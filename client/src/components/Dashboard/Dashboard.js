@@ -90,11 +90,11 @@ class dashboard extends Component {
                       <div className="row mb-3 ml-3">
                         <Sidebar />
                       </div>
-                      <div className="row">
-                        <div className="col">
+                      {/* <div className="row">
+                        <div className="col ml-2">
                           <TutionCarousel tutions={tutions} />
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>

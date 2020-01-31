@@ -39,7 +39,7 @@
     "admin-bro-mongoose": "*",
     "express-session": "*",
     "cookie-parser": "*",
-    "react":"*"
+    "react": "*"
   },
   "devDependencies": {
     "html-loader": "^0.5.5",

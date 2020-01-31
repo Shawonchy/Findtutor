@@ -28,17 +28,6 @@ class Tution extends Component {
   componentWillMount() {
     this.props.getispremium();
   }
-  // onClickHandler() {
-  //   axios
-  //     .get("http://localhost:5000/checkout.php")
-  //     .then(res => {
-  //       console.log(res.data);
-  //       //this.props.history.push("https://www.facebook.com");
-  //       //redirecting to external website
-  //       window.location.assign(res.data);
-  //     })
-  //     .catch(err => console.log(err));
-  // }
 
   //for handleing stripes payment token contains all info of transection
   handleToken(token) {
@@ -74,7 +63,11 @@ class Tution extends Component {
     console.log(applydata);
     axios
       .post("http://localhost:5000/api/applytution/", applydata)
-      .then(res => console.log(res.data))
+      .then(res => {
+        console.log(res.data);
+
+        this.props.history.push("/dashboard");
+      })
       .catch(err => console.log(err));
   }
 
@@ -141,13 +134,15 @@ class Tution extends Component {
       let islogedin;
       if (!isAuthenticated) {
         islogedin = (
-          <div className="row text-left bg-warning">
-            <p className="alert error">
+          <div className="row text-left ">
+            <div className="col">
+            <div className="alert error bg-warning">
               <Link to="/login">Login </Link>
               and become a premium member to apply for this tution ' '
               <Link to="/register">Signup </Link>
               to register
-            </p>
+            </div>
+            </div>
           </div>
         );
       }
@@ -243,170 +238,6 @@ class Tution extends Component {
           {stripePayment}
           {islogedin}
           {isApply}
-
-          {/* <div className="row">
-            <div className="col-md-6">Full name: {tution.name}</div>
-            <div className="col-md-6">Location: {tution.location}</div>
-          </div>
-
-          <div className="row">
-            <div className="col-md-6">
-              Student Gender: {tution.studentgender}
-            </div>
-            <div className="col-md-6">
-              Desired Tutor Gender: {tution.tutorgender}
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-md-6">Class: {tution.class}</div>
-            <div className="col-md-6">Subject: {tution.subject}</div>
-          </div>
-
-          <div className="row">
-            <div className="col-md-6">Days: {tution.daysperweek}</div>
-            <div className="col-md-6">Salary Range: {tution.salaryrange}</div>
-          </div>
-
-          <div className="row">
-            <div className="col-md-6">Address: {tution.address}</div>
-            <div className="col-md-6">Email: {tution.email}</div>
-          </div>
-
-          <div className="row">
-            <div className="col-md-6">Mobile: {tution.mobile}</div>
-            <div className="col-md-6">Posted on::</div>
-          </div> */}
-
-          {/* <div className="border rounded p-4 bg-light">
-            <h4 className="mb-1">Teacher needed for class 5</h4>
-            <div className="text-muted mb-3" style={{ fontSize: "12px" }}>
-              Posted on 5, Aug 2019
-            </div>
-            <div class="row">
-              <div className="alert alert-success p-2">
-                <h6 className="mb-0">Student Informations</h6>
-              </div>
-            </div>
-            <div className="row no-gutters">
-              <div className="col-6">
-                <table
-                  className="table table-borderless table-sm"
-                  style={{ fontSize: "14px" }}
-                >
-                  <tr>
-                    <th className="pl-0 py-1" style={{ width: "65px" }}>
-                      Name:
-                    </th>
-                    <td className="py-1">{tution.name}</td>
-                  </tr>
-                  <tr>
-                    <th className="pl-0 py-1" style={{ width: "65px" }}>
-                      Class:
-                    </th>
-                    <td className="py-1">{tution.class}</td>
-                  </tr>
-                  <tr>
-                    <th className="pl-0 py-1">Medium:</th>
-                    <td className="py-1">{tution.medium}</td>
-                  </tr>
-                  <tr>
-                    <th className="pl-0 py-1">Location:</th>
-                    <td className="py-1">{tution.district}</td>
-                  </tr>
-                  <tr>
-                    <th className="pl-0 py-1">Address:</th>
-                    <td className="py-1">{tution.address}</td>
-                  </tr>
-                </table>
-              </div>
-              <div className="col-6">
-                <table
-                  className="table table-borderless table-sm"
-                  style={{ fontSize: "14px" }}
-                >
-                  <tr>
-                    <th className="pl-0 py-1" style={{ width: "100px" }}>
-                      Salary:
-                    </th>
-                    <td className="py-1">{tution.salaryrange}</td>
-                  </tr>
-                  <tr>
-                    <th className="pl-0 py-1">Subjects:</th>
-                    <td className="py-1">{tution.subject1}</td>
-                  </tr>
-                  <tr>
-                    <th className="pl-0 py-1">Gender:</th>
-                    <td className="py-1">{tution.studentgender}</td>
-                  </tr>
-                  <tr>
-                    <th className="pl-0 py-1">Institute:</th>
-                    <td className="py-1">{tution.institute}</td>
-                  </tr>
-                  <tr>
-                    <th className="pl-0 py-1">Mobile:</th>
-                    <td className="py-1">{tution.mobile}</td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <div className="border rounded p-4 bg-light">
-            <div class="row">
-              <div className="alert alert-success p-2">
-                <h6 className="mb-0">Desired Tutor Info</h6>
-              </div>
-            </div>
-            <div className="row no-gutters">
-              <div class="col-6">
-                <table
-                  className="table table-borderless table-sm"
-                  style={{ fontSize: "14px" }}
-                >
-                  <tr>
-                    <th className="pl-0 py-1" style={{ width: "65px" }}>
-                      Gender:
-                    </th>
-                    <td className="py-1">{tution.tutorgender}</td>
-                  </tr>
-                  <tr>
-                    <th className="pl-0 py-1" style={{ width: "65px" }}>
-                      Days per week:
-                    </th>
-                    <td className="py-1">{tution.daysperweek}</td>
-                  </tr>
-                </table>
-              </div>
-              <div class="col-6">
-                <table
-                  className="table table-borderless table-sm"
-                  style={{ fontSize: "14px" }}
-                >
-                  <tr>
-                    <th className="pl-0 py-1" style={{ width: "65px" }}>
-                      Salary range:
-                    </th>
-                    <td className="py-1">{tution.salaryrange}</td>
-                  </tr>
-                  <tr>
-                    <th className="pl-0 py-1" style={{ width: "65px" }}>
-                      Subject:
-                    </th>
-                    <td className="py-1">{tution.subject1}</td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <div className="row">
-            <StripeCheckOut
-              stripeKey="pk_test_RKLWJ7vbzP4LfxzkEgKA1Hly00Z61MJBFV"
-              token={this.handleToken}
-            />
-          </div>
-         */}
         </div>
       );
     }
@@ -415,40 +246,7 @@ class Tution extends Component {
       <div className="tution">
         <div className="container">
           <div className="row">
-            <div className="col-md-8">{tutionContent}</div>
-            <div className="col-md-4 pt-4">
-              <div class="bg-dark text-white py-2 px-3 rounded mb-3">
-                <h5>Other tutions in this area</h5>
-              </div>
-
-              <div class="border p-3 mb-3 rounded mb-2">
-                <h5>I need a teacher for English</h5>
-                <p className="text-muted mb-0" style={{ fontSize: "14px" }}>
-                  Class: Iv
-                </p>
-              </div>
-
-              <div class="border p-3 mb-3 rounded mb-2">
-                <h5>I need a teacher for English</h5>
-                <p className="text-muted mb-0" style={{ fontSize: "14px" }}>
-                  Class: Iv
-                </p>
-              </div>
-
-              <div class="border p-3 mb-3 rounded mb-2">
-                <h5>I need a teacher for English</h5>
-                <p className="text-muted mb-0" style={{ fontSize: "14px" }}>
-                  Class: Iv
-                </p>
-              </div>
-
-              <div class="border p-3 mb-3 rounded mb-2">
-                <h5>I need a teacher for English</h5>
-                <p className="text-muted mb-0" style={{ fontSize: "14px" }}>
-                  Class: Iv
-                </p>
-              </div>
-            </div>
+            <div className="col">{tutionContent}</div>
           </div>
         </div>
       </div>
@@ -469,8 +267,5 @@ const mapStateToProps = state => ({
 });
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    { getTutionById, getispremium }
-  )(Tution)
+  connect(mapStateToProps, { getTutionById, getispremium })(Tution)
 );

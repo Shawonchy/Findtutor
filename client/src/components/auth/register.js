@@ -68,7 +68,7 @@ class register extends Component {
     return (
       <div className="register">
         {/* {user ? user.name : null} */}
-        <div className="container">
+        <div className="container vh-100">
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>

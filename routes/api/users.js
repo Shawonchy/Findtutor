@@ -54,48 +54,48 @@ router.post("/register", (req, res) => {
           newUser
             .save()
             .then(user => {
-              // Create a verification token for this user
-              const newmail_token = new Token({
-                _userId: user._id,
-                token: crypto.randomBytes(16).toString("hex")
-              });
-              // Save the verification token
-              newmail_token
-                .save()
-                .then(token => {
-                  // Send the email
-                  var transporter = nodemailer.createTransport({
-                    service: "Sendgrid",
-                    auth: {
-                      user: EmailVerifyService.username,
-                      pass: EmailVerifyService.password
-                    }
-                  });
-                  var mailOptions = {
-                    from: "admin@findtutor.com",
-                    to: user.email,
-                    subject: "Account Verification Token",
-                    text:
-                      "Hello,\n\n" +
-                      "Please verify your account by clicking the link: \nhttp://" +
-                      "localhost:3000/confirmation/" +
-                      newmail_token.token +
-                      ".\n"
-                  };
-                  transporter.sendMail(mailOptions, function(err) {
-                    if (err) {
-                      return res.status(500).send({ msg: err.message });
-                    }
-                    res
-                      .status(200)
-                      .send(
-                        "A verification email has been sent to " +
-                          user.email +
-                          "."
-                      );
-                  });
-                })
-                .catch(err => console.log(err));
+              // // Create a verification token for this user
+              // const newmail_token = new Token({
+              //   _userId: user._id,
+              //   token: crypto.randomBytes(16).toString("hex")
+              // });
+              // // Save the verification token
+              // newmail_token
+              //   .save()
+              //   .then(token => {
+              //     // Send the email
+              //     var transporter = nodemailer.createTransport({
+              //       service: "Sendgrid",
+              //       auth: {
+              //         user: EmailVerifyService.username,
+              //         pass: EmailVerifyService.password
+              //       }
+              //     });
+              //     var mailOptions = {
+              //       from: "admin@findtutor.com",
+              //       to: user.email,
+              //       subject: "Account Verification Token",
+              //       text:
+              //         "Hello,\n\n" +
+              //         "Please verify your account by clicking the link: \nhttp://" +
+              //         "localhost:3000/confirmation/" +
+              //         newmail_token.token +
+              //         ".\n"
+              //     };
+              //     transporter.sendMail(mailOptions, function(err) {
+              //       if (err) {
+              //         return res.status(500).send({ msg: err.message });
+              //       }
+              //       res
+              //         .status(200)
+              //         .send(
+              //           "A verification email has been sent to " +
+              //             user.email +
+              //             "."
+              //         );
+              //     });
+              //   })
+              //   .catch(err => console.log(err));
 
               return res.json(user);
             })

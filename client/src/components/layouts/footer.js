@@ -10,7 +10,7 @@ class footer extends Component {
       footer = <div></div>;
     } else {
       footer = (
-        <div className="bg-dark text-white mt-5 p-4 text-center">
+        <div className="bg-dark text-white mt-5 p-4 text-center container-fluid">
           Copyright &copy; {new Date().getFullYear()} FindTutor
         </div>
       );

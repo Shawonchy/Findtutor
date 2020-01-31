@@ -83,7 +83,7 @@ class Profiles extends Component {
       <div className="profiles">
         <div className="container">
           <div className="row">
-            <div className="col-md-12">
+            <div className="col-md-12 vh-100">
               <h1 className="display-4 text-center">Tutor Profiles</h1>
               <p className="lead text-center">Browse and connect with Tutors</p>
               {profileItems}

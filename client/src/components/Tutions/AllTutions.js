@@ -95,15 +95,12 @@ class AllTutions extends Component {
       <div>
         <div className="tutions">
           <div className="container">
-            <div className="row">
-              <div className="col-md-8">
-                <h1 className="display-4 text-center">Tutions</h1>
-                <p className="lead text-center">Browse and findTutions</p>
+            <div className="col-12">
+              <h1 className="display-4  text-center">Tutions</h1>
+              <p className="lead text-center">Browse and findTutions</p>
 
-                {tutionItems}
-                {pagenateitem}
-              </div>
-              <div class="colmd-4"></div>
+              {tutionItems}
+              {pagenateitem}
             </div>
           </div>
         </div>

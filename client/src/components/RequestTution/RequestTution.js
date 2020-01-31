@@ -199,34 +199,34 @@ class RequestTution extends Component {
     console.log(subject);
 
     const optmedium = [
-      { label: "Select medium", value: 0 },
+      { label: "", value: 0 },
       { label: "Bangla", value: "Bangla" },
       { label: "English", value: "English" }
     ];
     const optdaysperweek = [
-      { label: "Select daysperweek", value: 0 },
+      { label: "", value: 0 },
       { label: "4days/week", value: "4days/week" },
       { label: "5days/week", value: "5days/week" },
       { label: "3days/week", value: "3days/week" }
     ];
     const optsalaryrange = [
-      { label: "Select tutor salaryrange", value: 0 },
+      { label: "", value: 0 },
       { label: "1000-1500", value: "1000-1500" },
       { label: "2000-4000", value: "2000-4000" },
       { label: "4000-6000", value: "4000-6000" }
     ];
     const opttutorgender = [
-      { label: "Select Desired tutor gender", value: 0 },
+      { label: "", value: 0 },
       { label: "Male", value: "Male" },
       { label: "Female", value: "Female" }
     ];
     const optstudentgender = [
-      { label: "Select Gender", value: 0 },
+      { label: "", value: 0 },
       { label: "Male", value: "Male" },
       { label: "Female", value: "Female" }
     ];
     const optclass = [
-      { label: "Select studentClass", value: 0 },
+      { label: "", value: 0 },
       { label: "class I", value: "class I" },
       { label: "class II", value: "class II" },
       { label: "class III", value: "class III" },

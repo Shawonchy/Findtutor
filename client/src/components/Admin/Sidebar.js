@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Route, Redirect, withRouter } from "react-router-dom";
 import AllAdmins from "./AllAdmins";
 import { connect } from "react-redux";
@@ -43,9 +43,9 @@ class Sidebar extends Component {
         </nav>
 
         {/* Main Sidebar Container */}
-        <aside className="main-sidebar sidebar-dark-primary elevation-4">
+        <aside className="main-sidebar sidebar-dark-primary elevation-4 overflow-hidden">
           {/* Brand Logo */}
-          <Link to="/admin/dashboard" className="brand-link">
+          <NavLink to="/admin/dashboard" className="brand-link">
             {/* <img
               src="dist/img/AdminLTELogo.png"
               alt="AdminLTE Logo"
@@ -53,7 +53,7 @@ class Sidebar extends Component {
               style={{ opacity: ".8" }}
             /> */}
             <span className="brand-text font-weight-light">Find Tutor</span>
-          </Link>
+          </NavLink>
           {/* Sidebar */}
           <div className="sidebar">
             {/* Sidebar user panel (optional) */}
@@ -81,8 +81,8 @@ class Sidebar extends Component {
               >
                 {/* Add icons to the links using the .nav-icon class
          with font-awesome or any other icon font library */}
-                <li className="nav-item has-treeview menu-open">
-                  <a href="#" className="nav-link active">
+                <li className="nav-item has-treeview ">
+                  <a href="#" className="nav-link">
                     <i className="nav-icon fas fa-tachometer-alt" />
                     <p>
                       Admins
@@ -91,21 +91,21 @@ class Sidebar extends Component {
                   </a>
                   <ul className="nav nav-treeview">
                     <li className="nav-item">
-                      <Link to="/admin/all-admins" className="nav-link">
+                      <NavLink to="/admin/all-admins" className="nav-link">
                         <i className="far fa-circle nav-icon" />
                         <p>All Admins</p>
-                      </Link>
+                      </NavLink>
                     </li>
                     <li className="nav-item">
-                      <Link to="/admin/create-admin" className="nav-link">
+                      <NavLink to="/admin/create-admin" className="nav-link">
                         <i className="far fa-circle nav-icon" />
                         <p>Create Admin</p>
-                      </Link>
+                      </NavLink>
                     </li>
                   </ul>
                 </li>
-                <li className="nav-item has-treeview menu-open">
-                  <a href="#" className="nav-link active">
+                <li className="nav-item has-treeview ">
+                  <a href="#" className="nav-link">
                     <i className="nav-icon fas fa-tachometer-alt" />
                     <p>
                       Tutors
@@ -114,15 +114,15 @@ class Sidebar extends Component {
                   </a>
                   <ul className="nav nav-treeview">
                     <li className="nav-item">
-                      <Link to="/admin/all-users" className="nav-link">
+                      <NavLink to="/admin/all-users" className="nav-link">
                         <i className="far fa-circle nav-icon" />
                         <p>All Tutors</p>
-                      </Link>
+                      </NavLink>
                     </li>
                   </ul>
                 </li>
-                <li className="nav-item has-treeview menu-open">
-                  <a href="#" className="nav-link active">
+                <li className="nav-item has-treeview ">
+                  <a href="#" className="nav-link">
                     <i className="nav-icon fas fa-tachometer-alt" />
                     <p>
                       Tutions
@@ -131,23 +131,23 @@ class Sidebar extends Component {
                   </a>
                   <ul className="nav nav-treeview">
                     <li className="nav-item">
-                      <Link to="/admin/all-tutions" className="nav-link">
+                      <NavLink to="/admin/all-tutions" className="nav-link">
                         <i className="far fa-circle nav-icon" />
                         <p>All Tutions</p>
-                      </Link>
+                      </NavLink>
                     </li>
                   </ul>
                   <ul className="nav nav-treeview">
                     <li className="nav-item">
-                      <Link to="/admin/applied-tutions" className="nav-link">
+                      <NavLink to="/admin/applied-tutions" className="nav-link">
                         <i className="far fa-circle nav-icon" />
                         <p>Tutions Applied By Tutors</p>
-                      </Link>
+                      </NavLink>
                     </li>
                   </ul>
                 </li>
-                <li className="nav-item has-treeview menu-open">
-                  <a href="#" className="nav-link active">
+                <li className="nav-item has-treeview ">
+                  <a href="#" className="nav-link">
                     <i className="nav-icon fas fa-tachometer-alt" />
                     <p>
                       Profiles
@@ -156,10 +156,10 @@ class Sidebar extends Component {
                   </a>
                   <ul className="nav nav-treeview">
                     <li className="nav-item">
-                      <Link to="/admin/tutor-profiles" className="nav-link">
+                      <NavLink to="/admin/tutor-profiles" className="nav-link">
                         <i className="far fa-circle nav-icon" />
                         <p>All Profiles</p>
-                      </Link>
+                      </NavLink>
                     </li>
                   </ul>
                 </li>
@@ -181,7 +181,4 @@ Sidebar.propTypes = {
 const mapStateToProps = state => ({
   admin: state.admin
 });
-export default connect(
-  mapStateToProps,
-  { logoutAdmin }
-)(withRouter(Sidebar));
+export default connect(mapStateToProps, { logoutAdmin })(withRouter(Sidebar));

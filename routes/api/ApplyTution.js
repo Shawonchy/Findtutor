@@ -51,6 +51,7 @@ router.post(
 router.get("/all-applied-tutions", (req, res) => {
   ApplyTution.find()
     .populate({ path: "tutor", model: "profile" })
+    .populate({ path: "tution", model: "requestfortutor" })
     .then(applytutions => {
       if (!applytutions) {
         res.status(404).json({ msg: "No applied tutions is found" });

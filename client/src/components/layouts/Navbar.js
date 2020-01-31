@@ -64,7 +64,7 @@ class Navbar extends Component {
       navbar = <Sidebar />;
     } else {
       navbar = (
-        <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
+        <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-0">
           <div className="container">
             <Link className="navbar-brand" to="/">
               FindTutor
@@ -84,12 +84,6 @@ class Navbar extends Component {
                   <Link className="nav-link" to="/profiles">
                     {" "}
                     Tutors
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/search-tutors">
-                    {" "}
-                    Search Tutors
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -221,7 +215,6 @@ const mapStateToProps = state => ({
 });
 
 //connecting properties and state to component
-export default connect(
-  mapStateToProps,
-  { logoutUser, clearCurrentProfile }
-)(Navbar);
+export default connect(mapStateToProps, { logoutUser, clearCurrentProfile })(
+  Navbar
+);

@@ -41,12 +41,16 @@ const SelectListGroup = ({
           </span>
           <select
             className="selectpicker form-control"
+            className={classnames("form-control form-control-lg", {
+              "is-invalid": error
+            })}
             name={name}
             value={value}
             onChange={onChange}
           >
             {selectOptions}
           </select>
+          {error && <div className="invalid-feedback">{error}</div>}
         </div>
       </div>
     </div>

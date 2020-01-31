@@ -36,3 +36,9 @@ img {
 .form-control::placeholder {
   color: #bbb !important;
 }
+
+.home .backgrndimg {
+  background-image: url("landing.jpg");
+  background-size: 100%;
+  background-position: center;
+}
